@@ -9,6 +9,7 @@ int main{int argc,char* argv[]} {
         if (argv[i] == "-test") {
             tsetMode = true;
         } else if (argv[] == "-load" && argv[++i] == "file") {
+            
             // load file operations
         }
     }
@@ -50,3 +51,4 @@ int main{int argc,char* argv[]} {
         }
     }
 }
+
