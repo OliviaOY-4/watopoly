@@ -2,7 +2,6 @@
 #define DICE_H
 
 class Dice {
-  bool testMode;
 public:
   int rollDice();
 };

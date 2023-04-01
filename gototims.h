@@ -5,7 +5,6 @@
 
 class GoToTims: public NonProperty {
 public:
-    GoToTims();
     void action(Player *p);
 };
 

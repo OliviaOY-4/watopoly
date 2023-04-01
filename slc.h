@@ -5,7 +5,6 @@
 
 class SLC: public NonProperty {
 public:
-    SLC();
     void action(Player *p);
 };
 

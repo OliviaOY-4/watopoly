@@ -5,7 +5,6 @@
 
 class NeedleHall: public NonProperty {
 public:
-    NeedleHall();
     void action(Player *p);
 };
 

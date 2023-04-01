@@ -5,7 +5,6 @@
 
 class OSAP: public NonProperty {
 public:
-    OSAP();
     void action(Player *p);
 };
 
