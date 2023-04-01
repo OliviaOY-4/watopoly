@@ -1,5 +1,9 @@
 #include <iostream>
 #include <string>
+#include "board.h"
+#include "player.h"
+#include "board.h"
+#include <string>
 using namespace std;
 
 int main{int argc,char* argv[]} {
