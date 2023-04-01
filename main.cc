@@ -18,6 +18,8 @@ int main{int argc,char* argv[]} {
         }
     }
 
+    // initialization
+    Game g;
     string cmd = " ";
     while (cin >> cmd) {
         if (cmd == "roll") {
