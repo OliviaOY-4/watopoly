@@ -21,34 +21,45 @@ public:
                 int tmp = p.getRURCup();
                 p.setRURCup(tmp + 1);
                 game->setActiverRim(game->getActiverRim() + 1);
+                cout << "You got a Roll Up the Rim cup." << endl;
                 return;
             }
         }
         int rand = roll(24);
         if (1 <= rand && rand <= 3) {
             int to = p.getPosition() - 3;
-            game->move(p, to);
+            p.setPosition(to);
+            cout << "You have been moved back 3 squares." << endl;
         } else if (4 <= rand && rand <= 7) {
             int to = p.getPosition() - 2;
-            game->move(p, to);
+            p.setPosition(to);
+            cout << "You have been moved back 2 squares." << endl;
         } else if (8 <= rand && rand <= 11) {
             int to = p.getPosition() - 1;
-            game->move(p, to);
+            p.setPosition(to);
+            cout << "You have been moved back 1 square." << endl;
         } else if (12 <= rand && rand <= 14) {
             int to = p.getPosition() + 1;
-            game->move(p, to);
+            p.setPosition(to);
+            cout << "You have been moved forward 1 square." << endl;
         } else if (15 <= rand && rand <= 18) {
             int to = p.getPosition() + 2;
-            game->move(p, to);
+            p.setPosition(to);
+            cout << "You have been moved forward 2 squares." << endl;
         } else if (19 <= rand && rand <= 22) {
             int to = p.getPosition() + 3;
-            game->move(p, to);
+            p.setPosition(to);
+            cout << "You have been moved forward 3 squares." << endl;
         } else if (rand == 23) {
-            p.setDCTLtimes();
-            game->move(p, 10);
+            p.setDCTLtimes(0);
+            p.setsentToDCTL(true);
+            p.setPosition(10);
+            p.setOSAPcollect(false);
+            cout << "You have been sent to DC Tims Line." << endl;
         } else {
             p.setOSAPcollect(true);
-            game->move(p, 0);
+            p.setPosition(0);
+            cout << "You have been sent to OSAP." << endl;
         }
     }
 };

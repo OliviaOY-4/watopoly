@@ -51,6 +51,10 @@ int Player::getPosition() {
   return position;
 }
 
+void Player::setPosition(int position) {
+  this->position = position;
+}
+
 void Player::addCash(int amount) {
   cash += amount;
 }

@@ -5,7 +5,13 @@
 
 class GoToTims: public NonProperty {
 public:
-    void action(Player &p);
+    void action(Player &p) {
+        p.setsentToDCTL(true);
+        p.setDCTLtimes(0);
+        p.setPosition(10);
+        p.setOSAPcollect(false);
+        cout << "You have been sent to DC Tims Line." << endl;
+    }
 };
 
 #endif

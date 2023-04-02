@@ -31,6 +31,7 @@ public:
   void addProperties(Board* b);
   void sellProperties(Board* b);
   int getPosition();
+  void setPosition(int position);
   void addCash(int amount);
   string getName();
   char getNameChar();

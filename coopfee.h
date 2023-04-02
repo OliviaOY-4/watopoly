@@ -8,6 +8,7 @@ public:
     CoopFee();
     void action(Player &p) {
         p.addCash(-150);
+        cout << "You have paid $150 for the Coop Fee." << endl;
     }
 };
 
