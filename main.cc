@@ -60,8 +60,11 @@ int main(int argc,char* argv[]) {
 
             if ((give[0] >= '0' && give[0] <= '9') && 
             !(receive[0] >= '0' && receive[0] <= '9')) {
-                // check receive is valid building name
+                // check receive is valid building name 
+                // building is owned by each other
+                // player have enough money
                 // attempt to trade from money to building
+                if (g.trade)
 
 
             } else if (!(give[0] >= '0' && give[0] <= '9') && 
@@ -76,7 +79,7 @@ int main(int argc,char* argv[]) {
 
             } else {
                 // give money and receive money
-                cerr << "Cannot trade money to moeny" << endl;
+                cout << "reject" << endl;
             }
 
         } else if (cmd == "improve") {
