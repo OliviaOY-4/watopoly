@@ -26,6 +26,7 @@ public:
   ~Player();
   int roll();
   int getCashAmount();
+  int getTotalWorth();
   void giveCash(Player* other, int amount);
   void addProperties(Board* b);
   void sellProperties(Board* b);

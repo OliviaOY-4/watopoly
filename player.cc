@@ -26,6 +26,10 @@ int Player::getCashAmount() {
   return cash;
 }
 
+int Player::getTotalWorth() {
+  // 
+}
+
 void Player::giveCash(Player* other, int amount){
   other->addCash(amount);
   cash -= amount;
