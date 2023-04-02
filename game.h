@@ -23,7 +23,6 @@ public:
   ~Game();
   int roll(); //////////////////////// Modified!!!!
   Board& move(Player *p = currentPlayer, int num);
-  Board& move(int num);
   Board& moveToCertain(Board& b);
   void nextPlayer();
   void initPlayer(string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
