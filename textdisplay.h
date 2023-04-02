@@ -1,5 +1,5 @@
-#ifndef TESTDISPLAY_H
-#define TESTDISPLAY_H
+#ifndef TEXTDISPLAY_H
+#define TEXTDISPLAY_H
 
 #include <iostream>
 #include <vector>
