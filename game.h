@@ -27,10 +27,11 @@ public:
   void initPlayer(string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
   bool isValidPlayer(string name); //////////////////// MODIFIED!!!!!!
   string getOwner(const Board& b);
+  bool isValidBoard(string b); /////////////////MODIFIED!!!!
   void purchase(Board& b, Player& p);
-  void trade(Player& p, Board& b, unsigned_int n);
-  void trade(Board& b1, Board& b2, Player& p);
-  void trade(unsigned_int n, Board& b, Player& p);
+  bool trade(string player, string board, unsigned_int n); /////////////MODIFIED!!!!!
+  bool trade(string player, string board1, string board2); /////////////  MODIFIED!!!!
+  bool trade(string player, unsigned_int n, string b);  ///////////// MODIFIED!!!!!
   void improve(Board& b, bool improve);
   void mortgage(Board& b);
   void unmortgage(Board& b);
