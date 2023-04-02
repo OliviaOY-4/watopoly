@@ -20,7 +20,7 @@ class Player {
   bool sentToDCTL;
   int DCTLtimes;
   int RUR_cup;
-  Dice *dice;
+  Dice *dice; 
 public:
   Player(string name, int cash, int position);
   ~Player();
