@@ -18,7 +18,7 @@ Player::~Player() {
   delete dice;
 }
 
-int Player::roll(Dice *dice) {
+int Player::roll() {
   return dice->rollDice();
 }
 

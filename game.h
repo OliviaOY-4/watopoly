@@ -12,6 +12,7 @@
 
 class Game {
   std::vector<Player*> player;
+  std::vector<Board*> buildings;
   std::vector<Board*> board;
   Dice* dice;
   Player* currentPlayer;
@@ -21,6 +22,7 @@ public:
   Game();
   ~Game();
   int roll(); //////////////////////// Modified!!!!
+  Board& move(Player *p = currentPlayer, int num);
   Board& move(int num);
   Board& moveToCertain(Board& b);
   void nextPlayer();

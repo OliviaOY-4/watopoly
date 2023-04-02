@@ -24,7 +24,7 @@ class Player {
 public:
   Player(string name, int cash, int position);
   ~Player();
-  int roll(Dice* dice);
+  int roll();
   int getCashAmount();
   void giveCash(Player* other, int amount);
   void addProperties(Board* b);

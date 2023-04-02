@@ -10,6 +10,7 @@
 class Board: public Subject, public Observer {
   int position;
   string name;
+  Game* game;
   vector<Player*> curPlayer;
 public:
   Board(int position, string name);
