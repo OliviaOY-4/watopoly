@@ -92,6 +92,16 @@ int main(int argc,char* argv[]) {
                 cerr << "Cannot declare bankruptcy" << endl;
             }
             
+        } else if (cmd == "assets") {
+            // displays the assets of the current player. Does not work if the player is deciding how to pay Tuition.
+
+        } else if (cmd == "all") {
+            // displays the assets of every player. For verifying the correctness of your transactions. Does not work if a player is
+            //    deciding how to pay Tuition.  
+
+        } else if (cmd == "save") {
+            string filename;
+            cin >> filename;
         }
     }
 }
