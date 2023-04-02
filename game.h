@@ -12,7 +12,7 @@
 
 class Game {
   std::vector<Player*> player;
-  std::vector<Board*> board(40);
+  std::vector<Board*> board;
   Dice* dice;
   Player* currentPlayer;
   int activeRim;
