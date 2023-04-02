@@ -5,7 +5,7 @@
 
 class Tuition: public NonProperty {
 public:
-    void action(Player *p);
+    void action(Player &p);
 };
 
 #endif

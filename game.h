@@ -22,7 +22,7 @@ public:
   ~Game();
   int roll(Dice* dice);
   Board& move(int r, int c);
-  Board& moveToCertain(Board&) b;
+  Board& moveToCertain(Board& b);
   void nextPlayer();
   void initPlayer(String name);
   string getOwner(const Board& b);

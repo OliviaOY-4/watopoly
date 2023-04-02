@@ -6,7 +6,9 @@
 class GooseNesting: public NonProperty {
 public:
     GooseNesting();
-    void action(Player *p);
+    void action(Player &p) {
+        cout << "Attacked by a flock of nesting geese!!! Run!!!" << endl;
+    }
 };
 
 #endif

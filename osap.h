@@ -5,7 +5,9 @@
 
 class OSAP: public NonProperty {
 public:
-    void action(Player *p);
+    void action(Player &p) {
+        p.addCash(200);
+    }
 };
 
 #endif

@@ -6,7 +6,9 @@
 class DCTimsLine: public NonProperty {
 public:
     DCTimsLine();
-    void action(Player *p);
+    void action(Player &p) {
+        move
+    }
 };
 
 #endif

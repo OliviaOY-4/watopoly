@@ -9,31 +9,32 @@
 #include "board.h"
 
 class Player {
-  vector<Board*> properties;
+  string name;
+  char nameChar;
   int cash;
   int position;
-  string name;
-  vector<pair<string,int>> ownBlock;
+  vector<Board*> property;
+  vector<pair<string, int>> ownBlock;
+  vector<string> monopoly;
   bool OSAPcollect;
   bool sentToDCTL;
   int DCTLtimes;
   int RUR_cup;
-  Dice* dice;
+  Dice *dice;
 public:
-  Player(string name, int cash, int position, Dice* dice);
+  Player(string name, int cash, int position);
+  ~Player();
   int roll(Dice* dice);
   int getCashAmount();
-  void giveCash(Player* p, int amount);
+  void giveCash(Player* other, int amount);
   void addProperties(Board* b);
   void sellProperties(Board* b);
   int getPosition();
   void addCash(int amount);
-  int getStep();
   string getName();
-  char getNameCapital();
-  bool checkIfmonopoly();
+  char getNameChar();
+  void ifMonopoly(Board type);
   int getResidenceNum();
-  string ifMonopoly();
   bool getOSAPcollect();
   void setOSAPcollect(bool boo);
   bool getsentToDCTL();
