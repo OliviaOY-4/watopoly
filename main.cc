@@ -20,14 +20,33 @@ int main(int argc,char* argv[]) {
     }
 
     // initialization
+    Dice d;
     Game g;
+    int num_of_players = 0;
+    cin >> num_of_players;
+    for (int i = 0; i < num_of_players; i++) {
+        string name = " ";
+        getline(cin, name);
+        char playerChar = " ";
+        cin >> playerChar;
+        g.initPlayer(name, playerChar);
+        // game need to check it's a valid name and char
+    }
+
+    // game start
     string cmd = " ";
     while (cin >> cmd) {
         if (cmd == "roll") {
             // roll dice and move
+            int num1 = 0;
+            int num2 = 0;
+            num1 = g.roll();
+            num2 = g.roll();
+            g.move(num1, num2);
 
         } else if (cmd == "next") {
             // move to next 
+            g.nextPlayer();
             
         } else if (cmd == "trade") {
             string name = " ";
@@ -105,6 +124,8 @@ int main(int argc,char* argv[]) {
             // save file in filename
 
             
+        } else {
+            cerr << "Invalid Command" << endl;
         }
     }
 }

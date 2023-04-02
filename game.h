@@ -20,11 +20,12 @@ class Game {
 public:
   Game();
   ~Game();
-  int roll(Dice* dice);
-  Board& move(int r, int c);
+  int roll(); //////////////////////// Modified!!!!
+  Board& move(int num1, int num2);
   Board& moveToCertain(Board& b);
   void nextPlayer();
-  void initPlayer(String name);
+  void initPlayer(string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
+  bool validPlayer(string name); ////////////////////
   string getOwner(const Board& b);
   void purchase(Board& b, Player& p);
   void trade(Player& p, Board& b, unsigned_int n);
