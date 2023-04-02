@@ -102,6 +102,7 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "save") {
             string filename;
             cin >> filename;
+            // save file in filename
         }
     }
 }
