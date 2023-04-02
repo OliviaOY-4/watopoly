@@ -27,10 +27,10 @@ int main(int argc,char* argv[]) {
     for (int i = 0; i < num_of_players; i++) {
         string name = " ";
         getline(cin, name);
-        char playerChar = " ";
+        char playerChar = ' ';
         cin >> playerChar;
         g.initPlayer(name, playerChar);
-        // game need to check it's a valid name and char
+        // g.initPlayer need to check it's a valid name and char
     }
 
     // game start
@@ -54,7 +54,7 @@ int main(int argc,char* argv[]) {
             string receive = " ";
             cin >> name >> give >> receive;
             // check it's a valid player name
-            if (!(g.validPlayer(name))) {
+            if (!(g.isValidPlayer(name))) {
                 cerr << "Invalid Player" << endl;
             }
 
