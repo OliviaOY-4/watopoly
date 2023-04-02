@@ -54,11 +54,15 @@ int main(int argc,char* argv[]) {
             string receive = " ";
             cin >> name >> give >> receive;
             // check it's a valid player name
+            if (!(g.validPlayer(name))) {
+                cerr << "Invalid Player" << endl;
+            }
 
             if ((give[0] >= '0' && give[0] <= '9') && 
             !(receive[0] >= '0' && receive[0] <= '9')) {
                 // check receive is valid building name
                 // attempt to trade from money to building
+                
 
             } else if (!(give[0] >= '0' && give[0] <= '9') && 
             (receive[0] >= '0' && receive[0] <= '9')) {
