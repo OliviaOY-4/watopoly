@@ -3,6 +3,7 @@
 
 #include "property.h"
 #include "player.h"
+#include <string>
 
 class AcademicBuilding: public Property {
   int tutWithImprove[5];
