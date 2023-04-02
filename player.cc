@@ -27,7 +27,10 @@ int Player::getCashAmount() {
 }
 
 int Player::getTotalWorth() {
-  // 
+  int total = cash;
+  for (int i = 0; i < property.size(); ++i){
+    total += property[i]->getPrice();
+  } return total;
 }
 
 void Player::giveCash(Player* other, int amount){
