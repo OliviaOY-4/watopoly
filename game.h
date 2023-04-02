@@ -12,7 +12,7 @@
 
 class Game {
   std::vector<Player*> player;
-  std::vector<Board*> buildings(40);
+  std::vector<Board*> board(40);
   Dice* dice;
   Player* currentPlayer;
   int activeRim;
@@ -25,7 +25,7 @@ public:
   Board& moveToCertain(Board& b);
   void nextPlayer();
   void initPlayer(string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
-  bool validPlayer(string name); //////////////////// MODIFIED!!!!!!
+  bool isValidPlayer(string name); //////////////////// MODIFIED!!!!!!
   string getOwner(const Board& b);
   void purchase(Board& b, Player& p);
   void trade(Player& p, Board& b, unsigned_int n);
