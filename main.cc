@@ -42,7 +42,7 @@ int main(int argc,char* argv[]) {
             int num2 = 0;
             num1 = g.roll();
             num2 = g.roll();
-            g.move(num1, num2);
+            g.move(num1 + num2);
 
         } else if (cmd == "next") {
             // move to next 
@@ -62,7 +62,7 @@ int main(int argc,char* argv[]) {
             !(receive[0] >= '0' && receive[0] <= '9')) {
                 // check receive is valid building name
                 // attempt to trade from money to building
-                
+
 
             } else if (!(give[0] >= '0' && give[0] <= '9') && 
             (receive[0] >= '0' && receive[0] <= '9')) {

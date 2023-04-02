@@ -21,7 +21,7 @@ public:
   Game();
   ~Game();
   int roll(); //////////////////////// Modified!!!!
-  Board& move(int num1, int num2);
+  Board& move(int num);
   Board& moveToCertain(Board& b);
   void nextPlayer();
   void initPlayer(string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
