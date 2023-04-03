@@ -5,11 +5,9 @@
 
 class Residence: public Property {
 public:
-  int getPrice();
-  void changeMortgage();
-  int getVisitPrice(Player& p);
-  void changeVisitPrice();
-
+  int getPrice() const;
+  string getType() const;
+  int getVisitPrice(Player& p) const;
 };
 
 #endif

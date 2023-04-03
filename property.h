@@ -18,7 +18,6 @@ public:
   bool isMortgaged() const;
   int getPrice() = 0;
   int getVisitPrice() = 0;
-  void changeVisitPrice(Player& owner) = 0;
 };
 
 #endif
