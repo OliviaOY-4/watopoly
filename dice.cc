@@ -9,3 +9,5 @@ int Dice::rollDice() {
   int randnum = rand() % 6 + 1;
   return randnum;
 }
+
+

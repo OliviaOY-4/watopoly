@@ -6,7 +6,7 @@
 class Gym: public Property {
 public:
   int getPrice() const;
-  string getType() const;
+  std::string getType() const;
   int getVisitPrice(Player& visitor) const;
 };
 

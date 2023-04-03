@@ -1,4 +1,5 @@
 #include "board.h"
+using namespace std;
 
 Board::Board(int position, string name, string type, Game* game): position{position}, name{name}, type{type}, game{game} {}
 

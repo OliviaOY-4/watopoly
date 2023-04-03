@@ -9,18 +9,18 @@
 
 class Board: public Subject, public Observer {
   int position;
-  string name;
-  string type;
+  std::string name;
+  std::string type;
   Game* game;
-  vector<Player*> curPlayer;
+  std::vector<Player*> curPlayer;
 public:
-  Board(int position, string name, string type, Game* game);
+  Board(int position, std::string name, std::string type, Game* game);
   ~Board();
-  string getName();
+  std::string getName();
   int getPosition();
-  vector<Player*> getCurPlayer();
+  std::vector<Player*> getCurPlayer();
   int getVisitorNum();
-  string getType() = 0;
+  std::string getType() = 0;
 };
 
 #endif

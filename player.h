@@ -9,20 +9,20 @@
 #include "board.h"
 
 class Player {
-  string name;
+  std::string name;
   char nameChar;
   int cash;
   int position;
-  vector<Board*> property;
-  vector<pair<string, int>> ownBlock;
-  vector<string> monopoly;
+  std::vector<Board*> property;
+  std::vector<pair<std::string, int>> ownBlock;
+  std::vector<std::string> monopoly;
   bool OSAPcollect;
   bool sentToDCTL;
   int DCTLtimes;
   int RUR_cup;
   Dice *dice; 
 public:
-  Player(string name, int cash, int position);
+  Player(std::string name, int cash, int position);
   ~Player();
   int roll();
   int getCashAmount();
@@ -33,7 +33,7 @@ public:
   int getPosition();
   void setPosition(int position);
   void addCash(int amount);
-  string getName();
+  std::string getName();
   char getNameChar();
   void ifMonopoly(Board type);
   int getResidenceNum();

@@ -25,25 +25,23 @@ public:
   Board& move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
   Board& moveToCertain(Board& b);
   void nextPlayer();
-  void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
+  void initPlayer(string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
+  bool isValidPlayer(string name); //////////////////// MODIFIED!!!!!!
   string getOwner(const Board& b);
+  bool isValidBoard(string b); /////////////////MODIFIED!!!!
   void purchase(Board& b, Player& p);
-  bool isValidPlayer(std::string name); //////////////////// MODIFIED!!!!!!
-  bool isValidProperty(std::string b); /////////////////MODIFIED!!!
-  Board& getBoard(std::string board); ////////////// MODIFIED!!!!!
-  Player& getPlayer(std::string name); /////////////// MODIFIED!!!!
-  bool trade(Player& p, Board& b, unsigned_int n); /////////////MODIFIED!!!!!
-  bool trade(Player& p, Board& b_give, Board& b_receive); /////////////  MODIFIED!!!!
-  bool trade(Player& p, unsigned_int n, Board& b);  ///////////// MODIFIED!!!!!
-  bool improve(Board& b, bool improve); //////////////// Modified!!!!!
-  bool mortgage(Board& b); /////////////// MODIFIED!!!!
-  bool unmortgage(Board& b); //////////// MODIFIED!!!!!!!
+  bool trade(string player, string board, unsigned_int n); /////////////MODIFIED!!!!!
+  bool trade(string player, string board1, string board2); /////////////  MODIFIED!!!!
+  bool trade(string player, unsigned_int n, string b);  ///////////// MODIFIED!!!!!
+  void improve(Board& b, bool improve);
+  void mortgage(Board& b);
+  void unmortgage(Board& b);
   bool checkAssetVSLiability();
   bool checkIfBankruptcy();
   void removePlayer();
-  bool asset(); /////////// Modified!!!!!!!!
-  bool all(); /////////////// MODIFIED!!!!!
-  ofstream& save(std::string filename);
+  void asset();
+  void all();
+  ofstream& save(string filename);
   void load(ifstream &file);
   int getActiverRim();
   void changeActiverRim();

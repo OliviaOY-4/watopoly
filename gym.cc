@@ -1,4 +1,5 @@
 #include "gym.h"
+using namespace std;
 
 int roll() {
   srand(static_cast<unsigned>(time(0)));

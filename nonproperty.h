@@ -6,7 +6,7 @@
 
 class NonProperty: public Board {
 public:
-  string getType() {
+  std::string getType() {
     return "NonProperty";
   }
   void action(player &p) = 0;
