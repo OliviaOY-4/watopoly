@@ -9,6 +9,7 @@ public:
   string getType() {
     return "NonProperty";
   }
+  void action(player &p) = 0;
 };
 
 #endif

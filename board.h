@@ -17,12 +17,10 @@ public:
   Board(int position, string name, string type, Game* game);
   ~Board();
   string getName();
-  string getType();
   int getPosition();
   vector<Player*> getCurPlayer();
   int getVisitorNum();
-  void action(Player& p) = 0;
-  string gettype() = 0;
+  string getType() = 0;
 };
 
 #endif

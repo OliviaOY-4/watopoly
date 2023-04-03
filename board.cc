@@ -13,10 +13,6 @@ string Board::getName() {
   return name;
 }
 
-string Board::getType() {
-  return type;
-}
-
 int Board::getPosition() {
   return position;
 }
