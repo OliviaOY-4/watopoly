@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "board.h"
 #include "player.h"
 #include "board.h"
@@ -8,21 +9,23 @@
 using namespace std;
 
 int main(int argc,char* argv[]) {
+    // initialize game
+    Dice d;
+    Game g;
+
     // command line options
     bool testMode = false;
     for (int i = 1; i < argc; i++) {
         if (argv[i] == "-test") {
             testMode = true;
-        } else if (argv[i] == "-load" && argv[i + 1] == "file") {
-            
-            // load file operations
-
+        } else if (argv[i] == "-load") {
+            if (++i < argc) {
+                ifstream f{argv[i]};
+                g.load(f);
         }
     }
 
-    // initialization
-    Dice d;
-    Game g;
+    // initialize players
     int num_of_players = 0;
     cin >> num_of_players;
     for (int i = 0; i < num_of_players; i++) {
@@ -217,18 +220,22 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "assets") {
             // displays the assets of the current player. 
             // Does not work if the player is deciding how to pay Tuition
-            if (!(g.asset()))
-
+            if (!(g.asset())) {
+                cout << "Cannot display your assets at this stage" << endl;
+            }
 
         } else if (cmd == "all") {
-            // displays the assets of every player. For verifying the correctness of your transactions. Does not work if a player is
-            //    deciding how to pay Tuition.  
+            // displays the assets of every player. For verifying the 
+            // correctness of your transactions. 
+            // Does not work if a player is deciding how to pay Tuition. 
+             if (!(g.all())) {
+                cout << "Cannot display everyone's asset at this stage" << endl;
+            }
 
         } else if (cmd == "save") {
             string filename;
             cin >> filename;
-            // save file in filename
-
+            g.save(filename);
             
         } else {
             cerr << "Invalid Command" << endl;

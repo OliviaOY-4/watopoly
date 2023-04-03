@@ -48,7 +48,7 @@ public:
   int getActiverRim();
   void changeActiverRim();
   void auction(Property& pro);
-  void nextTurn();
+  void nextTurn(); ///////// Do we need that??????
 };
 
 #endif
