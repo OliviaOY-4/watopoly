@@ -7,8 +7,8 @@
 class Property: public Board {
   Player* owner;
   bool mortgage;
-  unsigned_int purchasePrice;
-  unsigned_int visitPrice;
+  std::unsigned_int purchasePrice;
+  std::unsigned_int visitPrice;
 public:
   Property(unsigned_int purchasePrice, unsigned_int visitPrice);
   ~Property();

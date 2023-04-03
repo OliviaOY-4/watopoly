@@ -25,14 +25,14 @@ public:
   Board& move(Player *p = currentPlayer, int num);
   Board& moveToCertain(Board& b);
   void nextPlayer();
-  void initPlayer(string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
-  bool isValidPlayer(string name); //////////////////// MODIFIED!!!!!!
-  string getOwner(const Board& b);
-  bool isValidBoard(string b); /////////////////MODIFIED!!!!
+  void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
+  bool isValidPlayer(std::string name); //////////////////// MODIFIED!!!!!!
+  std::string getOwner(const Board& b);
+  bool isValidBoard(std::string b); /////////////////MODIFIED!!!!
   void purchase(Board& b, Player& p);
-  bool trade(string player, string board, unsigned_int n); /////////////MODIFIED!!!!!
-  bool trade(string player, string board1, string board2); /////////////  MODIFIED!!!!
-  bool trade(string player, unsigned_int n, string b);  ///////////// MODIFIED!!!!!
+  bool trade(std::string player, std::string board, std::unsigned_int n); /////////////MODIFIED!!!!!
+  bool trade(std::string player, std::string board1, std::string board2); /////////////  MODIFIED!!!!
+  bool trade(std::string player, std::unsigned_int n, std::string b);  ///////////// MODIFIED!!!!!
   void improve(Board& b, bool improve);
   void mortgage(Board& b);
   void unmortgage(Board& b);
@@ -41,7 +41,7 @@ public:
   void removePlayer();
   void asset();
   void all();
-  ofstream& save(string filename);
+  ofstream& save(std::string filename);
   void load(ifstream &file);
   int getActiverRim();
   void changeActiverRim();

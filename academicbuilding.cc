@@ -1,4 +1,5 @@
 #include "academicbuilding.h"
+using namespace std;
 
 
 AcademicBuilding::AcademicBuilding(int *tut, int improvementLevel, int improvementCost, string monopolyBlock): improvementCost{improvementCost}, improvementLevel{improvementLevel}, monopolyBlock{monopolyBlock} {

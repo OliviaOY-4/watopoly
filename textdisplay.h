@@ -6,7 +6,7 @@
 #include "player.h"
 
 class TextDisplay: public Observer {
-  vector<vector<char>> theDisplay;
+  std::vector<std::vector<char>> theDisplay;
 public:
   void notify(Player* p);
 };
