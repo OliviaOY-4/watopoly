@@ -6,21 +6,21 @@
 class Tuition: public NonProperty {
 public:
     void action(Player &p) {
-        cout << "Choose between paying $300 tuition (input 0) or 10% of your total worth (input 1)." << endl;
+        std::cout << "Choose between paying $300 tuition (input 0) or 10% of your total worth (input 1)." << std::endl;
         int choice;
-        cout << "Your choice: ";
-        cin >> choice;
+        std::cout << "Your choice: ";
+        std::cin >> choice;
         while (choice != 0 && choice != 1) {
-            cout << "Invalid input. Please try again." << endl;
-            cout << "Input: ";
-            cin >> choice;
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "Input: ";
+            std::cin >> choice;
         }
         if (choice == 0) p.addCash(-300);
-        cout << "You have paid $300 tuition." << endl;
+        std::cout << "You have paid $300 tuition." << std::endl;
         else {
             int worth = p.getTotalWorth();
             p.addCash(-0.1 * worth);
-        } cout << "You have paid " << 0.1 * worth << "tuition." << endl;
+        } std::cout << "You have paid " << 0.1 * worth << "tuition." << std::endl;
     }
 };
 

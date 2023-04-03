@@ -7,11 +7,11 @@
 class Property: public Board {
   Player* owner;
   bool mortgage;
+  string type;
   unsigned_int purchasePrice;
   unsigned_int visitPrice;
 public:
-  Property();
-  Property(Player* owner, bool mortgage, unsigned_int purchasePrice, unsigned_int visitPrice);
+  Property(unsigned_int purchasePrice, unsigned_int visitPrice);
   ~Property();
   Player* getOwner();
   void setOwner(Player* owner);

@@ -21,7 +21,7 @@ public:
                 int tmp = p.getRURCup();
                 p.setRURCup(tmp + 1);
                 game->setActiverRim(game->getActiverRim() + 1);
-                cout << "You got a Roll Up the Rim cup." << endl;
+                std::cout << "You got a Roll Up the Rim cup." << std::endl;
                 return;
             }
         }
@@ -29,37 +29,37 @@ public:
         if (1 <= rand && rand <= 3) {
             int to = p.getPosition() - 3;
             p.setPosition(to);
-            cout << "You have been moved back 3 squares." << endl;
+            std::cout << "You have been moved back 3 squares." << std::endl;
         } else if (4 <= rand && rand <= 7) {
             int to = p.getPosition() - 2;
             p.setPosition(to);
-            cout << "You have been moved back 2 squares." << endl;
+            std::cout << "You have been moved back 2 squares." << std::endl;
         } else if (8 <= rand && rand <= 11) {
             int to = p.getPosition() - 1;
             p.setPosition(to);
-            cout << "You have been moved back 1 square." << endl;
+            std::cout << "You have been moved back 1 square." << std::endl;
         } else if (12 <= rand && rand <= 14) {
             int to = p.getPosition() + 1;
             p.setPosition(to);
-            cout << "You have been moved forward 1 square." << endl;
+            std::cout << "You have been moved forward 1 square." << std::endl;
         } else if (15 <= rand && rand <= 18) {
             int to = p.getPosition() + 2;
             p.setPosition(to);
-            cout << "You have been moved forward 2 squares." << endl;
+            std::cout << "You have been moved forward 2 squares." << std::endl;
         } else if (19 <= rand && rand <= 22) {
             int to = p.getPosition() + 3;
             p.setPosition(to);
-            cout << "You have been moved forward 3 squares." << endl;
+            std::cout << "You have been moved forward 3 squares." << std::endl;
         } else if (rand == 23) {
             p.setDCTLtimes(0);
             p.setsentToDCTL(true);
             p.setPosition(10);
             p.setOSAPcollect(false);
-            cout << "You have been sent to DC Tims Line." << endl;
+            std::cout << "You have been sent to DC Tims Line." << std::endl;
         } else {
             p.setOSAPcollect(true);
             p.setPosition(0);
-            cout << "You have been sent to OSAP." << endl;
+            std::cout << "You have been sent to OSAP." << std::endl;
         }
     }
 };
