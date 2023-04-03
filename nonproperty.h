@@ -6,7 +6,9 @@
 
 class NonProperty: public Board {
 public:
-  string getType() = 0;
+  string getType() {
+    return "NonProperty";
+  }
 };
 
 #endif
