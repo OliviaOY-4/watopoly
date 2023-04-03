@@ -6,17 +6,18 @@
 #include <string>
 
 class AcademicBuilding: public Property {
-  int tutWithImprove[5];
+  int tutWithImprove[6];
   int improvementLevel;
   int improvementCost;
   string monopolyBlock;
 public:
-  AcademicBuilding(string monopolyBlock, int improvementLevel, int improvementCost, int, string);
-  int getTuition();
-  int getPrice();
-  void changeMortgage();
-  void getVisitPrice(Player&);
-  void changeVisitPrice();
+  AcademicBuilding(int* tut, int improvementLevel, int improvementCost, string monopolyBlock);
+  ~AcademicBuilding();
+  int getVisitPrice(Player& visitor) const;
+  int getPrice() const;
+  string getType() const;
+  string getBlock() const;
+  void improve();
 };
 
 #endif
