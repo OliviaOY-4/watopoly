@@ -208,7 +208,7 @@ int main(int argc,char* argv[]) {
             if (isBankrupted) {
                 // need to find out who the player own money to 
                 // (another player or bank), then do someting to properties
-                // (giving the property to another player, suction, ...)
+                // (giving the property to another player, auction, ...)
                 g.removePlayer();
             } else {
                 cerr << "Cannot declare bankruptcy" << endl;
