@@ -23,11 +23,13 @@ int main(int argc,char* argv[]) {
             if (++i < argc) {
                 ifstream f{argv[i]};
                 g.load(f);
+            }
         }
     }
 
     // initialize players
     int num_of_players = 0;
+    cout << "Please enter the number of players: ";
     cin >> num_of_players;
     for (int i = 0; i < num_of_players; i++) {
         string name = " ";
