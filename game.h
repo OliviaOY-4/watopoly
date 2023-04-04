@@ -11,12 +11,12 @@
 #include "property.h"
 
 class Game {
+  int activeRim;
   std::vector<Player*> player;
   std::vector<Board*> buildings;
   std::vector<Board*> board;
   Dice* dice;
   Player* currentPlayer;
-  int activeRim;
   TextDisplay* td;
 public:
   Game();

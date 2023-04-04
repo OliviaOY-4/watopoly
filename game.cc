@@ -1,12 +1,36 @@
 #include "game.h"
 using namespace std;
 
-Game::Game() {
-  
-  Game();
-  ~Game();
-  int roll(); //////////////////////// Modified!!!!
-  Board& move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
+Game::Game(): activeRim{0} {}
+
+Game::~Game() {
+  for (auto &p : players) {
+    delete p;
+  } for (auto &b : boards) {
+    delete b;
+  } for (auto &b : buildings) {
+    delete b;
+  } delete dice;
+  delete currentPlayer;
+  delete td;
+}
+
+int Game::roll() {
+  return dice->roll();
+}
+
+Board& Game::move(int num, Player *p) {
+  int currentPos = p->getPosition();
+  int newPos = currentPos + num;
+  if (newPos >= 40) {
+    p->addMoney(200);
+    newPos -= 40;
+  }
+  p->setPosition(newPos);
+  return *boards[newPos];
+}
+
+
   Board& moveToCertain(Board& b);
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
