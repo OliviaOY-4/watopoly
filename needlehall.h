@@ -13,7 +13,7 @@ int roll(int n) {
 
 class NeedleHall: public NonProperty {
 public:
-    void action(Player &p) {
+    void action(Player &p) override {
         if (game->getActiverRim() < 4) {
             int ran = roll(100);
             if (ran == 1) {

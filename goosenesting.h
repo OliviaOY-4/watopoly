@@ -6,7 +6,7 @@
 class GooseNesting: public NonProperty {
 public:
     GooseNesting();
-    void action() {
+    void action() override {
         std::cout << "Attacked by a flock of nesting geese!!! Run!!!" << std::endl;
     }
 };

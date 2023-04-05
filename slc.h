@@ -15,7 +15,7 @@ int roll(int n) {
 class SLC: public NonProperty {
 public:
     SLC();
-    void action(Player &p) {
+    void action(Player &p) override {
         if (game->getActiverRim() < 4) {
             int ran = roll(100);
             if (ran == 1) {

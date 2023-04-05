@@ -6,7 +6,7 @@
 class Tuition: public NonProperty {
 public:
     Tuition();
-    void action(Player &p) {
+    void action(Player &p) override {
         std::cout << "Choose between paying $300 tuition (input 0) or 10% of your total worth (input 1)." << std::endl;
         int choice;
         std::cout << "Your choice: ";

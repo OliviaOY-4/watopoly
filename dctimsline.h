@@ -12,7 +12,7 @@ int roll(int n) {
 class DCTimsLine: public NonProperty {
 public:
     DCTimsLine();
-    void action(Player &p) {
+    void action(Player &p) override {
         if (!p.getsentToDCTL()) std::cout << "Nothing happens." << std::endl;
         else {
             std::cout << "You are in DC Tims Line." << std::endl;

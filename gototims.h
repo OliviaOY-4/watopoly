@@ -5,7 +5,7 @@
 
 class GoToTims: public NonProperty {
 public:
-    void action(Player &p) {
+    void action(Player &p) override {
         p.setsentToDCTL(true);
         p.setDCTLtimes(0);
         p.setPosition(10);

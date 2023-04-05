@@ -6,7 +6,7 @@
 class CoopFee: public NonProperty {
 public:
     CoopFee();
-    void action(Player &p) {
+    void action(Player &p) override {
         p.addCash(-150);
         std::cout << "You have paid $150 for the Coop Fee." << std::endl;
     }
