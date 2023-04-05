@@ -168,26 +168,27 @@ bool Game::trade(Player& p, unsigned_int n, Board& b) {
 
 bool Game::improve(Board& b, bool improve) {
   if (b.getOwner() == currentPlayer) {
-    if (improve && b.getImproveLevel() < 5) {
-      if (currentPlayer->getCash() >= b.getImproveCost()) {
-        currentPlayer->addCash(-b.getImproveCost());
-        b.improve();
-        return true;
-      } else {
-        cout << "You don't have enough money to improve this property" << endl;
-        return false;
-      }
-    }else{
+    if (improve) {
+      if (b.getImproveLevel() < 5) {
+        if (currentPlayer->getCash() >= b.getImproveCost()) {
+          currentPlayer->addCash(-b.getImproveCost());
+          b.improve();
+          return true;
+        } else {
+          cout << "You don't have enough money to improve this property" << endl;
+          return false;
+        }
+      } else{
         cout << "It is already full grade!" << endl;
         return false;
       }
-    } else {
+    } else { // degrade
       if (b.getImproveLevel() > 0) {
         currentPlayer->addCash(b.getImproveCost() / 2);
-        b.setImprove(b.getImprove() - 1);
+        b.degrade();
         return true;
       } else {
-        cout << "You can't downgrade this property anymore" << endl;
+        cout << "It can't be degraded anymore" << endl;
         return false;
       }
     }
@@ -197,17 +198,67 @@ bool Game::improve(Board& b, bool improve) {
   }
 }
 
-bool Game::mortgage(Board& b); 
-bool Game::unmortgage(Board& b); 
+bool Game::mortgage(Board& b) {
+  if (b.getOwner() == currentPlayer) {
+    if (b.getImproveLevel() == 0 && !b.isMortgaged()) {
+      currentPlayer->addCash(b.getPrice() / 2);
+      b.changeMortgage();
+      return true;
+    } else {
+      cout << "You can't mortgage this property because it has improvements or it is already mortgaged" << endl;
+      return false;
+    }
+  } else {
+    cout << "You don't own it" << endl;
+    return false;
+  }
+}
+
+bool Game::unmortgage(Board& b) {
+  if (b.getOwner() == currentPlayer) [
+    if (b.isMortgaged()) {
+      if (currentPlayer->getCash() >= b.getPrice() / 10 * 6) {
+        currentPlayer->addCash(-b.getPrice() / 10 * 6);
+        b.changeMortgage();
+        return true;
+      } else {
+        cout << "You don't have enough money to unmortgage" << endl;
+        return false;
+      }
+    } else {
+      cout << "This property is not mortgaged" << endl;
+      return false;
+    }
+  ]
+}
+
 bool Game::checkAssetVSLiability();
+
 bool Game::checkIfBankruptcy();
-void Game::removePlayer();
+
+void Game::removePlayer() {
+  for (auto p : player) {
+    if (p == currentPlayer) {
+      cout << p->getName() << " is bankrupted" << endl;
+      player.erase(p);
+    }
+  }
+}
+
 bool Game::asset(); 
 bool Game::all(); 
+
 ofstream& Game::save(std::string filename);
 void Game::load(ifstream &file);
-int Game::getActiverRim();
-void Game::changeActiverRim();
+
+int Game::getActiverRim() {
+  return activeRim;
+}
+
+void Game::setActiverRim(int n) {
+  activeRim = n;
+}
+
 void Game::auction(Property& pro);
 
 

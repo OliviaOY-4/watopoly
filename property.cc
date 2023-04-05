@@ -26,6 +26,7 @@ shared_ptr<Player> Property::getOwner() {
 }
 
 void Property::changeMortgage() {
+  // change player money
   mortgage = !mortgage;
 }
 

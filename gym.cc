@@ -16,6 +16,15 @@ int Gym::getPrice() {
 //   return "Gym";
 // }
 
+int Gym::getVisitPrice(Player& visitor) {
+  if (isMortgaged) return 0;
+  if (owner == &visitor || owner == nullptr) return 0;
+  else {
+    setVisitPrice();
+    return visitPrice;
+  }
+}
+
 void Gym::setVisitPrice(){
   int price1 = roll();
   int price2 = roll();
@@ -28,8 +37,5 @@ void Gym::setVisitPrice(){
   else if (count == 2) visitPrice = price * 10;
 }
 
-int Gym::getVisitPrice(Player& visitor) {
-  return visitPrice;
-}
 
 

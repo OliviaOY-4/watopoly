@@ -45,7 +45,7 @@ public:
   ofstream& save(std::string filename);
   void load(ifstream &file);
   int getActiverRim();
-  void changeActiverRim();
+  void setActiverRim(int n);
   void auction(Property& pro);
 };
 

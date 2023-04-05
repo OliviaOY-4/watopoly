@@ -25,6 +25,7 @@ void Residence::setVisitPrice(){
 }
 
 int Residence::getVisitPrice(Player& visitor) {
+  if (isMortgaged) return 0;
   if (owner == &visitor || owner == nullptr) return 0;
   return visitPrice;
 }

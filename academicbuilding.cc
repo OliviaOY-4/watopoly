@@ -14,6 +14,9 @@ void AcademicBuilding::setVisitPrice(){
 }
 
 int AcademicBuilding::getVisitPrice(Player& visitor) {
+  if (isMortgaged) return 0;
+  if (owner == &visitor || owner == nullptr) return 0;
+  else return tutWithImprove[improvementLevel];
   return visitPrice;
 }
 
@@ -42,7 +45,13 @@ void AcademicBuilding::improve() {
   improvementLevel++;
 }
 
+<<<<<<< HEAD
+void AcademicBuilding::degrade() {
+  improvementLevel--;
+}
+=======
 void AcademicBuilding::unimprove() {
   improvementLevel--;
 }
+>>>>>>> 959f87849a51805522f6937844613a32a06be3b8
 
