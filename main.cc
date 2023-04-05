@@ -52,6 +52,7 @@ int main(int argc,char* argv[]) {
             num1 = g.roll();
             num2 = g.roll();
             g.move(num1 + num2);
+            
 
         } else if (cmd == "next") {
             // move to next 

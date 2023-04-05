@@ -11,10 +11,9 @@ class Board: public Subject, public Observer {
   int position;
   std::string name;
   std::string type;
-  Game* game;
   std::vector<Player*> curPlayer;
 public:
-  Board(int position, std::string name, std::string type, Game* game);
+  Board(int position, std::string name);
   ~Board();
   std::string getName();
   int getPosition();

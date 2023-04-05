@@ -22,7 +22,7 @@ class Player {
   int RUR_cup;
   Dice *dice; 
 public:
-  Player(std::string name, int cash, int position);
+  Player(std::string name, char nameChar);
   ~Player();
   int roll();
   int getCashAmount();

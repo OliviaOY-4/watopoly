@@ -13,7 +13,6 @@
 class Game {
   int activeRim;
   std::vector<Player*> player;
-  std::vector<Board*> buildings;
   std::vector<Board*> board;
   Dice* dice;
   Player* currentPlayer;
@@ -22,8 +21,8 @@ public:
   Game();
   ~Game();
   int roll(); //////////////////////// Modified!!!!
-  Board& move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
-  Board& moveToCertain(Board& b);
+  void move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
+  int moveToCertain(Board& b);
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
   string getOwner(const Board& b);

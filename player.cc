@@ -2,16 +2,16 @@
 using namespace std;
 
 
-Player::Player(string name, int cash, int position): name{name}, cash{cash}, position{position}, OSAPcollect{false}, sentToDCTL{false}, DCTLtimes{0}, RUR_Cup{0} {
+Player::Player(string name, char nameChar): name{name}, nameChar{nameChar}, cash{1500}, position{0}, OSAPcollect{false}, sentToDCTL{false}, DCTLtimes{0}, RUR_Cup{0} {
   dice = new Dice();
-  if (name == "Goose") nameChar = 'G';
-  if (name == "GRT Bus") nameChar = 'B';
-  if (name == "Tim Hortons Doughnut") nameChar = 'D';
-  if (name == "Professor") nameChar = 'P';
-  if (name == "Student") nameChar = 'S';
-  if (name == "Money") nameChar = '$';
-  if (name == "Laptop") nameChar = 'L';
-  if (name == "Pink tie") nameChar = 'T';
+  // if (name == "Goose") nameChar = 'G';
+  // if (name == "GRT Bus") nameChar = 'B';
+  // if (name == "Tim Hortons Doughnut") nameChar = 'D';
+  // if (name == "Professor") nameChar = 'P';
+  // if (name == "Student") nameChar = 'S';
+  // if (name == "Money") nameChar = '$';
+  // if (name == "Laptop") nameChar = 'L';
+  // if (name == "Pink tie") nameChar = 'T';
 }
 
 Player::~Player() {
