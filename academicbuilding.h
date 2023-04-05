@@ -16,7 +16,7 @@ public:
   ~AcademicBuilding();
   int getVisitPrice(Player& visitor) const;
   void setVisitPrice();
-  // int getPrice() const;
+  int getPrice() const;
   // std::string getType() const;
   std::string getBlock() const;
   int getImproveLevel() const;

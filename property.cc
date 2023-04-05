@@ -34,6 +34,6 @@ bool Property::isMortgaged() {
   return mortgage;
 }
 
-int Property::getPurchasePrice(){
-  return purchasePrice;
-}
+// int Property::getPurchasePrice(){
+//   return purchasePrice;
+// }
