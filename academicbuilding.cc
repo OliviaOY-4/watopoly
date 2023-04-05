@@ -32,6 +32,14 @@ string AcademicBuilding::getBlock() {
   return monopolyBlock;
 }
 
+int getImproveLevel() {
+  return improvementLevel;
+}
+
+int getImproveCost() {
+  return improvementCost;
+}
+
 void AcademicBuilding::improve() {
   improvementLevel++;
 }

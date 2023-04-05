@@ -17,6 +17,8 @@ public:
   int getPrice() const;
   std::string getType() const;
   std::string getBlock() const;
+  int getImproveLevel() const;
+  int getImproveCost() const;
   void improve();
 };
 

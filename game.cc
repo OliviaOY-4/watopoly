@@ -165,24 +165,23 @@ bool Game::trade(Player& p, unsigned_int n, Board& b) {
   } else return false;
 }
 
-// bool Game::improve(Board& b, bool improve) {
+bool Game::improve(Board& b, bool improve) {
   if (b.getOwner() == currentPlayer) {
-    if (improve) {
-      if (b.getImprove() < 5) {
-        if (currentPlayer->getCash() >= b.getImproveCost()) {
-          currentPlayer->addCash(-b.getImproveCost());
-          b.setImprove(b.getImprove() + 1);
-          return true;
-        } else {
-          cout << "You don't have enough money to improve this property" << endl;
-          return false;
-        }
+    if (improve && b.getImproveLevel() < 5) {
+      if (currentPlayer->getCash() >= b.getImproveCost()) {
+        currentPlayer->addCash(-b.getImproveCost());
+        b.improve();
+        return true;
       } else {
-        cout << "You can't improve this property anymore" << endl;
+        cout << "You don't have enough money to improve this property" << endl;
         return false;
       }
     } else {
-      if (b.getImprove() > 0) {
+        cout << "It is already full grade!" << endl;
+        return false;
+      }
+    } else {
+      if (b.getImproveLevel() > 0) {
         currentPlayer->addCash(b.getImproveCost() / 2);
         b.setImprove(b.getImprove() - 1);
         return true;
