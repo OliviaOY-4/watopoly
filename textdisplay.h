@@ -8,7 +8,8 @@
 class TextDisplay: public Observer {
   std::vector<std::vector<char>> theDisplay;
 public:
-  void notify(Player* p);
+  TextDisplay();
+  void draw(Player* p);
 };
 
 #endif
