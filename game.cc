@@ -259,6 +259,48 @@ void Game::setActiverRim(int n) {
   activeRim = n;
 }
 
-void Game::auction(Property& pro);
+void Game::auction(Property& pro) {
+  cout << "Auction for " << pro.getName() << "starts" << endl;
+  int max = 0;
+  string bider = " ";
+  vecntor<Player*> participants = player;
+  int n = participants.size();
+  for (int i = 0; i < n; i++) {
+    if (n == 1) break;
+    cout << participants[i]->getName() << ", it is your turn" << endl;
+    cout << "Choose between: bid or quit" << endl;
+    string choice;
+    cin >> choice;
+    if (choice == "quit") {
+      cout << "You quit the auction" << endl;
+      participants.erase(participants.begin() + i);
+      i--;
+      n--;
+      continue;
+    } else if (choice == "bid") {
+      cout << "Input your bid. Your bid must be higher than " << max << endl;
+      int bid;
+      cin >> bid;
+      if (bid > max) {
+        max = bid;
+        bider = participants[i]->getName();
+        continue;
+      }
+    } else {
+      cout << "Invalid input" << endl;
+      return;
+    } 
+  }
+  cout << "The final bid is " << max << " from " << bider << endl;
+  for (auto p : player) {
+    if (p->getName() == bider) {
+      p->addCash(-max);
+      p->addProperties(&pro);
+      pro.setOwner(p);
+      return;
+    }
+  }
+  
+}
 
 
