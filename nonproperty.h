@@ -6,10 +6,10 @@
 
 class NonProperty: public Board {
 public:
-  std::string getType() {
-    return "NonProperty";
-  }
-  void action(player &p) = 0;
+  // std::string getType() {
+  //   return "NonProperty";
+  // }
+  virtual void action(player &p) = 0;
 };
 
 #endif

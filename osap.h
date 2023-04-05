@@ -5,9 +5,12 @@
 
 class OSAP: public NonProperty {
 public:
+    OSAP();
     void action(Player &p) {
-        if (p.getOSAPcollect()) p.addCash(200);
-        std::cout << "Collect OSAP, collect $200." << std::endl;
+        if (p.getOSAPcollect()){
+            p.addCash(200);
+            std::cout << "Collect OSAP, collected $200." << std::endl;
+        }
     }
 };
 

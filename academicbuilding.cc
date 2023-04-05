@@ -2,31 +2,29 @@
 using namespace std;
 
 
-AcademicBuilding::AcademicBuilding(int *tut, int improvementLevel, int improvementCost, string monopolyBlock): improvementCost{improvementCost}, improvementLevel{improvementLevel}, monopolyBlock{monopolyBlock} {
-  tutWithImprove[0] = tut[0];
-  tutWithImprove[1] = tut[1];
-  tutWithImprove[2] = tut[2];
-  tutWithImprove[3] = tut[3];
-  tutWithImprove[4] = tut[4];
-  tutWithImprove[5] = tut[5];
-}
+AcademicBuilding::AcademicBuilding(vector<unsigned int> tut, int improvementCost, string monopolyBlock): tutWithImprove{tut}, improvementCost{improvementCost}, improvementLevel{0}, monopolyBlock{monopolyBlock} {}
 
-AcademicBuilding::~AcademicBuilding() {
-  delete [] tutWithImprove;
+// AcademicBuilding::~AcademicBuilding() {
+//   delete [] tutWithImprove;
+// }
+
+void AcademicBuilding::setVisitPrice(){
+  if (owner == &visitor || owner == nullptr) visitPrice= 0;
+  else visitPrice = tutWithImprove[improvementLevel];
 }
 
 int AcademicBuilding::getVisitPrice(Player& visitor) {
-  if (owner == &visitor || owner == nullptr) return 0;
-  else return tutWithImprove[improvementLevel];
+  return visitPrice;
 }
 
 int AcademicBuilding::getPrice() {
-  return price + improvementCost * improvementLevel;
+  return price + improvementCost * improvementLevel; 
 }
 
-string AcademicBuilding::getType() {
-  return "AcademicBuilding";
-}
+// string AcademicBuilding::getType() {
+//   // return "AcademicBuilding";
+//   return type;
+// }
 
 string AcademicBuilding::getBlock() {
   return monopolyBlock;
@@ -42,5 +40,9 @@ int getImproveCost() {
 
 void AcademicBuilding::improve() {
   improvementLevel++;
+}
+
+void AcademicBuilding::unimprove() {
+  improvementLevel--;
 }
 

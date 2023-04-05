@@ -5,9 +5,10 @@
 
 class Residence: public Property {
 public:
-  int getPrice() const;
-  std::string getType() const;
-  int getVisitPrice(Player& p) const;
+  // int getPrice() const;
+  // std::string getType() const;
+  int getVisitPrice(Player& visitor) const;
+  void setVisitPrice();
 };
 
 #endif

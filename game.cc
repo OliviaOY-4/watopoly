@@ -1,4 +1,5 @@
 #include "game.h"
+#include "board.h"
 using namespace std;
 
 Game::Game(): activeRim{0} {
@@ -176,7 +177,7 @@ bool Game::improve(Board& b, bool improve) {
         cout << "You don't have enough money to improve this property" << endl;
         return false;
       }
-    } else {
+    }else{
         cout << "It is already full grade!" << endl;
         return false;
       }
