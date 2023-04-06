@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 #include "board.h"
 #include "player.h"
 #include "dice.h"
@@ -27,7 +28,7 @@ public:
   ~Game();
   int roll(); //////////////////////// Modified!!!!
   // void move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
-  void move(int num, shared_ptr<Player> p = currentPlayer); //////////////// MODIFIED!!!!!
+  void move(int num, std::shared_ptr<Player> p = currentPlayer); //////////////// MODIFIED!!!!!
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
   string getOwner(const Board& b);

@@ -34,16 +34,30 @@ int Player::getTotalWorth() {
   } return total;
 }
 
-void Player::giveCash(Player* other, int amount){
+// void Player::giveCash(Player* other, int amount){
+//   other->addCash(amount);
+//   cash -= amount;
+// }
+void Player::giveCash(shared_ptr<Player> other, int amount){
   other->addCash(amount);
   cash -= amount;
 }
 
-void Player::addProperties(Board* b){
+// void Player::addProperties(Board* b){
+//   property.emplace_back(b);
+// }
+void Player::addProperties(shared_ptr<Board> b){
   property.emplace_back(b);
 }
 
-void Player::sellProperties(Board* b){
+// void Player::sellProperties(Board* b){
+//   for (int i = 0; i < property.size(); i++){
+//     if (property[i] == b){
+//       property.erase(property.begin() + i);
+//     }
+//   }
+// }
+void Player::sellProperties(shared_ptr<Board> b){
   for (int i = 0; i < property.size(); i++){
     if (property[i] == b){
       property.erase(property.begin() + i);

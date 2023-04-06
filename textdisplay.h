@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "player.h"
 #include <utility>
 
 class TextDisplay{
   std::vector<string> boardMap;
-  vector<pair<int,int>> playerpos;
-  vector<pair<int,int>> impropos;
+  std::vector<std::pair<int,int>> playerpos;
+  std::vector<std::pair<int,int>> impropos;
   
 public:
   TextDisplay();
@@ -17,7 +18,7 @@ public:
   void deletePlayer(int pos, char symbol);
   void addImprovement(Board& a);
   void removeImprovement(Board& a);
-  void drawBoard(std::ostream& out, vector<Player*> player, vector<board*> board);
+  void drawBoard(std::ostream& out, std::vector<std::shared_ptr<Player>> player, std::vector<std::shared_ptr<Board> board);
 }
 
 #endif

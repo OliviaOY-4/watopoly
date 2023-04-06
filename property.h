@@ -1,6 +1,7 @@
 #ifndef PROPERTY_H
 #define PROPERTY_H
 
+#include <memory>
 #include "board.h"
 #include "player.h"
 

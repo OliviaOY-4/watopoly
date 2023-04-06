@@ -3,12 +3,11 @@
 
 #include <string>
 #include <vector>
-#include "subject.h"
-#include "observer.h"
+#include <memory>
 #include "player.h"
 class Player
 
-class Board: public Subject, public Observer {
+class Board {
   int position;
   std::string name;
   std::string type;

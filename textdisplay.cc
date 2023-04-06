@@ -122,7 +122,7 @@ void TextDisplay::removeImprovement(Board& a){
 }
 
 
-void TextDisplay::drawBoard(std::ostream& out, vector<Player*> player, vector<board*> board){
+void TextDisplay::drawBoard(std::ostream& out, vector<shared_ptr<Player>> player, vector<shared_ptr<Board> board){
     for (auto it : player) {
         int pos = it->getPosition();
         char symbol = it->getSymbol();
