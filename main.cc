@@ -38,7 +38,7 @@ int main(int argc,char* argv[]) {
         cin >> playerChar;
         g.initPlayer(name, playerChar);
         // g.initPlayer need to check it's a valid name and char
-        g.drawBoard();
+        g.printMap();
     }
 
     // game start
@@ -51,7 +51,7 @@ int main(int argc,char* argv[]) {
             int num1 = 0;
             int num2 = 0;
             if(testMode) {
-                cin >> num1 >> num2
+                cin >> num1 >> num2;
             } else {
                 num1 = g.roll();
                 num2 = g.roll();
@@ -244,7 +244,7 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "save") {
             string filename;
             cin >> filename;
-            g.save(filename);
+            //g.save(filename, );
             
         } else {
             cerr << "Invalid Command" << endl;

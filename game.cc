@@ -43,6 +43,9 @@ int Game::roll() {
 
 // }
 void Game::move(int num, shared_ptr<Player> p) {
+  if(p == nullptr){
+    p = currentPlayer;
+  }
   int curPos = p->getPosition();
   int newPos = curPos + num;
   if (newPos >= 40) {
@@ -109,7 +112,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       NeedlesHall::action(p);
     } else if (nowName == "Goose Nesting") {
       GooseNesting::action(p);
-    } g.drawBoard();
+    } g.printMap();
   }
 }
 
@@ -167,7 +170,7 @@ Player& Game::getPlayer(string name) {
   }
 }
 
-bool Game::trade(Player& p, Board& b, unsigned_int n) {
+bool Game::trade(Player& p, Board& b, unsigned int n) {
   if (b.getOwner() == currentPlayer) {
     cout << currentPlayer->getName() << " is trading " << b.getName() << " with " << p.getName() <<  " for " << n << endl;
     cout << "Choose: 'accept' or 'reject'" << endl;
@@ -214,7 +217,7 @@ bool Game::trade(Player& p, Board& b_give, Board& b_receive) {
   } else return false;
 }
 
-bool Game::trade(Player& p, unsigned_int n, Board& b) {
+bool Game::trade(Player& p, unsigned int n, Board& b) {
   if (b.getOwner() == &p) {
     cout << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << b.getName() << endl;
     cout << "Choose: 'accept' or 'reject'" << endl;
@@ -319,7 +322,9 @@ void Game::removePlayer() {
 bool Game::asset(); 
 bool Game::all(); 
 
-ofstream& Game::save(std::string filename);
+ofstream& Game::save(std::string filename, std::ofstream & file){
+  return file;
+}
 void Game::load(ifstream &file);
 
 int Game::getActiverRim() {

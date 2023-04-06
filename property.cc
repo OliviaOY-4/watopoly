@@ -1,8 +1,8 @@
 #include "property.h"
 using namespace std;
 
-// Property::Property(unsigned_int purchasePrice, unsigned_int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
-Property::Property(unsigned_int purchasePrice, unsigned_int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
+// Property::Property(unsigned int purchasePrice, unsigned int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
+Property::Property(unsigned int purchasePrice, unsigned int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
 
 // Property::~Property() {
 //   if (!owner == nullptr) owner=nullptr;//???

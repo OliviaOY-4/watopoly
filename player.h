@@ -14,7 +14,7 @@ class Player {
   char nameChar;
   int cash;
   int position;
-  std::vector<shared_ptr<Board>> property;
+  std::vector<std::shared_ptr<Board>> property;
   // std::vector<Board*> property;
 
   std::vector<std::pair<std::string, int>> ownBlock;
@@ -34,9 +34,9 @@ public:
   // void giveCash(Player* other, int amount);
   // void addProperties(Board* b);
   // void sellProperties(Board* b);
-  void giveCash(std:shared_ptr<Player> other, int amount);
-  void addProperties(std:shared_ptr<Board> b);
-  void sellProperties(std:shared_ptr<Board> b);
+  void giveCash(std::shared_ptr<Player> other, int amount);
+  void addProperties(std::shared_ptr<Board> b);
+  void sellProperties(std::shared_ptr<Board> b);
   int getPosition();
   void setPosition(int position);
   void addCash(int amount);

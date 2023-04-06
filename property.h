@@ -7,19 +7,20 @@
 
 class Property: public Board {
   // Player* owner;
+  protected:
   std::shared_ptr<Player> owner;
   bool mortgage;
-  std::unsigned_int purchasePrice;
-  std::unsigned_int visitPrice;
+  unsigned int purchasePrice;
+  unsigned int visitPrice;
 public:
-  Property(unsigned_int purchasePrice, unsigned_int visitPrice);
+  Property(unsigned int purchasePrice, unsigned int visitPrice);
   ~Property();
   // Player* getOwner() const;
   // void setOwner(Player* owner);
   std::shared_ptr<Player> getOwner() const;
   void setOwner(std::shared_ptr<Player> owner);
   void changeMortgage(); 
-  bool isMortgaged() const;
+  bool isMortgaged() ;
   virtual int getPrice() const = 0;
   // int getPurchasePrice() const;
   virtual void setVisitPrice() = 0;

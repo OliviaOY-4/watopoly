@@ -8,7 +8,7 @@
 #include <utility>
 
 class TextDisplay{
-  std::vector<string> boardMap;
+  std::vector<std::string> boardMap;
   std::vector<std::pair<int,int>> playerpos;
   std::vector<std::pair<int,int>> impropos;
   
@@ -18,8 +18,8 @@ public:
   void deletePlayer(int pos, char symbol);
   void addImprovement(Board& a);
   void removeImprovement(Board& a);
-  void drawBoard(std::ostream& out, std::vector<std::shared_ptr<Player>> player, std::vector<std::shared_ptr<Board> board);
-}
+  void drawBoard(std::ostream& out, std::vector<std::shared_ptr<Player>> player, std::vector<std::shared_ptr<Board>> board);
+};
 
 #endif
 

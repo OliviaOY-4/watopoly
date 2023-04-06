@@ -28,18 +28,18 @@ public:
   ~Game();
   int roll(); //////////////////////// Modified!!!!
   // void move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
-  void move(int num, std::shared_ptr<Player> p = currentPlayer); //////////////// MODIFIED!!!!!
+  void move(int num, std::shared_ptr<Player> p=nullptr); //////////////// MODIFIED!!!!!
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
-  string getOwner(const Board& b);
+  std::string getOwner(const Board& b);
   void purchase(Board& b, Player& p);
   bool isValidPlayer(std::string name); //////////////////// MODIFIED!!!!!!
   bool isValidProperty(std::string bName); /////////////////MODIFIED!!!
   Board& getBoard(std::string bName); ////////////// MODIFIED!!!!!
   Player& getPlayer(std::string name); /////////////// MODIFIED!!!!
-  bool trade(Player& p, Board& b, unsigned_int n); /////////////MODIFIED!!!!!
+  bool trade(Player& p, Board& b, unsigned int n); /////////////MODIFIED!!!!!
   bool trade(Player& p, Board& b_give, Board& b_receive); /////////////  MODIFIED!!!!
-  bool trade(Player& p, unsigned_int n, Board& b);  ///////////// MODIFIED!!!!!
+  bool trade(Player& p, unsigned int n, Board& b);  ///////////// MODIFIED!!!!!
   bool improve(Board& b, bool improve); //////////////// Modified!!!!!
   bool mortgage(Board& b); /////////////// MODIFIED!!!!
   bool unmortgage(Board& b); //////////// MODIFIED!!!!!!!
@@ -48,11 +48,12 @@ public:
   void removePlayer();
   bool asset(); /////////// Modified!!!!!!!!
   bool all(); /////////////// MODIFIED!!!!!
-  ofstream& save(std::string filename);
-  void load(ifstream &file);
+  std::ofstream& save(std::string filename,std::ofstream & file);
+  void load(std::ifstream &file);
   int getActiverRim();
   void setActiverRim(int n);
   void auction(Property& pro);
+  void printMap();
 };
 
 #endif

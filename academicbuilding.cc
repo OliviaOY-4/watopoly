@@ -12,14 +12,17 @@ void AcademicBuilding::setVisitPrice(){
   visitPrice = tutWithImprove[improvementLevel];
 }
 
-int AcademicBuilding::getVisitPrice(Player& visitor) {
+int AcademicBuilding::getVisitPrice(Player& visitor) const {
   if (isMortgaged) return 0;
-  if (owner == &visitor || owner == nullptr) return 0;
-  else return tutWithImprove[improvementLevel];
+  if(owner.get()!=null){
+    if (owner.get() != &visitor){
+      return visitPrice;
+    }
+  }
 }
 
-int AcademicBuilding::getPrice() {
-  return price + improvementCost * improvementLevel; 
+int AcademicBuilding::getPrice() const {
+  return purchasePrice + improvementCost * improvementLevel; 
 }
 
 // string AcademicBuilding::getType() {
@@ -27,15 +30,15 @@ int AcademicBuilding::getPrice() {
 //   return type;
 // }
 
-string AcademicBuilding::getBlock() {
+string AcademicBuilding::getBlock() const{
   return monopolyBlock;
 }
 
-int getImproveLevel() {
+int AcademicBuilding::getImproveLevel() const {
   return improvementLevel;
 }
 
-int getImproveCost() {
+int AcademicBuilding::getImproveCost() const {
   return improvementCost;
 }
 
