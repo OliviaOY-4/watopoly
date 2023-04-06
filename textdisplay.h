@@ -5,12 +5,18 @@
 #include <vector>
 #include "player.h"
 
-class TextDisplay: public Observer {
-  std::vector<std::vector<char>> theDisplay;
+class TextDisplay{
+  std::vector<string> boardMap;
+  
 public:
   TextDisplay();
-  void draw(Player* p);
-};
+  void addPlayer(int pos, std::string name);
+  void deletePlayer(int pos, std::string name);
+  void addImprovement(int pos);
+  void drawBoard(std::ostream& out);
+}
+
+ostream& operator<<(ostream& out, const TextDisplay& td);
 
 #endif
 
