@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <utility>
-#include "board.h"
+#include <memory>
 #include "dice.h"
 #include "board.h"
 
@@ -14,6 +14,7 @@ class Player {
   int cash;
   int position;
   std::vector<Board*> property;
+
   std::vector<std::pair<std::string, int>> ownBlock;
   std::vector<std::string> monopoly;
   bool OSAPcollect;
