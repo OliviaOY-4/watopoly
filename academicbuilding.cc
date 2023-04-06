@@ -9,15 +9,13 @@ AcademicBuilding::AcademicBuilding(vector<unsigned int> tut, int improvementCost
 // }
 
 void AcademicBuilding::setVisitPrice(){
-  if (owner == &visitor || owner == nullptr) visitPrice= 0;
-  else visitPrice = tutWithImprove[improvementLevel];
+  visitPrice = tutWithImprove[improvementLevel];
 }
 
 int AcademicBuilding::getVisitPrice(Player& visitor) {
   if (isMortgaged) return 0;
-  // if (owner == &visitor || owner == nullptr) return 0;
-  // else return tutWithImprove[improvementLevel];
-  return visitPrice;
+  if (owner == &visitor || owner == nullptr) return 0;
+  else return tutWithImprove[improvementLevel];
 }
 
 int AcademicBuilding::getPrice() {

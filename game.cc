@@ -52,8 +52,65 @@ void Game::move(int num, shared_ptr<Player> p) {
   p->setPosition(newPos);
   
   bool buy = false;
-  for (int i = 0; i < )
+  Board &now = board[newPos];
+  string nowType = now.getType();
 
+  if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
+    if (now.getOwner() == nullptr) {
+      cout << "You can buy it for " << now.getPrice() << endl;
+      cout << "Choose: 'buy' or 'auction'" << endl;
+      string choice;
+      cin >> choice;
+      if (choice == "buy") {
+        if (p->getCash() >= now.getPrice()) {
+          purchase(now, p);
+          buy = true;
+        } else cout << "You don't have enough money" << endl;
+        buy = false;
+      } else if (choice == "auction" || buy == false) {
+        auction(now);
+        buy = true;
+      } else {
+        cout << "Invalid input" << endl;
+      }
+    } else {
+      int visitPrice = now.getVisitPrice();
+      p->addCash(-visitPrice);
+      cout << "You paid " << visitPrice << " to " << (now.getOwner())->getName() << endl;
+      if (p->getCash() >= 0) return;
+      else {
+        cout << "You are in debt" << endl;
+        cout << "Choose: 'mortgage' or 'trade' or 'degrade'" << endl;
+        string choice;
+        cin >> choice;
+        // input property name and check
+        // if (choice == "mortgage") {
+        //   mortgage(now);
+        // } else if (choice == "trade") {
+        //   trade(now);
+        // } else if (choice == "degrade") {
+        //   degrade(now);
+        // } else {
+        //   cout << "Invalid input" << endl;
+        // }
+      } 
+    }
+  } else {
+    string nowName = now.getName();
+    if (nowName == "SLC") {
+      SLC::action(p);
+    } else if (nowName == "TUITION") {
+      Tuition::action(p);
+    } else if (nowName == "GO TO TIMS") {
+      GoToTims::action(p);
+    } else if (nowName == "COOP FEE") {
+      CoopFee::action(p);
+    } else if (nowName == "NEEDLES HALL") {
+      NeedlesHall::action(p);
+    } else if (nowName == "Goose Nesting") {
+      GooseNesting::action(p);
+    } g.drawBoard();
+  }
 }
 
 
