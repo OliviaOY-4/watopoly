@@ -23,7 +23,45 @@ Game::Game(): activeRim{0} {
   td = make_unique<TextDisplay>();
   currentPlayer = *(player.begin());
   board.emplace_back(make_shared<OSAP>(0, "COLLECT OSAP")); //unique or shared?
-  board.emplace_back(make_shared<AcademicBuilding>(1, "AL"));
+  board.emplace_back(make_shared<AcademicBuilding>(1, "AL", 40, 0, {2, 10, 30, 90, 160, 250}, 50, "Arts1"));
+  board.emplace_back(make_shared<SLC>(2, "SLC"));
+  board.emplace_back(make_shared<AcademicBuilding>(3, "ML", 60, 0, {4, 20, 60, 180, 320, 450}, 50, "Arts1"));
+  board.emplace_back(make_shared<Tuition>(4, "TUITION"));
+  board.emplace_back(make_shared<Residence>(5, "MKV", 200, 25));
+  board.emplace_back(make_shared<AcademicBuilding>(6, "ECH", 100, 0, {6, 30, 90, 270, 400, 550}, 50, "Arts2"));
+  board.emplace_back(make_shared<NeedlesHall>(7, "NEEDLES HALL"));
+  board.emplace_back(make_shared<AcademicBuilding>(8, "PAS", 100, 0, {6, 30, 90, 270, 400, 550}, 50, "Arts2"));
+  board.emplace_back(make_shared<AcademicBuilding>(9, "HH", 120, 0, {8, 40, 100, 300, 450, 600}, 50, "Arts2"));
+  board.emplace_back(make_shared<DCTimsLine>(10, "DC Tims Line"));
+  board.emplace_back(make_shared<AcademicBuilding>(11, "RCH", 140, 0, {10, 50, 150, 450, 625, 750}, 100, "Eng"));
+  board.emplace_back(make_shared<Gym>(12, "PAC", 150, 0));
+  board.emplace_back(make_shared<AcademicBuilding>(13, "DWE", 140, 0, {10, 50, 150, 450, 625, 750}, 100, "Eng"));
+  board.emplace_back(make_shared<AcademicBuilding>(14, "CPH", 160, 0, {12, 60, 180, 500, 700, 900}, 100, "Eng"));
+  board.emplace_back(make_shared<Residence>(15, "UWP", 200, 25));
+  board.emplace_back(make_shared<AcademicBuilding>(16, "LHI", 180, 0, {14, 70, 200, 550, 750, 950}, 100, "Health"));
+  board.emplace_back(make_shared<SLC>(17, "SLC"));
+  board.emplace_back(make_shared<AcademicBuilding>(18, "BMH", 180, 0, {14, 70, 200, 550, 750, 950}, 100, "Health"));
+  board.emplace_back(make_shared<AcademicBuilding>(19, "OPT", 200, 0, {16, 80, 220, 600, 800, 1000}, 100, "Health"));
+  board.emplace_back(make_shared<GooseNesting>(20, "GOOSE NESTING"));
+  board.emplace_back(make_shared<AcademicBuilding>(21, "EV1", 220, 0, {18, 90, 250, 700, 875, 1050}, 150, "Env"));
+  board.emplace_back(make_shared<NeedlesHall>(22, "NEEDLES HALL"));
+  board.emplace_back(make_shared<AcademicBuilding>(23, "EV2", 220, 0, {18, 90, 250, 700, 875, 1050}, 150, "Env"));
+  board.emplace_back(make_shared<AcademicBuilding>(24, "EV3", 240, 0, {20, 100, 300, 750, 925, 1100}, 150, "Env"));
+  board.emplace_back(make_shared<Residence>(25, "V1", 200, 25));
+  board.emplace_back(make_shared<AcademicBuilding>(26, "PHYS", 260, 0, {22, 110, 330, 800, 975, 1150}, 150, "Sci1"));
+  board.emplace_back(make_shared<AcademicBuilding>(27, "B1", 260, 0, {22, 110, 330, 800, 975, 1150}, 150, "Sci1"));
+  board.emplace_back(make_shared<Gym>(28, "PAC", 150, 0));
+  board.emplace_back(make_shared<AcademicBuilding>(29, "B2", 280, 0, {24, 120, 360, 850, 1025, 1200}, 150, "Sci1"));
+  board.emplace_back(make_shared<GoToTims>(30, "GO TO TIMS"));
+  board.emplace_back(make_shared<AcademicBuilding>(31, "EIT", 300, 0, {26, 130, 390, 900, 1100, 1275}, 200, "Sci2"));
+  board.emplace_back(make_shared<AcademicBuilding>(32, "ESC", 300, 0, {26, 130, 390, 900, 1100, 1275}, 200, "Sci2"));
+  board.emplace_back(make_shared<SLC>(33, "SLC"));
+  board.emplace_back(make_shared<AcademicBuilding>(34, "C2", 320, 0, {28, 150, 450, 1000, 1200, 1400}, 200, "Sci2"));
+  board.emplace_back(make_shared<Residence>(35, "REV", 200, 25));
+  board.emplace_back(make_shared<NeedlesHall>(36, "NEEDLES HALL"));
+  board.emplace_back(make_shared<AcademicBuilding>(37, "MC", 350, 0, {35, 175, 500, 1100, 1300, 1500}, 200, "Math"));
+  board.emplace_back(make_shared<CoopFee>(38, "Coop Fee"));
+  board.emplace_back(make_shared<AcademicBuilding>(39, "DC", 400, 0, {50, 200, 600, 1400, 1700, 2000}, 200, "Math"));
 }
 
 Game::~Game() {

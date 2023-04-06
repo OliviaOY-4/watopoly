@@ -13,6 +13,8 @@ int roll(int n) {
 
 class NeedleHall: public NonProperty {
 public:
+    NeedleHall(int position, std::string name): NonProperty(position, name) {}
+    ~NeedleHall();
     void action(Player &p) override {
         if (game->getActiverRim() < 4) {
             int ran = roll(100);

@@ -5,7 +5,8 @@
 
 class OSAP: public NonProperty {
 public:
-    OSAP();
+    OSAP(int position, std::string name): NonProperty(position, name) {}
+    ~OSAP();
     void action(Player &p) override {
         if (p.getOSAPcollect()){
             p.addCash(200);

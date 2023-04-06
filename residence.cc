@@ -7,6 +7,10 @@ using namespace std;
 //   return randnum;
 // }
 
+Residence::Residence(int position, std::string name, unsigned int purchasePrice, unsigned int visitPrice): Property{position, name, purchasePrice, visitPrice} {}
+
+Residence::~Residence() {}
+
 int Residence::getPrice() {
   //return 200;
   return purchasePrice;

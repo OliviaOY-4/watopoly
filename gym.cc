@@ -1,6 +1,11 @@
 #include "gym.h"
 using namespace std;
 
+Gym::Gym(int position, std::string name, unsigned int purchasePrice, unsigned int visitPrice): Property{position, name, purchasePrice, visitPrice} {}
+
+Gym::~Gym() {}
+
+
 int roll() {
   srand(static_cast<unsigned>(time(0)));
   int randnum = rand() % 6 + 1;

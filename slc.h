@@ -14,7 +14,8 @@ int roll(int n) {
 
 class SLC: public NonProperty {
 public:
-    SLC();
+    SLC(int position, std::string name): NonProperty(position, name) {}
+    ~SLC();
     void action(Player &p) override {
         if (game->getActiverRim() < 4) {
             int ran = roll(100);
