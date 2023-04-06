@@ -5,7 +5,7 @@
 #include <ctime>
 #include <cstdlib>
 
-int roll(int n) {
+int rollnh(int n) {
   srand(static_cast<unsigned>(time(0)));
   int randnum = rand() % n + 1;
   return randnum;
@@ -15,18 +15,18 @@ class NeedleHall: public NonProperty {
 public:
     NeedleHall(int position, std::string name): NonProperty(position, name) {}
     ~NeedleHall();
-    void action(Player &p) override {
-        if (game->getActiverRim() < 4) {
-            int ran = roll(100);
+    void action(Player &p) override {return;}
+    int nhaction(Player &p, int n) {
+        if (n < 4) {
+            int ran = rollnh(100);
             if (ran == 1) {
                 int tmp = p.getRURCup();
                 p.setRURCup(tmp + 1);
-                game->setActiverRim(game->getActiverRim() + 1);
                 std::cout << "You gain a Roll Up the Rim cup." << std::endl;
-                return;
+                return n + 1;
             }
         }
-        int rand = roll(18);
+        int rand = rollnh(18);
         if (1 == rand) {
             p.addCash(-200);
             std::cout << "You lose $200 savings" << std::endl;

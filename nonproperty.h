@@ -3,6 +3,7 @@
 
 #include "board.h"
 #include <string>
+#include "player.h"
 
 class NonProperty: public Board {
 public:
@@ -11,7 +12,7 @@ public:
   // }
   NonProperty(int position, std::string name): Board(position, name) {};
   virtual ~NonProperty() = 0;
-  virtual void action(player &p) = 0;
+  virtual void action(Player &p) = 0;
 };
 
 #endif

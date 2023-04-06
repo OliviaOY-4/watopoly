@@ -128,7 +128,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       int visitPrice = now->getVisitPrice(*p);
       p->addCash(-visitPrice);
       cout << "You paid " << visitPrice << " to " << (now->getOwner())->getName() << endl;
-      if (p->getCash() >= 0) return;
+      if (p->getCashAmount() >= 0) return;
       else {
         cout << "You are in debt" << endl;
         cout << "Choose: 'mortgage' or 'trade' or 'degrade'" << endl;
@@ -149,17 +149,21 @@ void Game::move(int num, shared_ptr<Player> p) {
   } else {
     string nowName = now->getName();
     if (nowName == "SLC") {
-      SLC::action(p);
+      int n = getActiverRim();
+      int m = SLC::slcaction(*p, n);
+      setActiverRim(m);
     } else if (nowName == "TUITION") {
-      Tuition::action(p);
+      Tuition::action(*p);
     } else if (nowName == "GO TO TIMS") {
-      GoToTims::action(p);
+      GoToTims::action(*p);
     } else if (nowName == "COOP FEE") {
-      CoopFee::action(p);
+      CoopFee::action(*p);
     } else if (nowName == "NEEDLES HALL") {
-      NeedlesHall::action(p);
+      int n = getActiverRim();
+      int m = NeedlesHall::nhaction(*p, n);
+      setActiverRim(m);
     } else if (nowName == "Goose Nesting") {
-      GooseNesting::action(p);
+      GooseNesting::action(*p);
     } td->drawBoard(cout, player, board);
   }
 }

@@ -10,6 +10,18 @@
 #include "dice.h"
 #include "textdisplay.h"
 #include "property.h"
+#include "academicbuilding.h"
+#include "residence.h"
+#include "gym.h"
+#include "nonproperty.h"
+#include "slc.h"
+#include "needlehall.h"
+#include "osap.h"
+#include "tuition.h"
+#include "coopfee.h"
+#include "gototims.h"
+#include "goosenesting.h"
+
 
 class Game {
   int activeRim;
