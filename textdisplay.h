@@ -4,19 +4,21 @@
 #include <iostream>
 #include <vector>
 #include "player.h"
+#include <utility>
 
 class TextDisplay{
   std::vector<string> boardMap;
+  vector<pair<int,int>> playerpos;
+  vector<pair<int,int>> impropos;
   
 public:
   TextDisplay();
-  void addPlayer(int pos, std::string name);
-  void deletePlayer(int pos, std::string name);
-  void addImprovement(int pos);
-  void drawBoard(std::ostream& out);
+  void addPlayer(int pos, char symbol);
+  void deletePlayer(int pos, char symbol);
+  void addImprovement(Board& a);
+  void removeImprovement(Board& a);
+  void drawBoard(std::ostream& out, vector<Player*> player, vector<board*> board);
 }
-
-ostream& operator<<(ostream& out, const TextDisplay& td);
 
 #endif
 
