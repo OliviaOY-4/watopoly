@@ -49,8 +49,12 @@ int main(int argc,char* argv[]) {
             // if don't buy, auction.
             int num1 = 0;
             int num2 = 0;
-            num1 = g.roll();
-            num2 = g.roll();
+            if(testMode) {
+                cin >> num1 >> num2
+            } else {
+                num1 = g.roll();
+                num2 = g.roll();
+            }
             g.move(num1 + num2);
             
 

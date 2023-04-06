@@ -11,19 +11,17 @@ Game::Game(): activeRim{0} {
 }
 
 Game::~Game() {
-  for (auto &p : players) {
+  for (auto* p : player) {
     delete p;
-  } for (auto &b : boards) {
+  } for (auto* b : board) {
     delete b;
-  } for (auto &b : buildings) {
-    delete b;
-  } delete dice;
-  delete currentPlayer;
+  } 
+  delete dice;
   delete td;
 }
 
 int Game::roll() {
-  return dice->roll();
+  return dice->rollDice();
 }
 
 void Game::move(int num, Player *p) {
@@ -40,8 +38,6 @@ void Game::move(int num, Player *p) {
 
 }
 
-
-Board& moveToCertain(Board& b);
 
 void Game::nextPlayer() {
   for (int i = 0; i < player.size(); ++i) {
@@ -71,28 +67,28 @@ void Game::purchase(Board& b, Player& p) {
 }
 
 bool Game::isValidPlayer(string name) {
-  for (auto &p : player) {
+  for (auto* p : player) {
     if (p->getName() == name) return true;
   }
   return false;
 }
 
-bool Game::isValidProperty(string b) {
-  for (auto &b : buildings) {
-    if (p->getName() == b) return true;
+bool Game::isValidProperty(string bName) {
+  for (auto* b : board) {
+    if (b->getName() == bName && b->getType() != "NonProperty") return true;
   }
   return false;
 }
 
-Board& Game::getBoard(string board); {
+Board& Game::getBoard(string bName); {
   for (auto &b : this->board) {
-    if (b->getName() == board) return *b;
+    if (b.getName() == bName) return b;
   }
 }
 
 Player& Game::getPlayer(string name) {
   for (auto &p : player) {
-    if (p->getName() == name) return *p;
+    if (p->getName() == name) return p;
   }
 }
 

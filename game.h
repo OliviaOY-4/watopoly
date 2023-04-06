@@ -22,14 +22,13 @@ public:
   ~Game();
   int roll(); //////////////////////// Modified!!!!
   void move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
-  int moveToCertain(Board& b);
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
   string getOwner(const Board& b);
   void purchase(Board& b, Player& p);
   bool isValidPlayer(std::string name); //////////////////// MODIFIED!!!!!!
-  bool isValidProperty(std::string b); /////////////////MODIFIED!!!
-  Board& getBoard(std::string board); ////////////// MODIFIED!!!!!
+  bool isValidProperty(std::string bName); /////////////////MODIFIED!!!
+  Board& getBoard(std::string bName); ////////////// MODIFIED!!!!!
   Player& getPlayer(std::string name); /////////////// MODIFIED!!!!
   bool trade(Player& p, Board& b, unsigned_int n); /////////////MODIFIED!!!!!
   bool trade(Player& p, Board& b_give, Board& b_receive); /////////////  MODIFIED!!!!
