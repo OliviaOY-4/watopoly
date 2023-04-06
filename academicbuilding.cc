@@ -8,7 +8,9 @@ AcademicBuilding::AcademicBuilding(int position, string name, unsigned int purch
 //   delete [] tutWithImprove;
 // }
 
-
+void setVisitPrice() {
+  return;
+}
 
 int AcademicBuilding::getVisitPrice(Player& visitor) const {
   if (isMortgaged()) return 0;

@@ -22,6 +22,7 @@ public:
   void changeMortgage(); 
   bool isMortgaged() const;
   // int getPurchasePrice() const;
+  
   virtual void setVisitPrice() = 0;
   virtual int getVisitPrice(Player& visitor) const = 0;
 };

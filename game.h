@@ -21,7 +21,7 @@
 #include "coopfee.h"
 #include "gototims.h"
 #include "goosenesting.h"
-
+#include <fstream>
 
 class Game {
   int activeRim;
@@ -43,7 +43,7 @@ public:
   void move(int num, std::shared_ptr<Player> p = nullptr); //////////////// MODIFIED!!!!!
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
-  std::string getOwner(const Board& b);
+  std::shared_ptr<Player> getOwner(const Board& b);
   void purchase(Board& b, Player& p);
   bool isValidPlayer(std::string name); //////////////////// MODIFIED!!!!!!
   bool isValidProperty(std::string bName); /////////////////MODIFIED!!!
@@ -60,11 +60,12 @@ public:
   void removePlayer();
   bool asset(); /////////// Modified!!!!!!!!
   bool all(); /////////////// MODIFIED!!!!!
-  std::ofstream& save(std::string filename);
+  std::ofstream save(std::string filename);
   void load(std::ifstream &file);
   int getActiverRim();
   void setActiverRim(int n);
   void auction(Board& pro);
+  void printMap();
 };
 
 #endif

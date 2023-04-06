@@ -149,28 +149,34 @@ void Game::move(int num, shared_ptr<Player> p) {
   } else {
     string nowName = now->getName();
     if (nowName == "SLC") {
+      SLC tmp{0, "slc"};
       int n = getActiverRim();
-      int m = SLC::slcaction(*p, n);
+      int m = tmp.slcaction(*p, n);
       setActiverRim(m);
     } else if (nowName == "TUITION") {
-      Tuition::action(*p);
+      Tuition tmp{0, "tuition"};
+      tmp.action(*p);
     } else if (nowName == "GO TO TIMS") {
-      GoToTims::action(*p);
+      GoToTims tmp{0, "go to tims"};
+      tmp.action(*p);
     } else if (nowName == "COOP FEE") {
-      CoopFee::action(*p);
+      CoopFee tmp{0, "coop fee"};
+      tmp.action(*p);
     } else if (nowName == "NEEDLES HALL") {
+      NeedleHall tmp{0, "needles hall"};
       int n = getActiverRim();
-      int m = NeedlesHall::nhaction(*p, n);
+      int m = tmp.nhaction(*p, n);
       setActiverRim(m);
     } else if (nowName == "Goose Nesting") {
-      GooseNesting::action(*p);
+      GooseNesting tmp{0, "goose nesting"};
+      tmp.action(*p);
     } td->drawBoard(cout, player, board);
   }
 }
 
 
 void Game::nextPlayer() {
-  for (int i = 0; i < player.size(); ++i) {
+  for (size_t i = 0; i < player.size(); ++i) {
     if (player[i] == currentPlayer) {
       if (i == player.size() - 1) currentPlayer = player[0];
       else currentPlayer = player[i + 1];
@@ -185,55 +191,59 @@ void Game::initPlayer(string name, char playerChar) {
   td->drawBoard(cout, player, board);
 }
 
-string Game::getOwner(const Board& b) {
+shared_ptr<Player> Game::getOwner(const Board& b) {
   return b.getOwner();
 }
 
 void Game::purchase(Board& b, Player& p) {
   if (b.getOwner() == nullptr) {
-    b.setOwner(&p);
-    p.addProperties(&b);
+    shared_ptr<Player> sharedp = make_shared<Player>(p);
+    b.setOwner(sharedp);
+    shared_ptr<Board> sharedb = make_shared<Board>(b);
+    p.addProperties(sharedb);
     p.addCash(-b.getPrice());
   } else cout << "This property is already owned by " << (b.getOwner())->getName() << endl;
 }
 
 bool Game::isValidPlayer(string name) {
-  for (auto* p : player) {
+  for (auto& p : player) {
     if (p->getName() == name) return true;
   }
   return false;
 }
 
 bool Game::isValidProperty(string bName) {
-  for (auto* b : board) {
+  for (auto& b : board) {
     if (b->getName() == bName && b->getType() != "NonProperty") return true;
   }
   return false;
 }
 
-Board& Game::getBoard(string bName); {
+Board& Game::getBoard(string bName) {
   for (auto &b : this->board) {
-    if (b.getName() == bName) return b;
+    if (b->getName() == bName) return *b;
   }
 }
 
 Player& Game::getPlayer(string name) {
   for (auto &p : player) {
-    if (p->getName() == name) return p;
+    if (p->getName() == name) return *p;
   }
 }
 
-bool Game::trade(Player& p, Board& b, unsigned_int n) {
+bool Game::trade(Player& p, Board& b, unsigned int n) {
   if (b.getOwner() == currentPlayer) {
     cout << currentPlayer->getName() << " is trading " << b.getName() << " with " << p.getName() <<  " for " << n << endl;
     cout << "Choose: 'accept' or 'reject'" << endl;
     string choice;
     cin >> choice;
     if (choice == "accept") {
-      b.setOwner(&p);
-      p.addProperties(&b);
+      shared_ptr<Player> sharedp = make_shared<Player>(p);
+      b.setOwner(sharedp);
+      shared_ptr<Board> sharedb = make_shared<Board>(b);
+      p.addProperties(sharedb);
       p.addCash(-n);
-      currentPlayer->sellProperties(&b);
+      currentPlayer->sellProperties(sharedb);
       currentPlayer->addCash(n);
       return true;
     } else if (choice == "reject") {
@@ -253,12 +263,15 @@ bool Game::trade(Player& p, Board& b_give, Board& b_receive) {
     string choice;
     cin >> choice;
     if (choice == "accept") {
-      b_give.setOwner(&p);
-      p.addProperties(&b_give);
-      p.sellProperties(&b_receive);
-      b_receive.setOwner(&currentPlayer);
-      currentPlayer->addProperties(&b_receive);
-      currentPlayer->sellProperties(&b_give);
+      shared_ptr<Player> sharedp = make_shared<Player>(p);
+      b_give.setOwner(sharedp);
+      shared_ptr<Board> sharedb = make_shared<Board>(b_give);
+      p.addProperties(sharedb);
+      shared_ptr<Board> sharedb2 = make_shared<Board>(b_receive);
+      p.sellProperties(sharedb2);
+      b_receive.setOwner(currentPlayer);
+      currentPlayer->addProperties(sharedb2);
+      currentPlayer->sellProperties(sharedb);
       return true;
     } else if (choice == "reject") {
       cout << "Trade rejected" << endl;
@@ -270,17 +283,19 @@ bool Game::trade(Player& p, Board& b_give, Board& b_receive) {
   } else return false;
 }
 
-bool Game::trade(Player& p, unsigned_int n, Board& b) {
-  if (b.getOwner() == &p) {
+bool Game::trade(Player& p, unsigned int n, Board& b) {
+  shared_ptr<Player> sharedp = make_shared<Player>(p);
+  if (b.getOwner() == sharedp) {
     cout << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << b.getName() << endl;
     cout << "Choose: 'accept' or 'reject'" << endl;
     string choice;
     cin >> choice;
     if (choice == "accept") {
       b.setOwner(currentPlayer);
-      currentPlayer->addProperties(&b);
+      shared_ptr<Board> sharedb = make_shared<Board>(b);
+      currentPlayer->addProperties(sharedb);
       currentPlayer->addCash(-n);
-      p.sellProperties(&b);
+      p.sellProperties(sharedb);
       p.addCash(n);
       return true;
     } else if (choice == "reject") {
@@ -297,7 +312,7 @@ bool Game::improve(Board& b, bool improve) {
   if (b.getOwner() == currentPlayer) {
     if (improve) {
       if (b.getImproveLevel() < 5) {
-        if (currentPlayer->getCash() >= b.getImproveCost()) {
+        if (currentPlayer->getCashAmount() >= b.getImproveCost()) {
           currentPlayer->addCash(-b.getImproveCost());
           b.improve();
           return true;
@@ -342,9 +357,9 @@ bool Game::mortgage(Board& b) {
 }
 
 bool Game::unmortgage(Board& b) {
-  if (b.getOwner() == currentPlayer) [
+  if (b.getOwner() == currentPlayer) {
     if (b.isMortgaged()) {
-      if (currentPlayer->getCash() >= b.getPrice() / 10 * 6) {
+      if (currentPlayer->getCashAmount() >= b.getPrice() / 10 * 6) {
         currentPlayer->addCash(-b.getPrice() / 10 * 6);
         b.changeMortgage();
         return true;
@@ -356,27 +371,42 @@ bool Game::unmortgage(Board& b) {
       cout << "This property is not mortgaged" << endl;
       return false;
     }
-  ]
+  }
 }
 
-bool Game::checkAssetVSLiability();
+bool Game::checkAssetVSLiability() {
+  return 1;
+}
 
-bool Game::checkIfBankruptcy();
+bool Game::checkIfBankruptcy() {
+  return 0;
+}
 
 void Game::removePlayer() {
-  for (auto p : player) {
-    if (p == currentPlayer) {
-      cout << p->getName() << " is bankrupted" << endl;
-      player.erase(p);
+  for (size_t i = 0; i < player.size(); ++i) {
+    if (player[i] == currentPlayer) {
+      cout << currentPlayer->getName() << " is bankrupted" << endl;
+      player.erase(player.begin() + i);
     }
   }
 }
 
-bool Game::asset(); 
-bool Game::all(); 
+bool Game::asset() {
+  return 0;
+}
 
-ofstream& Game::save(std::string filename);
-void Game::load(ifstream &file);
+bool Game::all() {
+  return 0;
+}
+
+ofstream Game::save(string filename) {
+  ofstream n(filename);
+  return n;
+}
+
+void Game::load(ifstream &file) {
+  return;
+}
 
 int Game::getActiverRim() {
   return activeRim;
@@ -390,7 +420,7 @@ void Game::auction(Board& pro) {
   cout << "Auction for " << pro.getName() << "starts" << endl;
   int max = 0;
   string bider = " ";
-  vecntor<Player*> participants = player;
+  vector<shared_ptr<Player>> participants = player;
   int n = participants.size();
   for (int i = 0; i < n; i++) {
     if (n == 1) break;
@@ -422,12 +452,12 @@ void Game::auction(Board& pro) {
   for (auto p : player) {
     if (p->getName() == bider) {
       p->addCash(-max);
-      p->addProperties(&pro);
+      shared_ptr<Board> sharedb = make_shared<Board>(pro);
+      p->addProperties(sharedb);
       pro.setOwner(p);
       return;
     }
   }
-  
 }
 
 void Game::printMap(){
