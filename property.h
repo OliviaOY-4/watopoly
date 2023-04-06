@@ -21,7 +21,6 @@ public:
   void setOwner(std::shared_ptr<Player> owner);
   void changeMortgage(); 
   bool isMortgaged() const;
-  virtual int getPrice() const = 0;
   // int getPurchasePrice() const;
   virtual void setVisitPrice() = 0;
   virtual int getVisitPrice(Player& visitor) const = 0;

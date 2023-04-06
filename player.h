@@ -42,7 +42,7 @@ public:
   void addCash(int amount);
   std::string getName();
   char getNameChar();
-  void ifMonopoly(Board type);
+  void ifMonopoly(std::string type);
   int getResidenceNum();
   bool getOSAPcollect();
   void setOSAPcollect(bool boo);

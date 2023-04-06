@@ -52,7 +52,7 @@ public:
   void load(std::ifstream &file);
   int getActiverRim();
   void setActiverRim(int n);
-  void auction(Property& pro);
+  void auction(Board& pro);
 };
 
 #endif

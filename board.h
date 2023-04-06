@@ -21,6 +21,9 @@ public:
   std::vector<std::shared_ptr<Player>> getCurPlayer();
   int getVisitorNum();
   std::string getType();
+  virtual std::shared_ptr<Player> getOwner() const = 0;
+  virtual int getPrice() const = 0;
+  virtual int getVisitPrice(Player& visitor) const = 0;
 };
 
 #endif

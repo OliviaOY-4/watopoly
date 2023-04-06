@@ -12,6 +12,7 @@ class GoToTims;
 class AcademicBuilding;
 class Gym;
 class Residence;
+class GooseNesting;
 
 Game::Game(): activeRim{0} {
   vector<string> names = {"COLLECT OSAP", "AL", "SLC", "ML", "TUITION", "MKV", "ECH", "NEEDLES HALL", "PAS", "HH", "DC Tims Line", "RCH", "PAC", "DWE", "CPH", "UWP", "LHI", "SLC", "BMH", "OPT", "Goose Nesting", "EV1", "NEEDLES HALL", "EV2", "EV3", "V1", "PHYS", "B1", "CIF", "B2", "GO TO TIMS", "EIT", "ESC", "SLC", "C2", "REV", "NEEDLES HALL", "MC", "COOP FEE", "DC"};
@@ -22,46 +23,46 @@ Game::Game(): activeRim{0} {
   dice = make_unique<Dice>();
   td = make_unique<TextDisplay>();
   currentPlayer = *(player.begin());
-  board.emplace_back(make_shared<OSAP>(0, "COLLECT OSAP")); //unique or shared?
-  board.emplace_back(make_shared<AcademicBuilding>(1, "AL", 40, 0, {2, 10, 30, 90, 160, 250}, 50, "Arts1"));
-  board.emplace_back(make_shared<SLC>(2, "SLC"));
-  board.emplace_back(make_shared<AcademicBuilding>(3, "ML", 60, 0, {4, 20, 60, 180, 320, 450}, 50, "Arts1"));
-  board.emplace_back(make_shared<Tuition>(4, "TUITION"));
-  board.emplace_back(make_shared<Residence>(5, "MKV", 200, 25));
-  board.emplace_back(make_shared<AcademicBuilding>(6, "ECH", 100, 0, {6, 30, 90, 270, 400, 550}, 50, "Arts2"));
-  board.emplace_back(make_shared<NeedlesHall>(7, "NEEDLES HALL"));
-  board.emplace_back(make_shared<AcademicBuilding>(8, "PAS", 100, 0, {6, 30, 90, 270, 400, 550}, 50, "Arts2"));
-  board.emplace_back(make_shared<AcademicBuilding>(9, "HH", 120, 0, {8, 40, 100, 300, 450, 600}, 50, "Arts2"));
-  board.emplace_back(make_shared<DCTimsLine>(10, "DC Tims Line"));
-  board.emplace_back(make_shared<AcademicBuilding>(11, "RCH", 140, 0, {10, 50, 150, 450, 625, 750}, 100, "Eng"));
-  board.emplace_back(make_shared<Gym>(12, "PAC", 150, 0));
-  board.emplace_back(make_shared<AcademicBuilding>(13, "DWE", 140, 0, {10, 50, 150, 450, 625, 750}, 100, "Eng"));
-  board.emplace_back(make_shared<AcademicBuilding>(14, "CPH", 160, 0, {12, 60, 180, 500, 700, 900}, 100, "Eng"));
-  board.emplace_back(make_shared<Residence>(15, "UWP", 200, 25));
-  board.emplace_back(make_shared<AcademicBuilding>(16, "LHI", 180, 0, {14, 70, 200, 550, 750, 950}, 100, "Health"));
-  board.emplace_back(make_shared<SLC>(17, "SLC"));
-  board.emplace_back(make_shared<AcademicBuilding>(18, "BMH", 180, 0, {14, 70, 200, 550, 750, 950}, 100, "Health"));
-  board.emplace_back(make_shared<AcademicBuilding>(19, "OPT", 200, 0, {16, 80, 220, 600, 800, 1000}, 100, "Health"));
-  board.emplace_back(make_shared<GooseNesting>(20, "GOOSE NESTING"));
-  board.emplace_back(make_shared<AcademicBuilding>(21, "EV1", 220, 0, {18, 90, 250, 700, 875, 1050}, 150, "Env"));
-  board.emplace_back(make_shared<NeedlesHall>(22, "NEEDLES HALL"));
-  board.emplace_back(make_shared<AcademicBuilding>(23, "EV2", 220, 0, {18, 90, 250, 700, 875, 1050}, 150, "Env"));
-  board.emplace_back(make_shared<AcademicBuilding>(24, "EV3", 240, 0, {20, 100, 300, 750, 925, 1100}, 150, "Env"));
-  board.emplace_back(make_shared<Residence>(25, "V1", 200, 25));
-  board.emplace_back(make_shared<AcademicBuilding>(26, "PHYS", 260, 0, {22, 110, 330, 800, 975, 1150}, 150, "Sci1"));
-  board.emplace_back(make_shared<AcademicBuilding>(27, "B1", 260, 0, {22, 110, 330, 800, 975, 1150}, 150, "Sci1"));
-  board.emplace_back(make_shared<Gym>(28, "PAC", 150, 0));
-  board.emplace_back(make_shared<AcademicBuilding>(29, "B2", 280, 0, {24, 120, 360, 850, 1025, 1200}, 150, "Sci1"));
-  board.emplace_back(make_shared<GoToTims>(30, "GO TO TIMS"));
-  board.emplace_back(make_shared<AcademicBuilding>(31, "EIT", 300, 0, {26, 130, 390, 900, 1100, 1275}, 200, "Sci2"));
-  board.emplace_back(make_shared<AcademicBuilding>(32, "ESC", 300, 0, {26, 130, 390, 900, 1100, 1275}, 200, "Sci2"));
-  board.emplace_back(make_shared<SLC>(33, "SLC"));
-  board.emplace_back(make_shared<AcademicBuilding>(34, "C2", 320, 0, {28, 150, 450, 1000, 1200, 1400}, 200, "Sci2"));
-  board.emplace_back(make_shared<Residence>(35, "REV", 200, 25));
-  board.emplace_back(make_shared<NeedlesHall>(36, "NEEDLES HALL"));
-  board.emplace_back(make_shared<AcademicBuilding>(37, "MC", 350, 0, {35, 175, 500, 1100, 1300, 1500}, 200, "Math"));
-  board.emplace_back(make_shared<CoopFee>(38, "Coop Fee"));
-  board.emplace_back(make_shared<AcademicBuilding>(39, "DC", 400, 0, {50, 200, 600, 1400, 1700, 2000}, 200, "Math"));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<OSAP>(0, "COLLECT OSAP"))); //unique or shared?
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(1, "AL", 40, 0, vector<unsigned int>{2, 10, 30, 90, 160, 250}, 50, "Arts1")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<SLC>(2, "SLC")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(3, "ML", 60, 0, vector<unsigned int>{4, 20, 60, 180, 320, 450}, 50, "Arts1")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Tuition>(4, "TUITION")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Residence>(5, "MKV", 200, 25)));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(6, "ECH", 100, 0, vector<unsigned int>{6, 30, 90, 270, 400, 550}, 50, "Arts2")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<NeedlesHall>(7, "NEEDLES HALL")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(8, "PAS", 100, 0, vector<unsigned int>{6, 30, 90, 270, 400, 550}, 50, "Arts2")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(9, "HH", 120, 0, vector<unsigned int>{8, 40, 100, 300, 450, 600}, 50, "Arts2")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<DCTimsLine>(10, "DC Tims Line")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(11, "RCH", 140, 0, vector<unsigned int>{10, 50, 150, 450, 625, 750}, 100, "Eng")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Gym>(12, "PAC", 150, 0)));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(13, "DWE", 140, 0, vector<unsigned int>{10, 50, 150, 450, 625, 750}, 100, "Eng")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(14, "CPH", 160, 0, vector<unsigned int>{12, 60, 180, 500, 700, 900}, 100, "Eng")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Residence>(15, "UWP", 200, 25)));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(16, "LHI", 180, 0, vector<unsigned int>{14, 70, 200, 550, 750, 950}, 100, "Health")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<SLC>(17, "SLC")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(18, "BMH", 180, 0, vector<unsigned int>{14, 70, 200, 550, 750, 950}, 100, "Health")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(19, "OPT", 200, 0, vector<unsigned int>{16, 80, 220, 600, 800, 1000}, 100, "Health")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<GooseNesting>(20, "GOOSE NESTING")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(21, "EV1", 220, 0, vector<unsigned int>{18, 90, 250, 700, 875, 1050}, 150, "Env")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<NeedlesHall>(22, "NEEDLES HALL")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(23, "EV2", 220, 0, vector<unsigned int>{18, 90, 250, 700, 875, 1050}, 150, "Env")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(24, "EV3", 240, 0, vector<unsigned int>{20, 100, 300, 750, 925, 1100}, 150, "Env")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Residence>(25, "V1", 200, 25)));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(26, "PHYS", 260, 0, vector<unsigned int>{22, 110, 330, 800, 975, 1150}, 150, "Sci1")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(27, "B1", 260, 0, vector<unsigned int>{22, 110, 330, 800, 975, 1150}, 150, "Sci1")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Gym>(28, "PAC", 150, 0)));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(29, "B2", 280, 0, vector<unsigned int>{24, 120, 360, 850, 1025, 1200}, 150, "Sci1")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<GoToTims>(30, "GO TO TIMS")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(31, "EIT", 300, 0, vector<unsigned int>{26, 130, 390, 900, 1100, 1275}, 200, "Sci2")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(32, "ESC", 300, 0, vector<unsigned int>{26, 130, 390, 900, 1100, 1275}, 200, "Sci2")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<SLC>(33, "SLC")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(34, "C2", 320, 0, vector<unsigned int>{28, 150, 450, 1000, 1200, 1400}, 200, "Sci2")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Residence>(35, "REV", 200, 25)));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<NeedlesHall>(36, "NEEDLES HALL")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(37, "MC", 350, 0, vector<unsigned int>{35, 175, 500, 1100, 1300, 1500}, 200, "Math")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<CoopFee>(38, "Coop Fee")));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(39, "DC", 400, 0, vector<unsigned int>{50, 200, 600, 1400, 1700, 2000}, 200, "Math")));
 }
 
 Game::~Game() {
@@ -102,31 +103,31 @@ void Game::move(int num, shared_ptr<Player> p) {
   p->setPosition(newPos);
   
   bool buy = false;
-  Board &now = board[newPos];
-  string nowType = now.getType();
+  shared_ptr<Board> now = board[newPos];
+  string nowType = now->getType();
 
   if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
-    if (now.getOwner() == nullptr) {
-      cout << "You can buy it for " << now.getPrice() << endl;
+    if (now->getOwner() == nullptr) {
+      cout << "You can buy it for " << now->getPrice() << endl;
       cout << "Choose: 'buy' or 'auction'" << endl;
       string choice;
       cin >> choice;
       if (choice == "buy") {
-        if (p->getCash() >= now.getPrice()) {
-          purchase(now, p);
+        if (p->getCashAmount() >= now->getPrice()) {
+          purchase(*now, *p);
           buy = true;
         } else cout << "You don't have enough money" << endl;
         buy = false;
       } else if (choice == "auction" || buy == false) {
-        auction(now);
+        auction(*now);
         buy = true;
       } else {
         cout << "Invalid input" << endl;
       }
     } else {
-      int visitPrice = now.getVisitPrice();
+      int visitPrice = now->getVisitPrice(*p);
       p->addCash(-visitPrice);
-      cout << "You paid " << visitPrice << " to " << (now.getOwner())->getName() << endl;
+      cout << "You paid " << visitPrice << " to " << (now->getOwner())->getName() << endl;
       if (p->getCash() >= 0) return;
       else {
         cout << "You are in debt" << endl;
@@ -146,7 +147,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       } 
     }
   } else {
-    string nowName = now.getName();
+    string nowName = now->getName();
     if (nowName == "SLC") {
       SLC::action(p);
     } else if (nowName == "TUITION") {
@@ -381,7 +382,7 @@ void Game::setActiverRim(int n) {
   activeRim = n;
 }
 
-void Game::auction(Property& pro) {
+void Game::auction(Board& pro) {
   cout << "Auction for " << pro.getName() << "starts" << endl;
   int max = 0;
   string bider = " ";
