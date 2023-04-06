@@ -38,7 +38,7 @@ int main(int argc,char* argv[]) {
         cin >> playerChar;
         g.initPlayer(name, playerChar);
         // g.initPlayer need to check it's a valid name and char
-        g.drawBoard();
+        (g.td)->drawBoard();
     }
 
     // game start

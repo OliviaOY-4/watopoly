@@ -7,8 +7,10 @@
 #include "player.h"
 #include <utility>
 
+class Board;
+
 class TextDisplay{
-  std::vector<string> boardMap;
+  std::vector<std::string> boardMap;
   std::vector<std::pair<int,int>> playerpos;
   std::vector<std::pair<int,int>> impropos;
   

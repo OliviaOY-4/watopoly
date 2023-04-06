@@ -5,14 +5,14 @@
 #include <vector>
 #include <memory>
 #include "player.h"
-class Player
+class Player;
 
 class Board {
   int position;
   std::string name;
   std::string type;
   // std::vector<Player*> curPlayer;
-  std::vector<shared_ptr<Player>> curPlayer;
+  std::vector<std::shared_ptr<Player>> curPlayer;
 public:
   Board(int position, std::string name);
   virtual ~Board();

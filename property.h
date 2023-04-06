@@ -9,10 +9,10 @@ class Property: public Board {
   // Player* owner;
   std::shared_ptr<Player> owner;
   bool mortgage;
-  std::unsigned_int purchasePrice;
-  std::unsigned_int visitPrice;
+  unsigned int purchasePrice;
+  unsigned int visitPrice;
 public:
-  Property(unsigned_int purchasePrice, unsigned_int visitPrice);
+  Property(unsigned int purchasePrice, unsigned int visitPrice);
   ~Property();
   // Player* getOwner() const;
   // void setOwner(Player* owner);
