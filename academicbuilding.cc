@@ -2,7 +2,7 @@
 using namespace std;
 
 
-AcademicBuilding::AcademicBuilding(vector<unsigned int> tut, int improvementCost, string monopolyBlock): tutWithImprove{tut}, improvementCost{improvementCost}, improvementLevel{0}, monopolyBlock{monopolyBlock} {}
+AcademicBuilding::AcademicBuilding(unsigned int purchasePrice, unsigned int visitPrice, vector<unsigned int> tut, int improvementCost, string monopolyBlock): Property{purchasePrice, visitPrice}, tutWithImprove{tut}, improvementLevel{0}, improvementCost{improvementCost}, monopolyBlock{monopolyBlock} {}
 
 // AcademicBuilding::~AcademicBuilding() {
 //   delete [] tutWithImprove;
