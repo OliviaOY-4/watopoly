@@ -14,7 +14,7 @@ class Player {
   int cash;
   int position;
   std::vector<Board*> property;
-  std::vector<pair<std::string, int>> ownBlock;
+  std::vector<std::pair<std::string, int>> ownBlock;
   std::vector<std::string> monopoly;
   bool OSAPcollect;
   bool sentToDCTL;
