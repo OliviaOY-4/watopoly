@@ -7,6 +7,7 @@
 #include <memory>
 #include "dice.h"
 #include "board.h"
+class Board;
 
 class Player {
   std::string name;

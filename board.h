@@ -6,6 +6,7 @@
 #include "subject.h"
 #include "observer.h"
 #include "player.h"
+class Player
 
 class Board: public Subject, public Observer {
   int position;
