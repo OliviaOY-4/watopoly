@@ -8,23 +8,41 @@ Game::Game(): activeRim{0} {
     Board *b = new Board{i, names[i]};
     board.emplace_back(b);
   }
+  dice = make_unique<Dice>();
+  td = make_unique<TextDisplay>();
+  currentPlayer = player.begin();
+  board.emplace_back(make_shared<OSAP>(0, "COLLECT OSAP")); //unique or shared?
+
 }
 
 Game::~Game() {
-  for (auto* p : player) {
-    delete p;
-  } for (auto* b : board) {
-    delete b;
-  } 
-  delete dice;
-  delete td;
+  // for (auto* p : player) {
+  //   delete p;
+  // } for (auto* b : board) {
+  //   delete b;
+  // } 
+  // delete dice;
+  // delete td;
 }
 
 int Game::roll() {
   return dice->rollDice();
 }
 
-void Game::move(int num, Player *p) {
+// void Game::move(int num, Player *p) {
+//   int curPos = p->getPosition();
+//   int newPos = curPos + num;
+//   if (newPos >= 40) {
+//     p->addCash(200);
+//     newPos -= 40;
+//   }
+//   p->setPosition(newPos);
+  
+//   bool buy = false;
+//   for (int i = 0; i < )
+
+// }
+void Game::move(int num, shared_ptr<Player> p) {
   int curPos = p->getPosition();
   int newPos = curPos + num;
   if (newPos >= 40) {
@@ -299,4 +317,7 @@ void Game::auction(Property& pro) {
   
 }
 
+void Game::printMap(){
+  td->drawBoard(std::cout, player, board);
+}
 

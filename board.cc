@@ -1,7 +1,7 @@
 #include "board.h"
 using namespace std;
 
-Board::Board(int position, string name): position{position}, name{name} { //change
+Board::Board(int position, string name): position{position}, name{name} {
   vector<string> nonpro = {"COLLECT OSAP", "SLC", "TUITION", "NEEDLES HALL", "DC Tims Line", "SLC", "Goose Nesting", "NEEDLES HALL", "GO TO TIMS", "SLC", "NEEDLES HALL", "COOP FEE"};
   vector<string> academic = {"AL", "ML", "ECH", "PAS", "HH", "RCH", "DWE", "CPH", "LHI", "BMH", "OPT", "EV1", "EV2", "EV3", "PHYS", "B1", "B2", "EIT", "ESC", "C2", "MC", "DC"};
   vector<string> residence = {"MKV", "UWP", "V1", "REV"};
@@ -15,6 +15,7 @@ Board::Board(int position, string name): position{position}, name{name} { //chan
   } for (auto i : gyms) {
     if (name == i) type{"Gym"};
   }
+  
 }
 
 Board::~Board() {
@@ -32,7 +33,7 @@ int Board::getPosition() {
   return position;
 }
 
-vector<Player*> Board::getCurPlayer() {
+shared_ptr<Player> Board::getCurPlayer() {
   return curPlayer;
 }
 

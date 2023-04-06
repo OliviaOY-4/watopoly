@@ -5,7 +5,7 @@
 #include "player.h"
 
 class Property: public Board {
-  Player* owner;
+  // Player* owner;
   std::shared_ptr<Player> owner;
   bool mortgage;
   std::unsigned_int purchasePrice;

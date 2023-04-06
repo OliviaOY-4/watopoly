@@ -12,7 +12,7 @@ class AcademicBuilding: public Property {
   int improvementCost;
   std::string monopolyBlock;
 public:
-  AcademicBuilding(std::vector<unsigned int> tut, int improvementCost, std::string monopolyBlock);
+  AcademicBuilding(int pos, std::string name, std::vector<unsigned int> tut, int improvementCost, std::string monopolyBlock);
   ~AcademicBuilding();
   int getVisitPrice(Player& visitor) const;
   void setVisitPrice();

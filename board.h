@@ -11,13 +11,14 @@ class Board: public Subject, public Observer {
   int position;
   std::string name;
   std::string type;
-  std::vector<Player*> curPlayer;
+  // std::vector<Player*> curPlayer;
+  std::vector<shared_ptr<Player>> curPlayer;
 public:
   Board(int position, std::string name);
-  virtual ~Board()=0;
+  virtual ~Board();
   std::string getName();
   int getPosition();
-  std::vector<Player*> getCurPlayer();
+  std::shared_ptr<Player> getCurPlayer();
   int getVisitorNum();
   std::string getType();
 };

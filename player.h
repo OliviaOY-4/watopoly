@@ -20,7 +20,8 @@ class Player {
   bool sentToDCTL;
   int DCTLtimes;
   int RUR_cup;
-  Dice *dice; 
+  // Dice *dice; 
+  std::shared_ptr<Dice> dice;
 public:
   Player(std::string name, char nameChar);
   ~Player();

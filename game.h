@@ -12,16 +12,22 @@
 
 class Game {
   int activeRim;
-  std::vector<Player*> player;
-  std::vector<Board*> board;
-  Dice* dice;
-  Player* currentPlayer;
-  TextDisplay* td;
+  // std::vector<Player*> player;
+  // std::vector<Board*> board;
+  // Dice* dice;
+  // Player* currentPlayer;
+  // TextDisplay* td;
+  std::vector<std::shared_ptr<Board>> board;
+  std::vector<std::shared_ptr<Player>> player;
+  std::unique_ptr<Dice> dice;
+  std::unique_ptr<TextDisplay> td;
+  std::shared_ptr<Player> currentPlayer;
 public:
   Game();
   ~Game();
   int roll(); //////////////////////// Modified!!!!
-  void move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
+  // void move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
+  void move(int num, shared_ptr<Player> p = currentPlayer); //////////////// MODIFIED!!!!!
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
   string getOwner(const Board& b);

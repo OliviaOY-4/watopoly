@@ -3,7 +3,8 @@ using namespace std;
 
 
 Player::Player(string name, char nameChar): name{name}, nameChar{nameChar}, cash{1500}, position{0}, OSAPcollect{false}, sentToDCTL{false}, DCTLtimes{0}, RUR_Cup{0} {
-  dice = new Dice();
+  // dice = new Dice();
+  dice = make_shared<Dice>();
   // if (name == "Goose") nameChar = 'G';
   // if (name == "GRT Bus") nameChar = 'B';
   // if (name == "Tim Hortons Doughnut") nameChar = 'D';
