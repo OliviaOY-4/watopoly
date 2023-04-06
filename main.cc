@@ -11,15 +11,16 @@ using namespace std;
 
 int main(int argc,char* argv[]) {
     // initialize game
-    Dice d;
+    //Dice d;
     Game g;
 
     // command line options
     bool testMode = false;
     for (int i = 1; i < argc; i++) {
-        if (argv[i] == "-test") {
+        string arg = argv[i];
+        if (arg == "-test") {
             testMode = true;
-        } else if (argv[i] == "-load") {
+        } else if (arg == "-load") {
             if (++i < argc) {
                 ifstream f{argv[i]};
                 g.load(f);
@@ -38,7 +39,6 @@ int main(int argc,char* argv[]) {
         cin >> playerChar;
         g.initPlayer(name, playerChar);
         // g.initPlayer need to check it's a valid name and char
-        (g.td)->drawBoard();
     }
 
     // game start
@@ -51,7 +51,7 @@ int main(int argc,char* argv[]) {
             int num1 = 0;
             int num2 = 0;
             if(testMode) {
-                cin >> num1 >> num2
+                cin >> num1 >> num2;
             } else {
                 num1 = g.roll();
                 num2 = g.roll();

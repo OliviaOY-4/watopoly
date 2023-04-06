@@ -2,7 +2,7 @@
 using namespace std;
 
 // Property::Property(unsigned_int purchasePrice, unsigned_int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
-Property::Property(unsigned_int purchasePrice, unsigned_int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
+Property::Property(int position, std::string name, unsigned_int purchasePrice, unsigned_int visitPrice): Board{position, name}, owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
 
 // Property::~Property() {
 //   if (!owner == nullptr) owner=nullptr;//???

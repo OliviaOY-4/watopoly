@@ -7,13 +7,13 @@ Board::Board(int position, string name): position{position}, name{name} {
   vector<string> residence = {"MKV", "UWP", "V1", "REV"};
   vector<string> gyms = {"PAC", "CIF"};
   for (auto i : nonpro) {
-    if (name == i) type{"NonProperty"};
+    if (name == i) this->type = "NonProperty";
   } for (auto i : academic) {
-    if (name == i) type{"AcademicBuilding"};
+    if (name == i) this->type = "AcademicBuilding";
   } for (auto i : residence) {
-    if (name == i) type{"Residence"};
+    if (name == i) this->type = "Residence";
   } for (auto i : gyms) {
-    if (name == i) type{"Gym"};
+    if (name == i) this->type = "Gym";
   }
   
 }
@@ -33,7 +33,7 @@ int Board::getPosition() {
   return position;
 }
 
-shared_ptr<Player> Board::getCurPlayer() {
+std::vector<std::shared_ptr<Player>> Board::getCurPlayer() {
   return curPlayer;
 }
 

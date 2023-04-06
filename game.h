@@ -21,14 +21,14 @@ class Game {
   std::vector<std::shared_ptr<Board>> board;
   std::vector<std::shared_ptr<Player>> player;
   std::unique_ptr<Dice> dice;
-  std::unique_ptr<TextDisplay> td;
   std::shared_ptr<Player> currentPlayer;
+  std::unique_ptr<TextDisplay> td;
 public:
   Game();
   ~Game();
   int roll(); //////////////////////// Modified!!!!
   // void move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
-  void move(int num, std::shared_ptr<Player> p = currentPlayer); //////////////// MODIFIED!!!!!
+  void move(int num, std::shared_ptr<Player> p = nullptr); //////////////// MODIFIED!!!!!
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
   std::string getOwner(const Board& b);

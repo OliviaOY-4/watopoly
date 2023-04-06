@@ -1,18 +1,29 @@
 #include "game.h"
 #include "board.h"
 using namespace std;
+class OSAP;
+class CoopFee;
+class DCTimsLine;
+class GoToTims;
+class NeedlesHall;
+class SLC;
+class Tuition;
+class GoToTims;
+class AcademicBuilding;
+class Gym;
+class Residence;
 
 Game::Game(): activeRim{0} {
   vector<string> names = {"COLLECT OSAP", "AL", "SLC", "ML", "TUITION", "MKV", "ECH", "NEEDLES HALL", "PAS", "HH", "DC Tims Line", "RCH", "PAC", "DWE", "CPH", "UWP", "LHI", "SLC", "BMH", "OPT", "Goose Nesting", "EV1", "NEEDLES HALL", "EV2", "EV3", "V1", "PHYS", "B1", "CIF", "B2", "GO TO TIMS", "EIT", "ESC", "SLC", "C2", "REV", "NEEDLES HALL", "MC", "COOP FEE", "DC"};
-  for (int i = 0; i < 40; ++i) {
-    Board *b = new Board{i, names[i]};
-    board.emplace_back(b);
-  }
+  // for (int i = 0; i < 40; ++i) {
+  //   Board *b = new Board{i, names[i]};
+  //   board.emplace_back(b);
+  // }
   dice = make_unique<Dice>();
   td = make_unique<TextDisplay>();
-  currentPlayer = player.begin();
+  currentPlayer = *(player.begin());
   board.emplace_back(make_shared<OSAP>(0, "COLLECT OSAP")); //unique or shared?
-
+  board.emplace_back(make_shared<AcademicBuilding>(1, "AL"));
 }
 
 Game::~Game() {
@@ -43,6 +54,7 @@ int Game::roll() {
 
 // }
 void Game::move(int num, shared_ptr<Player> p) {
+  if (p == nullptr) p = currentPlayer;
   int curPos = p->getPosition();
   int newPos = curPos + num;
   if (newPos >= 40) {
@@ -109,7 +121,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       NeedlesHall::action(p);
     } else if (nowName == "Goose Nesting") {
       GooseNesting::action(p);
-    } g.drawBoard();
+    } td->drawBoard(cout, player, board);
   }
 }
 
@@ -127,6 +139,7 @@ void Game::nextPlayer() {
 void Game::initPlayer(string name, char playerChar) {
   Player *p = new Player(name, playerChar);
   player.emplace_back(p);
+  td->drawBoard(cout, player, board);
 }
 
 string Game::getOwner(const Board& b) {

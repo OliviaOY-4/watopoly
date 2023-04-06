@@ -18,7 +18,7 @@ public:
   virtual ~Board();
   std::string getName();
   int getPosition();
-  std::shared_ptr<Player> getCurPlayer();
+  std::vector<std::shared_ptr<Player>> getCurPlayer();
   int getVisitorNum();
   std::string getType();
 };

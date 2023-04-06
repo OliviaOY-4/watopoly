@@ -7,12 +7,13 @@
 
 class Property: public Board {
   // Player* owner;
+protected:
   std::shared_ptr<Player> owner;
   bool mortgage;
   unsigned int purchasePrice;
   unsigned int visitPrice;
 public:
-  Property(unsigned int purchasePrice, unsigned int visitPrice);
+  Property(int position, std::string name, unsigned int purchasePrice, unsigned int visitPrice);
   ~Property();
   // Player* getOwner() const;
   // void setOwner(Player* owner);

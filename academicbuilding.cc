@@ -2,24 +2,22 @@
 using namespace std;
 
 
-AcademicBuilding::AcademicBuilding(unsigned int purchasePrice, unsigned int visitPrice, vector<unsigned int> tut, int improvementCost, string monopolyBlock): Property{purchasePrice, visitPrice}, tutWithImprove{tut}, improvementLevel{0}, improvementCost{improvementCost}, monopolyBlock{monopolyBlock} {}
+AcademicBuilding::AcademicBuilding(int position, string name, unsigned int purchasePrice, unsigned int visitPrice, vector<unsigned int> tut, int improvementCost, string monopolyBlock): Property{position, name, purchasePrice, visitPrice}, tutWithImprove{tut}, improvementLevel{0}, improvementCost{improvementCost}, monopolyBlock{monopolyBlock} {}
 
 // AcademicBuilding::~AcademicBuilding() {
 //   delete [] tutWithImprove;
 // }
 
-void AcademicBuilding::setVisitPrice(){
-  visitPrice = tutWithImprove[improvementLevel];
-}
 
-int AcademicBuilding::getVisitPrice(Player& visitor) {
-  if (isMortgaged) return 0;
-  if (owner == &visitor || owner == nullptr) return 0;
+
+int AcademicBuilding::getVisitPrice(Player& visitor) const {
+  if (isMortgaged()) return 0;
+  if (owner.get() == &visitor || owner == nullptr) return 0;
   else return tutWithImprove[improvementLevel];
 }
 
-int AcademicBuilding::getPrice() {
-  return price + improvementCost * improvementLevel; 
+int AcademicBuilding::getPrice() const {
+  return purchasePrice + improvementCost * improvementLevel; 
 }
 
 // string AcademicBuilding::getType() {
@@ -27,15 +25,15 @@ int AcademicBuilding::getPrice() {
 //   return type;
 // }
 
-string AcademicBuilding::getBlock() {
+string AcademicBuilding::getBlock() const {
   return monopolyBlock;
 }
 
-int getImproveLevel() {
+int AcademicBuilding::getImproveLevel() const {
   return improvementLevel;
 }
 
-int getImproveCost() {
+int AcademicBuilding::getImproveCost() const{
   return improvementCost;
 }
 
