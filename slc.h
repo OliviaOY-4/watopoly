@@ -6,16 +6,15 @@
 #include <ctime>
 #include <cstdlib>
 
-int roll2(int n) {
-  srand(static_cast<unsigned>(time(0)));
-  int randnum = rand() % n + 1;
-  return randnum;
-}
-
 class SLC: public NonProperty {
+     int roll2(int n) {
+        srand(static_cast<unsigned>(time(0)));
+        int randnum = rand() % n + 1;
+        return randnum;
+    }
 public:
     SLC(int position, std::string name): NonProperty(position, name) {}
-    ~SLC();
+    ~SLC() {};
     void action(Player &p) override {return;}
     int slcaction(Player &p, int n) {
         if (n < 4) {
@@ -63,6 +62,7 @@ public:
             p.setPosition(0);
             std::cout << "You have been sent to OSAP." << std::endl;
         }
+        return n;
     }
 };
 

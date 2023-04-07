@@ -14,7 +14,6 @@ class Player {
   char nameChar;
   int cash;
   int position;
-  int RUR_Cup;
   protected:
   std::vector<std::shared_ptr<Board>> property;
   // std::vector<Board*> property;
@@ -23,7 +22,7 @@ class Player {
   bool OSAPcollect;
   bool sentToDCTL;
   int DCTLtimes;
-  int RUR_cup;
+  int RUR_Cup;
   // Dice *dice; 
   std::shared_ptr<Dice> dice;
 public:

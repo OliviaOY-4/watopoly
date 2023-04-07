@@ -29,7 +29,8 @@ int Player::getCashAmount() {
 
 int Player::getTotalWorth() {
   int total = cash;
-  for (int i = 0; i < property.size(); ++i){
+  int p_len = property.size();
+  for (int i = 0; i < p_len; ++i){
     total += property[i]->getPrice();
   } return total;
 }
@@ -58,7 +59,8 @@ void Player::addProperties(shared_ptr<Board> b){
 //   }
 // }
 void Player::sellProperties(shared_ptr<Board> b){
-  for (int i = 0; i < property.size(); i++){
+  int p_len = property.size();
+  for (int i = 0; i < p_len; i++){
     if (property[i] == b){
       property.erase(property.begin() + i);
     }
@@ -87,7 +89,8 @@ char Player::getNameChar() {
 
 void Player::ifMonopoly(string type) {
   int count = 0;
-  for (int i = 0; i < property.size(); i++){
+  int p_len =  property.size();
+  for (int i = 0; i < p_len; i++){
     if (property[i]->getBlock() == type) count++;
   }
   if (count == 2){
@@ -101,7 +104,8 @@ void Player::ifMonopoly(string type) {
 
 int Player::getResidenceNum() {
   int count = 0;
-  for (int i = 0; i < property.size(); i++){
+  int p_len =  property.size();
+  for (int i = 0; i < p_len; i++){
     if (property[i]->getType() == "Residence") count++; ///// type 只能分辨是不是property，本来一个存在monopoly里面，到时候再商量一下
   } return count;
 }
@@ -144,7 +148,8 @@ int Player::getPropertySize(){
 
 int Player::getGymNum(){
   int count = 0;
-  for (int i = 0; i < property.size(); i++){
+  int p_len = property.size();
+  for (int i = 0; i < p_len; i++){
     if (property[i]->getType() == "Gym") count++;
   } return count;
 }

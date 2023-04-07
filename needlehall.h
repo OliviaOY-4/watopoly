@@ -5,16 +5,16 @@
 #include <ctime>
 #include <cstdlib>
 
-int rollnh(int n) {
-  srand(static_cast<unsigned>(time(0)));
-  int randnum = rand() % n + 1;
-  return randnum;
-}
 
 class NeedleHall: public NonProperty {
+    int rollnh(int n) {
+        srand(static_cast<unsigned>(time(0)));
+        int randnum = rand() % n + 1;
+        return randnum;
+    }
 public:
     NeedleHall(int position, std::string name): NonProperty(position, name) {}
-    ~NeedleHall();
+    ~NeedleHall() {};
     void action(Player &p) override {return;}
     int nhaction(Player &p, int n) {
         if (n < 4) {
@@ -49,6 +49,7 @@ public:
             p.addCash(200);
             std::cout << "You gain $200 savings" << std::endl;
         }
+        return n;
     }
 };
 

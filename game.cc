@@ -242,12 +242,16 @@ Board& Game::getBoard(string bName) {
   for (auto &b : this->board) {
     if (b->getName() == bName) return *b;
   }
+  cerr << "can't find the Board" << endl;
+  return *(board[0]);
 }
 
 Player& Game::getPlayer(string name) {
   for (auto &p : player) {
     if (p->getName() == name) return *p;
   }
+  cerr << "can't find the Player" << endl;
+  return *(player[0]);
 }
 
 bool Game::trade(Player& p, string b, unsigned int n) {
@@ -419,6 +423,8 @@ bool Game::unmortgage(Board& b) {
       cout << "This property is not mortgaged" << endl;
       return false;
     }
+  } else {
+    return false;
   }
 }
 

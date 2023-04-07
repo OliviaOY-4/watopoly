@@ -16,7 +16,7 @@ public:
   virtual void action(Player &p) = 0;
   std::shared_ptr<Player> getOwner() const override {return nullptr;}
   int getPrice() const override {return 0;}
-  int getVisitPrice(Player& visitor) const override {return 0;}
+  int getVisitPrice(Player& visitor) override {return 0;}
   void setOwner(std::shared_ptr<Player> owner) override {return;}
   int getImproveLevel() const override {return 0;}
   int getImproveCost() const override {return 0;}

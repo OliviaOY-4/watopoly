@@ -15,7 +15,7 @@ public:
   AcademicBuilding(int position, std::string name, unsigned int purchasePrice, unsigned int visitPrice, std::vector<unsigned int> tut, int improvementCost, std::string monopolyBlock);
   ~AcademicBuilding();
   void setVisitPrice();
-  int getVisitPrice(Player& visitor) const;
+  int getVisitPrice(Player& visitor);
   int getPrice() const;
   // std::string getType() const;
   std::string getBlock() const;

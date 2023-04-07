@@ -23,7 +23,7 @@ public:
   std::string getType();
   virtual std::shared_ptr<Player> getOwner() const = 0;
   virtual int getPrice() const = 0;
-  virtual int getVisitPrice(Player& visitor) const = 0;
+  virtual int getVisitPrice(Player& visitor) = 0;
   virtual void setOwner(std::shared_ptr<Player> owner) = 0;
   virtual int getImproveLevel() const = 0;
   virtual int getImproveCost() const = 0;

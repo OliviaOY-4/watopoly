@@ -9,8 +9,8 @@ public:
   ~Residence();
   int getPrice() const override;
   // std::string getType() const;
-  int getVisitPrice(Player& visitor) const override;
-  void setVisitPrice();
+  int getVisitPrice(Player& visitor) override;
+  void setVisitPrice() override;
   int getImproveLevel() const override {return 0;}
   int getImproveCost() const override {return 0;}
   void improve() override {return;}

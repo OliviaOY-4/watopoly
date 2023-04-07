@@ -6,7 +6,7 @@
 class GoToTims: public NonProperty {
 public:
     GoToTims(int position, std::string name): NonProperty(position, name) {}
-    ~GoToTims();
+    ~GoToTims() {};
     void action(Player &p) override {
         p.setsentToDCTL(true);
         p.setDCTLtimes(0);

@@ -3,16 +3,15 @@
 
 #include "nonproperty.h"
 
-int roll1(int n) {
-  srand(static_cast<unsigned>(time(0)));
-  int randnum = rand() % n + 1;
-  return randnum;
-}
-
 class DCTimsLine: public NonProperty {
+    int roll1(int n) {
+        srand(static_cast<unsigned>(time(0)));
+        int randnum = rand() % n + 1;
+        return randnum;
+    }
 public:
     DCTimsLine(int position, std::string name): NonProperty(position, name) {}
-    ~DCTimsLine();
+    ~DCTimsLine() {};
     int dclineaction(Player &p, int n){
         int tmp = n;
         if (!p.getsentToDCTL()) std::cout << "Nothing happens." << std::endl;
