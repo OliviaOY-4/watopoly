@@ -117,7 +117,7 @@ void Game::move(int num, shared_ptr<Player> p) {
 
   if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
     if (now->getOwner() == nullptr) { // No owner Property
-      cout << "You can buy it for " << now->getPrice() << endl;
+      cout << "You can buy " << now->getName() << " for " << now->getPrice() << endl;
       cout << "Choose: 'buy' or 'auction'" << endl;
       string choice;
       

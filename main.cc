@@ -57,12 +57,12 @@ int main(int argc,char* argv[]) {
     int doubleroll = 0;
     cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
     while (cin >> cmd) {
-        g.printMap();
+        
         if (g.endGame()) {
             cout << "Winner is :" << g.getWinner() << endl;
             break;
         } cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
-        cout << "Enter a command: ";
+        cout << "Enter a command: " << endl;
 
         if (cmd == "roll") {
             
@@ -76,7 +76,8 @@ int main(int argc,char* argv[]) {
             } else {
                 num1 = g.roll();
                 num2 = g.roll();
-            }
+                cout << num1 << " " << num2 << endl;
+            } g.printMap();
             cout << "You rolled " << num1 + num2 << endl;
             if (doubleroll == 3 && (num1 + num2) % 2 == 0) {
                 cout << "You have been sent to DC Tims Line." << endl;
@@ -84,9 +85,10 @@ int main(int argc,char* argv[]) {
                 cout << "It is now the next player's turn. Enter 'next'." << endl;
                 continue;
             } else g.move(num1 + num2);
-            if ((num1 + num2) % 2 == 0) {
+            if (num1 == num2) {
                 cout << "You can roll again. Enter 'roll'." << endl;
                 doubleroll++;
+                continue;
             } else {
                 cout << "It is now the next player's turn. Enter 'next'." << endl;
                 continue;
