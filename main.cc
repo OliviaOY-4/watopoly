@@ -55,6 +55,7 @@ int main(int argc,char* argv[]) {
     // game start
     string cmd = " ";
     int doubleroll = 0;
+    cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
     while (cin >> cmd) {
         if (g.endGame()) {
             cout << "Winner is :" << g.getWinner() << endl;
