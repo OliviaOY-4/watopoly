@@ -194,8 +194,8 @@ void Game::nextPlayer() {
   }
 }
 
-void Game::initPlayer(string name, char playerChar) {
-  Player *p = new Player(name, playerChar);
+void Game::initPlayer(string name,) {
+  shared_ptr<Player> p = make_shared<Player>(name);
   player.emplace_back(p);
   td->drawBoard(cout, player, board);
 }

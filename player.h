@@ -26,7 +26,7 @@ protected:
   std::vector<std::shared_ptr<Board>> property;
   // std::vector<Board*> property;
 public:
-  Player(std::string name, char nameChar);
+  Player(std::string name);
   ~Player();
   int roll();
   int getCashAmount();
