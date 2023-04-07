@@ -109,7 +109,7 @@ void Game::move(int num, shared_ptr<Player> p) {
     newPos -= 40;
   }
   p->setPosition(newPos);
-  printMap();
+  
   
   bool buy = false;
   shared_ptr<Board> now = board[newPos];
@@ -613,6 +613,7 @@ void Game::auction(string pro) {
       p->addCash(-max);
       p->addProperties(sharedb);
       sharedb->setOwner(p);
+      // check Brankruptcy
       return;
     }
   }

@@ -57,6 +57,7 @@ int main(int argc,char* argv[]) {
     int doubleroll = 0;
     cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
     while (cin >> cmd) {
+        g.printMap();
         if (g.endGame()) {
             cout << "Winner is :" << g.getWinner() << endl;
             break;
