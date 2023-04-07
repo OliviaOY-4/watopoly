@@ -46,4 +46,3 @@ void AcademicBuilding::improve() {
 void AcademicBuilding::degrade() {
   improvementLevel--;
 }
-

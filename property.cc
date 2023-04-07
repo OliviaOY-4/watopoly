@@ -1,8 +1,8 @@
 #include "property.h"
 using namespace std;
 
-// Property::Property(unsigned_int purchasePrice, unsigned_int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
-Property::Property(int position, std::string name, unsigned_int purchasePrice, unsigned_int visitPrice): Board{position, name}, owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
+// Property::Property(unsigned int purchasePrice, unsigned int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
+Property::Property(int position, std::string name, unsigned int purchasePrice, unsigned int visitPrice): Board{position, name}, owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
 
 // Property::~Property() {
 //   if (!owner == nullptr) owner=nullptr;//???
@@ -13,7 +13,7 @@ Property::~Property() {} //don't need delete
 // void Property::setOwner(Player *owner) {
 //   this->owner = owner;
 // }
-void Property::setOwner(shared_ptr<Player> owner) {
+void Property::setOwner(shared_ptr<Player> owner)  {
   this->owner = owner;
 }
 
@@ -21,7 +21,7 @@ void Property::setOwner(shared_ptr<Player> owner) {
 //   return owner;
 // }
 
-shared_ptr<Player> Property::getOwner() {
+shared_ptr<Player> Property::getOwner() const {
   return owner;
 }
 
@@ -30,7 +30,7 @@ void Property::changeMortgage() {
   mortgage = !mortgage;
 }
 
-bool Property::isMortgaged() {
+bool Property::isMortgaged() const {
   return mortgage;
 }
 

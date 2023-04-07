@@ -23,14 +23,17 @@ Game::Game(): activeRim{0} {
   dice = make_unique<Dice>();
   td = make_unique<TextDisplay>();
   currentPlayer = *(player.begin());
-  board.emplace_back(std::static_pointer_cast<Board>(make_shared<OSAP>(0, "COLLECT OSAP"))); //unique or shared?
+  // auto osap = make_shared<OSAP>(0, "COLLECT OSAP");
+  // board.emplace_back(osap);
+  board.emplace_back(make_shared<OSAP>(0, "COLLECT OSAP")); //unique or shared?
+
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(1, "AL", 40, 0, vector<unsigned int>{2, 10, 30, 90, 160, 250}, 50, "Arts1")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<SLC>(2, "SLC")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(3, "ML", 60, 0, vector<unsigned int>{4, 20, 60, 180, 320, 450}, 50, "Arts1")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<Tuition>(4, "TUITION")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<Residence>(5, "MKV", 200, 25)));
-  board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(6, "ECH", 100, 0, vector<unsigned int>{6, 30, 90, 270, 400, 550}, 50, "Arts2")));
-  board.emplace_back(std::static_pointer_cast<Board>(make_shared<NeedlesHall>(7, "NEEDLES HALL")));
+  board.emplace_back(make_shared<AcademicBuilding>(6, "ECH", 100, 0, vector<unsigned int>{6, 30, 90, 270, 400, 550}, 50, "Arts2"));
+  board.emplace_back(make_shared<NeedlesHall>(7, "NEEDLES HALL"));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(8, "PAS", 100, 0, vector<unsigned int>{6, 30, 90, 270, 400, 550}, 50, "Arts2")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(9, "HH", 120, 0, vector<unsigned int>{8, 40, 100, 300, 450, 600}, 50, "Arts2")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<DCTimsLine>(10, "DC Tims Line")));
@@ -114,12 +117,14 @@ void Game::move(int num, shared_ptr<Player> p) {
       cin >> choice;
       if (choice == "buy") {
         if (p->getCashAmount() >= now->getPrice()) {
-          purchase(*now, *p);
+          string name = now->getName();
+          purchase(name, *p);
           buy = true;
         } else cout << "You don't have enough money" << endl;
         buy = false;
       } else if (choice == "auction" || buy == false) {
-        auction(*now);
+        string name = now->getName();
+        auction(name);
         buy = true;
       } else {
         cout << "Invalid input" << endl;
@@ -159,6 +164,10 @@ void Game::move(int num, shared_ptr<Player> p) {
     } else if (nowName == "GO TO TIMS") {
       GoToTims tmp{0, "go to tims"};
       tmp.action(*p);
+      int n = getActiverRim();
+      DCTimsLine tmp1{0, "dc times line"};
+      int m = tmp1.dclineaction(*p, n);
+      setActiverRim(m);
     } else if (nowName == "COOP FEE") {
       CoopFee tmp{0, "coop fee"};
       tmp.action(*p);
@@ -195,14 +204,24 @@ shared_ptr<Player> Game::getOwner(const Board& b) {
   return b.getOwner();
 }
 
-void Game::purchase(Board& b, Player& p) {
-  if (b.getOwner() == nullptr) {
+void Game::purchase(string b, Player& p) {
+  shared_ptr<Board> tmp = nullptr;
+  for(auto it:board){
+      if(it->getName()==b){
+        p.addProperties(it);
+        p.addCash(-it->getPrice());
+        tmp = it;
+      }
+    }
+  if (tmp->getOwner() == nullptr) {
     shared_ptr<Player> sharedp = make_shared<Player>(p);
-    b.setOwner(sharedp);
-    shared_ptr<Board> sharedb = make_shared<Board>(b);
-    p.addProperties(sharedb);
-    p.addCash(-b.getPrice());
-  } else cout << "This property is already owned by " << (b.getOwner())->getName() << endl;
+    tmp->setOwner(sharedp);
+    // shared_ptr<Board> sharedb = make_shared<Board>(b);
+    // auto sharedb = std::dynamic_pointer_cast<Board>(b);
+    // shared_ptr<Board> sharedb = b;
+    // p.addProperties(sharedb);
+    // p.addCash(-b.getPrice());
+  } else cout << "This property is already owned by " << (tmp->getOwner())->getName() << endl;
 }
 
 bool Game::isValidPlayer(string name) {
@@ -231,16 +250,23 @@ Player& Game::getPlayer(string name) {
   }
 }
 
-bool Game::trade(Player& p, Board& b, unsigned int n) {
-  if (b.getOwner() == currentPlayer) {
-    cout << currentPlayer->getName() << " is trading " << b.getName() << " with " << p.getName() <<  " for " << n << endl;
+bool Game::trade(Player& p, string b, unsigned int n) {
+  shared_ptr<Board> sharedb = nullptr;
+      for(auto it : board){
+        if(it->getName()==b){
+          sharedb = it;
+          break;
+        }
+      }
+  if (sharedb->getOwner() == currentPlayer) {
+    cout << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << n << endl;
     cout << "Choose: 'accept' or 'reject'" << endl;
     string choice;
     cin >> choice;
     if (choice == "accept") {
       shared_ptr<Player> sharedp = make_shared<Player>(p);
-      b.setOwner(sharedp);
-      shared_ptr<Board> sharedb = make_shared<Board>(b);
+      sharedb->setOwner(sharedp);
+      // shared_ptr<Board> sharedb = make_shared<Board>(b);
       p.addProperties(sharedb);
       p.addCash(-n);
       currentPlayer->sellProperties(sharedb);
@@ -256,20 +282,34 @@ bool Game::trade(Player& p, Board& b, unsigned int n) {
   } else return false;
 }
 
-bool Game::trade(Player& p, Board& b_give, Board& b_receive) {
-  if (b_give.getOwner() == currentPlayer) {
-    cout << currentPlayer->getName() << " is trading " << b_give.getName() << " with " << p.getName() <<  " for " << b_receive.getName() << endl;
+bool Game::trade(Player& p, string b_give, string b_receive) {
+      shared_ptr<Board> sharedb = nullptr;
+      for(auto it : board){
+        if(it->getName()==b_give){
+          sharedb = it;
+          break;
+        }
+      }
+  shared_ptr<Board> sharedb2 = nullptr;
+      for(auto it2 : board){
+        if(it2->getName()==b_receive){
+          sharedb2 = it2;
+          break;
+        }
+      }
+  if (sharedb->getOwner() == currentPlayer) {
+    cout << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << sharedb2->getName() << endl;
     cout << "Choose: 'accept' or 'reject'" << endl;
     string choice;
     cin >> choice;
     if (choice == "accept") {
       shared_ptr<Player> sharedp = make_shared<Player>(p);
-      b_give.setOwner(sharedp);
-      shared_ptr<Board> sharedb = make_shared<Board>(b_give);
+      sharedb->setOwner(sharedp);
+      // shared_ptr<Board> sharedb = make_shared<Board>(b_give);
       p.addProperties(sharedb);
-      shared_ptr<Board> sharedb2 = make_shared<Board>(b_receive);
+      // shared_ptr<Board> sharedb2 = make_shared<Board>(b_receive);
       p.sellProperties(sharedb2);
-      b_receive.setOwner(currentPlayer);
+      sharedb2->setOwner(currentPlayer);
       currentPlayer->addProperties(sharedb2);
       currentPlayer->sellProperties(sharedb);
       return true;
@@ -283,16 +323,24 @@ bool Game::trade(Player& p, Board& b_give, Board& b_receive) {
   } else return false;
 }
 
-bool Game::trade(Player& p, unsigned int n, Board& b) {
+bool Game::trade(Player& p, unsigned int n, string b) {
+  shared_ptr<Board> sharedb = nullptr;
+      for(auto it : board){
+        if(it->getName()==b){
+          sharedb = it;
+          break;
+        }
+      }
   shared_ptr<Player> sharedp = make_shared<Player>(p);
-  if (b.getOwner() == sharedp) {
-    cout << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << b.getName() << endl;
+  if (sharedb->getOwner() == sharedp) {
+    cout << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << sharedb->getName() << endl;
     cout << "Choose: 'accept' or 'reject'" << endl;
     string choice;
     cin >> choice;
     if (choice == "accept") {
-      b.setOwner(currentPlayer);
-      shared_ptr<Board> sharedb = make_shared<Board>(b);
+      sharedb->setOwner(currentPlayer);
+    
+      // shared_ptr<Board> sharedb = make_shared<Board>(b);
       currentPlayer->addProperties(sharedb);
       currentPlayer->addCash(-n);
       p.sellProperties(sharedb);
@@ -416,8 +464,15 @@ void Game::setActiverRim(int n) {
   activeRim = n;
 }
 
-void Game::auction(Board& pro) {
-  cout << "Auction for " << pro.getName() << "starts" << endl;
+void Game::auction(string pro) {
+  shared_ptr<Board> sharedb= nullptr;
+      for(auto it : board){
+        if(it->getName()==pro){
+          sharedb=it;
+          break;
+        }
+      }
+  cout << "Auction for " << sharedb->getName() << "starts" << endl;
   int max = 0;
   string bider = " ";
   vector<shared_ptr<Player>> participants = player;
@@ -452,9 +507,9 @@ void Game::auction(Board& pro) {
   for (auto p : player) {
     if (p->getName() == bider) {
       p->addCash(-max);
-      shared_ptr<Board> sharedb = make_shared<Board>(pro);
+      // shared_ptr<Board> sharedb = make_shared<Board>(pro);
       p->addProperties(sharedb);
-      pro.setOwner(p);
+      sharedb->setOwner(p);
       return;
     }
   }

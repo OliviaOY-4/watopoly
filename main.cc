@@ -93,7 +93,8 @@ int main(int argc,char* argv[]) {
                 // property is owned by the given player
                 // and all properties in the monopoly have no improvements
                 // and player need to have enough money
-                if (!(g.trade(p, money, b))) {
+                string name = b.getName();
+                if (!(g.trade(p, money, name))) {
                     cout << "reject" << endl;
                 }
 
@@ -116,7 +117,8 @@ int main(int argc,char* argv[]) {
                 // property is owned by the given player
                 // and all properties in the monopoly have no improvements
                 // and player need to have enough money
-                if (!(g.trade(p, b, money))) {
+                string name = b.getName();
+                if (!(g.trade(p, name, money))) {
                     cout << "reject" << endl;
                 }              
 
@@ -136,7 +138,9 @@ int main(int argc,char* argv[]) {
                 // game functin need to check:
                 // property is owned by the given player
                 // and all properties in the monopoly have no improvements
-                if (!(g.trade(p, b_give, b_receive))) {
+                string name1 = b_give.getName();
+                string name2 = b_receive.getName();
+                if (!(g.trade(p, name1, name2))) {
                     cout << "reject" << endl;
                 } 
 
@@ -251,4 +255,3 @@ int main(int argc,char* argv[]) {
         }
     }
 }
-

@@ -1,6 +1,6 @@
 #include "player.h"
 using namespace std;
-
+#include "board.h"
 
 Player::Player(string name, char nameChar): name{name}, nameChar{nameChar}, cash{1500}, position{0}, OSAPcollect{false}, sentToDCTL{false}, DCTLtimes{0}, RUR_Cup{0} {
   // dice = new Dice();
@@ -16,7 +16,7 @@ Player::Player(string name, char nameChar): name{name}, nameChar{nameChar}, cash
 }
 
 Player::~Player() {
-  delete dice;
+  // delete dice;
 }
 
 int Player::roll() {
@@ -82,7 +82,7 @@ string Player::getName() {
 }
 
 char Player::getNameChar() {
-  return nameCapital;
+  return nameChar;
 }
 
 void Player::ifMonopoly(string type) {
@@ -106,38 +106,47 @@ int Player::getResidenceNum() {
   } return count;
 }
 
-bool getOSAPcollect() {
+bool Player::getOSAPcollect() {
   return OSAPcollect;
 }
 
-void setOSAPcollect(bool boo) {
+void Player::setOSAPcollect(bool boo) {
   OSAPcollect = boo;
 }
 
-bool getsentToDCTL() {
+bool Player::getsentToDCTL() {
   return sentToDCTL;
 }
 
-void setsentToDCTL(bool boo) {
+void Player::setsentToDCTL(bool boo) {
   sentToDCTL = boo;
 }
 
-int getDCTLtimes() {
+int Player::getDCTLtimes() {
   return DCTLtimes;
 }
 
-void setDCTLtimes(int times) {
+void Player::setDCTLtimes(int times) {
   DCTLtimes = times;
 }
 
-int getRURCup() {
+int Player::getRURCup() {
   return RUR_Cup;
 }
 
-void setRURCup(int cup) {
+void Player::setRURCup(int cup) {
   RUR_Cup = cup;
 }
 
+int Player::getPropertySize(){
+  return property.size();
+}
 
+int Player::getGymNum(){
+  int count = 0;
+  for (int i = 0; i < property.size(); i++){
+    if (property[i]->getType() == "Gym") count++;
+  } return count;
+}
 
 

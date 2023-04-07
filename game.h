@@ -21,7 +21,9 @@
 #include "coopfee.h"
 #include "gototims.h"
 #include "goosenesting.h"
+#include "dctimsline.h"
 #include <fstream>
+
 
 class Game {
   int activeRim;
@@ -44,14 +46,14 @@ public:
   void nextPlayer();
   void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
   std::shared_ptr<Player> getOwner(const Board& b);
-  void purchase(Board& b, Player& p);
+  void purchase(std::string b, Player& p);
   bool isValidPlayer(std::string name); //////////////////// MODIFIED!!!!!!
   bool isValidProperty(std::string bName); /////////////////MODIFIED!!!
   Board& getBoard(std::string bName); ////////////// MODIFIED!!!!!
   Player& getPlayer(std::string name); /////////////// MODIFIED!!!!
-  bool trade(Player& p, Board& b, unsigned int n); /////////////MODIFIED!!!!!
-  bool trade(Player& p, Board& b_give, Board& b_receive); /////////////  MODIFIED!!!!
-  bool trade(Player& p, unsigned int n, Board& b);  ///////////// MODIFIED!!!!!
+  bool trade(Player& p, std::string b, unsigned int n); /////////////MODIFIED!!!!!
+  bool trade(Player& p, std::string b_give, std::string b_receive); /////////////  MODIFIED!!!!
+  bool trade(Player& p, unsigned int n, std::string b);  ///////////// MODIFIED!!!!!
   bool improve(Board& b, bool improve); //////////////// Modified!!!!!
   bool mortgage(Board& b); /////////////// MODIFIED!!!!
   bool unmortgage(Board& b); //////////// MODIFIED!!!!!!!
@@ -64,7 +66,7 @@ public:
   void load(std::ifstream &file);
   int getActiverRim();
   void setActiverRim(int n);
-  void auction(Board& pro);
+  void auction(std::string pro);
   void printMap();
 };
 

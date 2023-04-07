@@ -6,7 +6,7 @@
 #include <utility>
 #include <memory>
 #include "dice.h"
-#include "board.h"
+// #include "board.h"
 class Board;
 
 class Player {
@@ -14,9 +14,11 @@ class Player {
   char nameChar;
   int cash;
   int position;
+  int RUR_Cup;
+  protected:
   std::vector<std::shared_ptr<Board>> property;
   // std::vector<Board*> property;
-
+private:
   std::vector<std::pair<std::string, int>> ownBlock;
   std::vector<std::string> monopoly;
   bool OSAPcollect;
@@ -52,6 +54,10 @@ public:
   void setDCTLtimes(int times);
   int getRURCup();
   void setRURCup(int cup);
+  int getPropertySize();
+  int getGymNum();
+
+  
 };
 
 #endif

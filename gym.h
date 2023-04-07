@@ -10,7 +10,7 @@ public:
   int getPrice() const;
   // std::string getType() const;
   void setVisitPrice();
-  int getVisitPrice(Player& visitor) const;
+  int getVisitPrice(Player& visitor);
   int getImproveLevel() const override {return 0;}
   int getImproveCost() const override {return 0;}
   void improve() override {return;}

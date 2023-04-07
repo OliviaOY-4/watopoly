@@ -6,7 +6,7 @@
 #include <ctime>
 #include <cstdlib>
 
-int roll(int n) {
+int roll2(int n) {
   srand(static_cast<unsigned>(time(0)));
   int randnum = rand() % n + 1;
   return randnum;
@@ -19,7 +19,7 @@ public:
     void action(Player &p) override {return;}
     int slcaction(Player &p, int n) {
         if (n < 4) {
-            int ran = roll(100);
+            int ran = roll2(100);
             if (ran == 1) {
                 int tmp = p.getRURCup();
                 p.setRURCup(tmp + 1);
@@ -27,7 +27,7 @@ public:
                 return n + 1;
             }
         }
-        int rand = roll(24);
+        int rand = roll2(24);
         if (1 <= rand && rand <= 3) {
             int to = p.getPosition() - 3;
             p.setPosition(to);

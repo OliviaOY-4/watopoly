@@ -1,10 +1,10 @@
 #include "textdisplay.h"
 #include <utility>
-#include <board.h>
-#include <player.h>
+#include "board.h"
+#include "player.h"
 using namespace std;
 
-void TextDisplay::TextDisplay(){
+TextDisplay::TextDisplay(){
      boardMap={
         "_________________________________________________________________________________________\n",
         "|Goose  |       |NEEDLES|       |       |V1     |       |       |CIF    |       |GO TO  |\n",
@@ -61,8 +61,8 @@ void TextDisplay::TextDisplay(){
         "|Line   |-------|-------|HALL   |-------|       |       |-------|       |-------|OSAP   |\n",
         "|       |HH     |PAS    |       |ECH    |       |       |ML     |       |AL     |       |\n",
         "|       |       |       |       |       |       |       |       |       |       |       |\n",
-        "|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|\n",
-    }
+        "|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|\n"
+    };
     playerpos = {{54,81},{54,73},{54,65},{54,57},{54,49},{54,41},{54,33},{54,25},{54,17},{54,9},{54,1},
                  {49,1}, {44,1},{39,1},{34,1},{29,1},{24,1},{19,1},{14,1},{9,1},{4,1},{4,9},{4,17},{4,25},
                  {4,33},{4,41},{4,49},{4,57},{4,65},{4,73},{4,81},
@@ -78,8 +78,8 @@ void TextDisplay::TextDisplay(){
 void TextDisplay::addPlayer(int pos, char symbol){
     //h,w
         auto it = playerpos[pos];
-        int h = it->first;
-        int w = it->second;
+        int h = it.first;
+        int w = it.second;
         while(boardMap[h][w]!=' '){
             w++;
         }
@@ -88,8 +88,8 @@ void TextDisplay::addPlayer(int pos, char symbol){
 }
 void TextDisplay::deletePlayer(int pos, char symbol){
         auto it = playerpos[pos];
-        int h = it->first;
-        int w = it->second;
+        int h = it.first;
+        int w = it.second;
         while(boardMap[h][w]!=symbol){
             w++;
         }
@@ -97,11 +97,11 @@ void TextDisplay::deletePlayer(int pos, char symbol){
 }
 
 void TextDisplay::addImprovement(Board& a){
-    int improvementL=a.getImprovementLevel();
+    int improvementL=a.getImproveLevel();
     int pos = a.getPosition();
         auto it = impropos[pos];
-        int h = it->first;
-        int w = it->second;
+        int h = it.first;
+        int w = it.second;
         for(int i = 0; i<improvementL; i++){
             if(boardMap[h][w+i-1]==' '){
                 boardMap[h][w+i-1]='I';
@@ -109,12 +109,12 @@ void TextDisplay::addImprovement(Board& a){
         }
 }
 void TextDisplay::removeImprovement(Board& a){
-    int improvementL=a.getImprovementLevel();
+    int improvementL=a.getImproveLevel();
     int pos = a.getPosition();
         auto it = impropos[pos];
-        int h = it->first;
-        int w = it->second+4;
-        for(int i = w; i >= improvementL+it->second; i++){
+        int h = it.first;
+        int w = it.second+4;
+        for(int i = w; i >= improvementL+it.second; i++){
             if(boardMap[h][i]=='I'){
                 boardMap[h][i]=' ';
             }
@@ -122,16 +122,16 @@ void TextDisplay::removeImprovement(Board& a){
 }
 
 
-void TextDisplay::drawBoard(std::ostream& out, vector<shared_ptr<Player>> player, vector<shared_ptr<Board> board){
+void TextDisplay::drawBoard(std::ostream& out, vector<shared_ptr<Player>> player, vector<shared_ptr<Board>> board){
     for (auto it : player) {
         int pos = it->getPosition();
-        char symbol = it->getSymbol();
+        char symbol = it->getNameChar();
         addPlayer(pos, symbol);
     }
     for  (auto it1 : board) {
         addImprovement(*it1);
     }
-    for(int i = 0; i<boardMap.size(); i++){
+    for(size_t i = 0; i<boardMap.size(); i++){
         out<<boardMap[i];
     }
     out<<endl;

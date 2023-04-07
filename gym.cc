@@ -12,7 +12,7 @@ int roll() {
   return randnum;
 }
 
-int Gym::getPrice() {
+int Gym::getPrice() const {
   //return 150;
   return purchasePrice;
 }
@@ -22,8 +22,8 @@ int Gym::getPrice() {
 // }
 
 int Gym::getVisitPrice(Player& visitor) {
-  if (isMortgaged) return 0;
-  if (owner == &visitor || owner == nullptr) return 0;
+  if (isMortgaged()) return 0;
+  if (owner.get() == &visitor || owner == nullptr) return 0;
   else {
     setVisitPrice();
     return visitPrice;
@@ -34,10 +34,7 @@ void Gym::setVisitPrice(){
   int price1 = roll();
   int price2 = roll();
   int price = price1 + price2;
-  int count = 0;
-  for (int i = 0; i < owner.property.size(); i++) {
-    if (owner.property[i]->getType() == "Gym") count++;
-  } 
+  int count = owner->getGymNum();
   if (count == 1) visitPrice = price * 4;
   else if (count == 2) visitPrice = price * 10;
 }

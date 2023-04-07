@@ -4,6 +4,7 @@
 #include "board.h"
 #include <string>
 #include "player.h"
+#include <memory>
 
 class NonProperty: public Board {
 public:
@@ -23,6 +24,7 @@ public:
   void degrade() override {return;}
   void changeMortgage() override {return;}
   bool isMortgaged() const override {return 1;}
+  std::string getBlock() const override{return "noBlock";}
 
 };
 
