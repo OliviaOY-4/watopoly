@@ -26,7 +26,6 @@ protected:
 public:
   Player(std::string name);
   ~Player();
-  int roll();
   int getCashAmount();
   int getTotalWorth();
   // void giveCash(Player* other, int amount);
