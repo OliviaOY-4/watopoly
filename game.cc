@@ -14,19 +14,15 @@ class Gym;
 class Residence;
 class GooseNesting;
 
+// ctor of Game
 Game::Game(): activeRim{0} {
   vector<string> names = {"COLLECT OSAP", "AL", "SLC", "ML", "TUITION", "MKV", "ECH", "NEEDLES HALL", "PAS", "HH", "DC Tims Line", "RCH", "PAC", "DWE", "CPH", "UWP", "LHI", "SLC", "BMH", "OPT", "Goose Nesting", "EV1", "NEEDLES HALL", "EV2", "EV3", "V1", "PHYS", "B1", "CIF", "B2", "GO TO TIMS", "EIT", "ESC", "SLC", "C2", "REV", "NEEDLES HALL", "MC", "COOP FEE", "DC"};
-  // for (int i = 0; i < 40; ++i) {
-  //   Board *b = new Board{i, names[i]};
-  //   board.emplace_back(b);
-  // }
+
   dice = make_unique<Dice>();
-  td = make_unique<TextDisplay>();
   currentPlayer = nullptr;
   // auto osap = make_shared<OSAP>(0, "COLLECT OSAP");
   // board.emplace_back(osap);
-  board.emplace_back(make_shared<OSAP>(0, "COLLECT OSAP")); //unique or shared?
-
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<OSAP>(0, "COLLECT OSAP"))); //unique or shared?
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(1, "AL", 40, 0, vector<unsigned int>{2, 10, 30, 90, 160, 250}, 50, "Arts1")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<SLC>(2, "SLC")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(3, "ML", 60, 0, vector<unsigned int>{4, 20, 60, 180, 320, 450}, 50, "Arts1")));
@@ -68,60 +64,48 @@ Game::Game(): activeRim{0} {
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(39, "DC", 400, 0, vector<unsigned int>{50, 200, 600, 1400, 1700, 2000}, 200, "Math")));
 }
 
-Game::~Game() {
-  // for (auto* p : player) {
-  //   delete p;
-  // } for (auto* b : board) {
-  //   delete b;
-  // } 
-  // delete dice;
-  // delete td;
-}
+// dctor of Game
+Game::~Game() {}
 
+// roll dice in Game
 int Game::roll() {
   return dice->rollDice();
 }
 
+// initialize currentPlayer
 void Game::gameStart() {
   currentPlayer = player[0];
 }
 
+// check if there is only one player left
 bool Game::endGame() {
   return player.size() == 1;
 }
 
+// print all Players' name and char
 void Game::printPlayers() {
   for (auto p : player) {
     cout << "Name: " << p->getName() << endl << "Char:" << p->getNameChar() << endl;
   }
 }
 
+// get the winner
 string Game::getWinner() {
   return (player[0])->getName();
 }
 
-// void Game::move(int num, Player *p) {
-//   int curPos = p->getPosition();
-//   int newPos = curPos + num;
-//   if (newPos >= 40) {
-//     p->addCash(200);
-//     newPos -= 40;
-//   }
-//   p->setPosition(newPos);
-  
-//   bool buy = false;
-//   for (int i = 0; i < )
-
-// }
+// move the player num steps and do corresponding actions
 void Game::move(int num, shared_ptr<Player> p) {
   if (p == nullptr) p = currentPlayer;
   int curPos = p->getPosition();
   int newPos = curPos + num;
+  // Check if get OSAP
   if (newPos >= 40) {
     p->addCash(200);
     newPos -= 40;
   }
   p->setPosition(newPos);
+  printMap();
   
   bool buy = false;
   shared_ptr<Board> now = board[newPos];
@@ -132,20 +116,24 @@ void Game::move(int num, shared_ptr<Player> p) {
       cout << "You can buy it for " << now->getPrice() << endl;
       cout << "Choose: 'buy' or 'auction'" << endl;
       string choice;
-      cin >> choice;
-      if (choice == "buy") {
-        if (p->getCashAmount() >= now->getPrice()) {
+      
+      while (cin >> choice) {
+        if (choice == "buy") {
+          if (p->getCashAmount() >= now->getPrice()) {
+            string name = now->getName();
+            purchase(name, *p);
+            buy = true;
+          } else {
+            cout << "You don't have enough money" << endl;
+            buy = false;
+          }
+        } else if (choice == "auction" || buy == false) {
           string name = now->getName();
-          purchase(name, *p);
+          auction(name);
           buy = true;
-        } else cout << "You don't have enough money" << endl;
-        buy = false;
-      } else if (choice == "auction" || buy == false) {
-        string name = now->getName();
-        auction(name);
-        buy = true;
-      } else {
-        cout << "Invalid input" << endl;
+        } else {
+          cout << "Invalid input" << endl;
+        }
       }
     } else {
       int visitPrice = now->getVisitPrice(*p);
@@ -197,7 +185,7 @@ void Game::move(int num, shared_ptr<Player> p) {
     } else if (nowName == "Goose Nesting") {
       GooseNesting tmp{0, "goose nesting"};
       tmp.action(*p);
-    } td->drawBoard(cout, player, board);
+    } 
   }
 }
 
@@ -587,6 +575,7 @@ void Game::auction(string pro) {
 }
 
 void Game::printMap(){
-  td->drawBoard(std::cout, player, board);
+  TextDisplay td;
+  td.drawBoard(std::cout, player, board);
 }
 

@@ -48,6 +48,7 @@ int main(int argc,char* argv[]) {
     cout << endl << "Current Players: " << endl;
     g.printPlayers();
     g.gameStart();
+    g.printMap();
 
     // game start
     string cmd = " ";
@@ -70,7 +71,6 @@ int main(int argc,char* argv[]) {
                 num2 = g.roll();
             }
             g.move(num1 + num2);
-            g.printMap();
             
 
         } else if (cmd == "next") {

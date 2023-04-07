@@ -36,7 +36,6 @@ class Game {
   std::vector<std::shared_ptr<Player>> player;
   std::unique_ptr<Dice> dice;
   std::shared_ptr<Player> currentPlayer;
-  std::unique_ptr<TextDisplay> td;
 public:
   Game();
   ~Game();
