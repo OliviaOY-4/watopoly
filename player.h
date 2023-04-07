@@ -14,9 +14,6 @@ class Player {
   char nameChar;
   int cash;
   int position;
-  protected:
-  std::vector<std::shared_ptr<Board>> property;
-  // std::vector<Board*> property;
   std::vector<std::pair<std::string, int>> ownBlock;
   std::vector<std::string> monopoly;
   bool OSAPcollect;
@@ -25,6 +22,9 @@ class Player {
   int RUR_Cup;
   // Dice *dice; 
   std::shared_ptr<Dice> dice;
+protected:
+  std::vector<std::shared_ptr<Board>> property;
+  // std::vector<Board*> property;
 public:
   Player(std::string name, char nameChar);
   ~Player();
