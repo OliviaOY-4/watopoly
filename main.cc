@@ -244,7 +244,7 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "save") {
             string filename;
             cin >> filename;
-            g.save(filename);
+            //g.save(filename, );
             
         } else {
             cerr << "Invalid Command" << endl;

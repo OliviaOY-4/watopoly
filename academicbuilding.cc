@@ -27,7 +27,7 @@ int AcademicBuilding::getPrice() const {
 //   return type;
 // }
 
-string AcademicBuilding::getBlock() const {
+string AcademicBuilding::getBlock() const{
   return monopolyBlock;
 }
 
@@ -35,7 +35,7 @@ int AcademicBuilding::getImproveLevel() const {
   return improvementLevel;
 }
 
-int AcademicBuilding::getImproveCost() const{
+int AcademicBuilding::getImproveCost() const {
   return improvementCost;
 }
 
