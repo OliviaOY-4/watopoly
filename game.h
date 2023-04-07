@@ -41,6 +41,7 @@ public:
   ~Game();
   int roll(); 
   void gameStart();
+  Player getCurrentPlayer();
   bool endGame();
   void printPlayers();
   std::string getWinner();
