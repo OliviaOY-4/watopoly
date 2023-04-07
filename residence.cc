@@ -11,7 +11,7 @@ Residence::Residence(int position, std::string name, unsigned int purchasePrice,
 
 Residence::~Residence() {}
 
-int Residence::getPrice() {
+int Residence::getPrice() const{
   //return 200;
   return purchasePrice;
 }
@@ -28,7 +28,7 @@ void Residence::setVisitPrice(){
   else if (count == 4) visitPrice = 200;
 }
 
-int Residence::getVisitPrice(Player& visitor) {
+int Residence::getVisitPrice(Player& visitor) const{
   if (isMortgaged) return 0;
   if (owner == &visitor || owner == nullptr) return 0;
   return visitPrice;

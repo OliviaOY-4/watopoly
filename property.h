@@ -17,10 +17,10 @@ public:
   ~Property();
   // Player* getOwner() const;
   // void setOwner(Player* owner);
-  std::shared_ptr<Player> getOwner() const;
-  void setOwner(std::shared_ptr<Player> owner);
-  void changeMortgage(); 
-  bool isMortgaged() const;
+  std::shared_ptr<Player> getOwner() const override;
+  void setOwner(std::shared_ptr<Player> owner) override;
+  void changeMortgage() override; 
+  bool isMortgaged() const override;
   // int getPurchasePrice() const;
   
   virtual void setVisitPrice() = 0;

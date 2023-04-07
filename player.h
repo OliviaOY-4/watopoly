@@ -18,7 +18,6 @@ class Player {
   protected:
   std::vector<std::shared_ptr<Board>> property;
   // std::vector<Board*> property;
-private:
   std::vector<std::pair<std::string, int>> ownBlock;
   std::vector<std::string> monopoly;
   bool OSAPcollect;

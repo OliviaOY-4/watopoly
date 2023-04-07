@@ -102,7 +102,7 @@ void Player::ifMonopoly(string type) {
 int Player::getResidenceNum() {
   int count = 0;
   for (int i = 0; i < property.size(); i++){
-    if (property[i]->getType() == "Residence") count++;
+    if (property[i]->getType() == "Residence") count++; ///// type 只能分辨是不是property，本来一个存在monopoly里面，到时候再商量一下
   } return count;
 }
 
