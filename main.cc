@@ -11,7 +11,6 @@ using namespace std;
 
 int main(int argc,char* argv[]) {
     // initialize game
-    //Dice d;
     Game g;
 
     // command line options
@@ -33,11 +32,10 @@ int main(int argc,char* argv[]) {
     cout << "Please enter the number of players: ";
     cin >> num_of_players;
     for (int i = 0; i < num_of_players; i++) {
+        cout << "Enter the name of Player " << i << ": " << endl;
         string name = " ";
         getline(cin, name);
-        char playerChar = ' ';
-        cin >> playerChar;
-        g.initPlayer(name, playerChar);
+        g.initPlayer(name);
         // g.initPlayer need to check it's a valid name and char
     }
 
