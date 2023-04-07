@@ -564,17 +564,18 @@ void Game::setActiverRim(int n) {
 void Game::auction(string pro) {
   shared_ptr<Board> sharedb= nullptr;
   for(auto it : board){
-    if(it->getName()==pro){
+    if(it->getName() == pro){
       sharedb=it;
       break;
     }
   }
-  cout << "Auction for " << sharedb->getName() << "starts" << endl;
+  cout << "Auction for " << sharedb->getName() << " starts!" << endl;
   int max = 0;
   string bider = " ";
   vector<shared_ptr<Player>> participants = player;
   int n = participants.size();
-  while(n > 0) {
+  while(n != 1) {
+    cout << "There are " << n << " players in the auction." << endl;
     for (int i = 0; i < n; ++i) {
       cout << participants[i]->getName() << ", it is your turn" << endl;
       cout << "Choose between: bid or quit" << endl;
@@ -585,6 +586,7 @@ void Game::auction(string pro) {
           participants.erase(participants.begin() + i);
           n--;
           i--;
+          cout << "There are " << n << " players in the auction." << endl;
           break;
         } else if (choice == "bid") {
           cout << "Input your bid. Your bid must be higher than " << max << endl;
@@ -609,7 +611,6 @@ void Game::auction(string pro) {
   for (auto p : player) {
     if (p->getName() == bider) {
       p->addCash(-max);
-      // shared_ptr<Board> sharedb = make_shared<Board>(pro);
       p->addProperties(sharedb);
       sharedb->setOwner(p);
       return;
