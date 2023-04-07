@@ -22,7 +22,7 @@ Game::Game(): activeRim{0} {
   // }
   dice = make_unique<Dice>();
   td = make_unique<TextDisplay>();
-  currentPlayer = *(player.begin());
+  currentPlayer = *(player.begin() + 0);
   // auto osap = make_shared<OSAP>(0, "COLLECT OSAP");
   // board.emplace_back(osap);
   board.emplace_back(make_shared<OSAP>(0, "COLLECT OSAP")); //unique or shared?

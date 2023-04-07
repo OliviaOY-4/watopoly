@@ -37,7 +37,7 @@ int main(int argc,char* argv[]) {
         getline(cin, name);
         g.initPlayer(name);
         // g.initPlayer need to check it's a valid name and char
-    }
+    } // initialize currentplayer
 
     // game start
     string cmd = " ";
