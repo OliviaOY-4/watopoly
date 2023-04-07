@@ -44,7 +44,7 @@ public:
   // void move(int num, Player *p = currentPlayer); 
   void move(int num, std::shared_ptr<Player> p = nullptr); 
   void nextPlayer();
-  void initPlayer(std::string name, char playerChar); 
+  void initPlayer(std::string name); 
   std::shared_ptr<Player> getOwner(const Board& b);
   void purchase(std::string b, Player& p);
   bool isValidPlayer(std::string name); 
