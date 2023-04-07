@@ -29,6 +29,8 @@ int main(int argc,char* argv[]) {
 
     // initialize players
     int num_of_players = 0;
+    cout << "Welcome to the game of Monopoly!" << endl;
+    cout << "Number of players must be between 2 and 7." << endl;
     cout << "Please enter the number of players: " << endl;
     string tmp;
     getline(cin, tmp);
@@ -52,30 +54,47 @@ int main(int argc,char* argv[]) {
 
     // game start
     string cmd = " ";
+    int doubleroll = 0;
     while (cin >> cmd) {
         if (g.endGame()) {
             cout << "Winner is :" << g.getWinner() << endl;
             break;
-        }
+        } cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
+        cout << "Enter a command: ";
 
         if (cmd == "roll") {
+            
             // roll dice and move
             // check if has passed over OSAP
             // if don't buy, auction.
             int num1 = 0;
             int num2 = 0;
-            if(testMode) {
+            if (testMode) {
                 cin >> num1 >> num2;
             } else {
                 num1 = g.roll();
                 num2 = g.roll();
             }
-            g.move(num1 + num2);
+            cout << "You rolled " << num1 + num2 << endl;
+            if (doubleroll == 3 && (num1 + num2) % 2 == 0) {
+                cout << "You have been sent to DC Tims Line." << endl;
+                g.move(10);
+                cout << "It is now the next player's turn. Enter 'next'." << endl;
+                continue;
+            } else g.move(num1 + num2);
+            if ((num1 + num2) % 2 == 0) {
+                cout << "You can roll again. Enter 'roll'." << endl;
+                doubleroll++;
+            } else {
+                cout << "It is now the next player's turn. Enter 'next'." << endl;
+                continue;
+            }
             
 
         } else if (cmd == "next") {
             // move to next 
             g.nextPlayer();
+            doubleroll = 0;
             
         } else if (cmd == "trade") {
             string name = " ";

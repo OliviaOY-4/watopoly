@@ -77,6 +77,10 @@ void Game::gameStart() {
   currentPlayer = player[0];
 }
 
+Player Game::getCurrentPlayer() {
+  return *currentPlayer;
+}
+
 // check if there is only one player left
 bool Game::endGame() {
   return player.size() == 1;
@@ -123,6 +127,7 @@ void Game::move(int num, shared_ptr<Player> p) {
             string name = now->getName();
             purchase(name, *p);
             buy = true;
+            cout << "You bought " << name << endl;
           } else {
             cout << "You don't have enough money" << endl;
             buy = false;
@@ -169,6 +174,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       int n = getActiverRim();
       int m = tmp.slcaction(*p, n);
       setActiverRim(m);
+      printMap();
     } else if (nowName == "TUITION") {
       Tuition tmp{0, "tuition"};
       tmp.action(*p);
@@ -178,15 +184,19 @@ void Game::move(int num, shared_ptr<Player> p) {
       int n = getActiverRim();
       DCTimsLine tmp1{0, "dc times line"};
       int m = tmp1.dclineaction(*p, n);
+      printMap();
       setActiverRim(m);
     } else if (nowName == "COOP FEE") {
       CoopFee tmp{0, "coop fee"};
       tmp.action(*p);
+    } else if (nowName == "DC Tims Line") {
+      cout << "Lands on DC Tims Line, nothing happens." << endl;
     } else if (nowName == "NEEDLES HALL") {
       NeedleHall tmp{0, "needles hall"};
       int n = getActiverRim();
       int m = tmp.nhaction(*p, n);
       setActiverRim(m);
+      printMap();
     } else if (nowName == "Goose Nesting") {
       GooseNesting tmp{0, "goose nesting"};
       tmp.action(*p);
@@ -236,6 +246,7 @@ shared_ptr<Player> Game::getOwner(const Board& b) {
 
 void Game::purchase(string b, Player& p) {
   shared_ptr<Board> tmp = nullptr;
+  shared_ptr<Player> tmp1 = nullptr;
   for(auto it:board){
       if(it->getName()==b){
     //    p.addProperties(it);
@@ -246,8 +257,12 @@ void Game::purchase(string b, Player& p) {
 
   if (tmp->getOwner() == nullptr) {
     if (p.getCashAmount() >= tmp->getPrice()) {
-      shared_ptr<Player> sharedp = make_shared<Player>(p);
-      tmp->setOwner(sharedp);
+      for (auto it1:player) {
+        if (it1->getName() == p.getName()) {
+          tmp1 = it1;
+        }
+      }
+      tmp->setOwner(tmp1);
       p.addProperties(tmp);
       p.addCash(-tmp->getPrice());
     } else {
@@ -548,42 +563,47 @@ void Game::setActiverRim(int n) {
 
 void Game::auction(string pro) {
   shared_ptr<Board> sharedb= nullptr;
-      for(auto it : board){
-        if(it->getName()==pro){
-          sharedb=it;
-          break;
-        }
-      }
+  for(auto it : board){
+    if(it->getName()==pro){
+      sharedb=it;
+      break;
+    }
+  }
   cout << "Auction for " << sharedb->getName() << "starts" << endl;
   int max = 0;
   string bider = " ";
   vector<shared_ptr<Player>> participants = player;
   int n = participants.size();
-  for (int i = 0; i < n; i++) {
-    if (n == 1) break;
-    cout << participants[i]->getName() << ", it is your turn" << endl;
-    cout << "Choose between: bid or quit" << endl;
-    string choice;
-    cin >> choice;
-    if (choice == "quit") {
-      cout << "You quit the auction" << endl;
-      participants.erase(participants.begin() + i);
-      i--;
-      n--;
-      continue;
-    } else if (choice == "bid") {
-      cout << "Input your bid. Your bid must be higher than " << max << endl;
-      int bid;
-      cin >> bid;
-      if (bid > max) {
-        max = bid;
-        bider = participants[i]->getName();
-        continue;
+  while(n > 0) {
+    for (int i = 0; i < n; ++i) {
+      cout << participants[i]->getName() << ", it is your turn" << endl;
+      cout << "Choose between: bid or quit" << endl;
+      string choice;
+      while (cin >> choice) {
+        if (choice == "quit") {
+          cout << "You quit the auction." << endl;
+          participants.erase(participants.begin() + i);
+          n--;
+          i--;
+          break;
+        } else if (choice == "bid") {
+          cout << "Input your bid. Your bid must be higher than " << max << endl;
+          int bid;
+          cin >> bid;
+          if (bid > max) {
+            max = bid;
+            bider = participants[i]->getName();
+            cout << "Your bid is accepted" << endl;
+            break;
+          } else {
+            cout << "Your bid is not accepted" << endl;
+            break;
+          }
+        } else {
+          cout << "Invalid input, input again." << endl;
+        }
       }
-    } else {
-      cout << "Invalid input" << endl;
-      return;
-    } 
+    }
   }
   cout << "The final bid is " << max << " from " << bider << endl;
   for (auto p : player) {
