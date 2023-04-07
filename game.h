@@ -40,28 +40,28 @@ class Game {
 public:
   Game();
   ~Game();
-  int roll(); //////////////////////// Modified!!!!
-  // void move(int num, Player *p = currentPlayer); //////////////// MODIFIED!!!!!
-  void move(int num, std::shared_ptr<Player> p = nullptr); //////////////// MODIFIED!!!!!
+  int roll(); 
+  // void move(int num, Player *p = currentPlayer); 
+  void move(int num, std::shared_ptr<Player> p = nullptr); 
   void nextPlayer();
-  void initPlayer(std::string name, char playerChar); //////////// MODIFIED!!!!!!!!!!
+  void initPlayer(std::string name, char playerChar); 
   std::shared_ptr<Player> getOwner(const Board& b);
   void purchase(std::string b, Player& p);
-  bool isValidPlayer(std::string name); //////////////////// MODIFIED!!!!!!
-  bool isValidProperty(std::string bName); /////////////////MODIFIED!!!
-  Board& getBoard(std::string bName); ////////////// MODIFIED!!!!!
-  Player& getPlayer(std::string name); /////////////// MODIFIED!!!!
-  bool trade(Player& p, std::string b, unsigned int n); /////////////MODIFIED!!!!!
-  bool trade(Player& p, std::string b_give, std::string b_receive); /////////////  MODIFIED!!!!
-  bool trade(Player& p, unsigned int n, std::string b);  ///////////// MODIFIED!!!!!
-  bool improve(Board& b, bool improve); //////////////// Modified!!!!!
-  bool mortgage(Board& b); /////////////// MODIFIED!!!!
-  bool unmortgage(Board& b); //////////// MODIFIED!!!!!!!
+  bool isValidPlayer(std::string name); 
+  bool isValidProperty(std::string bName); 
+  Board& getBoard(std::string bName); 
+  Player& getPlayer(std::string name); 
+  bool trade(Player& p, std::string b, unsigned int n); 
+  bool trade(Player& p, std::string b_give, std::string b_receive); 
+  bool trade(Player& p, unsigned int n, std::string b);  
+  bool improve(Board& b, bool improve); 
+  bool mortgage(Board& b); 
+  bool unmortgage(Board& b); 
   bool checkAssetVSLiability();
   bool checkIfBankruptcy();
   void removePlayer();
-  bool asset(); /////////// Modified!!!!!!!!
-  bool all(); /////////////// MODIFIED!!!!!
+  bool asset(); 
+  bool all(); 
   std::ofstream save(std::string filename);
   void load(std::ifstream &file);
   int getActiverRim();
