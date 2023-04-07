@@ -112,7 +112,7 @@ void Game::move(int num, shared_ptr<Player> p) {
   string nowType = now->getType();
 
   if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
-    if (now->getOwner() == nullptr) {
+    if (now->getOwner() == nullptr) { // No owner Property
       cout << "You can buy it for " << now->getPrice() << endl;
       cout << "Choose: 'buy' or 'auction'" << endl;
       string choice;
@@ -126,25 +126,29 @@ void Game::move(int num, shared_ptr<Player> p) {
           } else {
             cout << "You don't have enough money" << endl;
             buy = false;
-          }
+          } break;
         } else if (choice == "auction" || buy == false) {
           string name = now->getName();
           auction(name);
           buy = true;
+          break;
         } else {
-          cout << "Invalid input" << endl;
+          cout << "Invalid input, choose again." << endl;
         }
       }
-    } else {
+
+    } else { // Has owner Property
+      if (now->isMortgaged()) return;
       int visitPrice = now->getVisitPrice(*p);
       p->addCash(-visitPrice);
       cout << "You paid " << visitPrice << " to " << (now->getOwner())->getName() << endl;
       if (p->getCashAmount() >= 0) return;
-      else {
+      else { // in debt
         cout << "You are in debt" << endl;
         cout << "Choose: 'mortgage' or 'trade' or 'degrade'" << endl;
         string choice;
         cin >> choice;
+        ////////////////////////////////////////////////////////////////////////////
         // input property name and check
         // if (choice == "mortgage") {
         //   mortgage(now);
@@ -155,9 +159,10 @@ void Game::move(int num, shared_ptr<Player> p) {
         // } else {
         //   cout << "Invalid input" << endl;
         // }
+        ////////////////////////////////////////////////////////////////////////////////
       } 
     }
-  } else {
+  } else { // NonProperty //////////////////////////////////////////////////
     string nowName = now->getName();
     if (nowName == "SLC") {
       SLC tmp{0, "slc"};
@@ -187,6 +192,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       tmp.action(*p);
     } 
   }
+  //////////////////////////////////////////////////////////////////////////
 }
 
 
@@ -232,19 +238,26 @@ void Game::purchase(string b, Player& p) {
   shared_ptr<Board> tmp = nullptr;
   for(auto it:board){
       if(it->getName()==b){
-        p.addProperties(it);
-        p.addCash(-it->getPrice());
+    //    p.addProperties(it);
+        //p.addCash(-it->getPrice());
         tmp = it;
       }
     }
+
   if (tmp->getOwner() == nullptr) {
-    shared_ptr<Player> sharedp = make_shared<Player>(p);
-    tmp->setOwner(sharedp);
+    if (p.getCashAmount() >= tmp->getPrice()) {
+      shared_ptr<Player> sharedp = make_shared<Player>(p);
+      tmp->setOwner(sharedp);
+      p.addProperties(tmp);
+      p.addCash(-tmp->getPrice());
+    } else {
+      cout << "You don't have enough money" << endl;
+    }
+    
     // shared_ptr<Board> sharedb = make_shared<Board>(b);
     // auto sharedb = std::dynamic_pointer_cast<Board>(b);
     // shared_ptr<Board> sharedb = b;
-    // p.addProperties(sharedb);
-    // p.addCash(-b.getPrice());
+    
   } else cout << "This property is already owned by " << (tmp->getOwner())->getName() << endl;
 }
 
@@ -280,12 +293,12 @@ Player& Game::getPlayer(string name) {
 
 bool Game::trade(Player& p, string b, unsigned int n) {
   shared_ptr<Board> sharedb = nullptr;
-      for(auto it : board){
-        if(it->getName()==b){
-          sharedb = it;
-          break;
-        }
-      }
+  for(auto it : board){
+    if(it->getName()==b){
+      sharedb = it;
+      break;
+    }
+  }
   if (sharedb->getOwner() == currentPlayer) {
     cout << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << n << endl;
     cout << "Choose: 'accept' or 'reject'" << endl;
@@ -394,6 +407,11 @@ bool Game::improve(string b_name, bool improve) {
     }
   }
 
+  if (b->getType() != "AcademicBuilding") {
+    cout << "Not an Academic Building" << endl;
+    return false;
+  }
+
   if (b->getOwner() == currentPlayer) {
     if (improve) {
       if (b->getImproveLevel() < 5) {
@@ -440,7 +458,11 @@ bool Game::mortgage(string b_name) {
       b->changeMortgage();
       return true;
     } else {
-      cout << "You can't mortgage this property because it has improvements or it is already mortgaged" << endl;
+      if (b->getImproveLevel() != 0) {
+        cout << "You can't mortgage this property because it has improvements" << endl;
+      } else {
+        cout << "You can't mortgage this property because it is already mortgaged" << endl;
+      }
       return false;
     }
   } else {
@@ -473,6 +495,7 @@ bool Game::unmortgage(string b_name) {
       return false;
     }
   } else {
+     cout << "You are not the owner" << endl;
     return false;
   }
 }
