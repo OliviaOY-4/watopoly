@@ -16,7 +16,6 @@ Player::Player(string name): name{name}, cash{1500}, position{0}, OSAPcollect{fa
 }
 
 Player::~Player() {
-  // delete dice;
 }
 
 int Player::roll() {
