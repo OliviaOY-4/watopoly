@@ -29,19 +29,34 @@ int main(int argc,char* argv[]) {
 
     // initialize players
     int num_of_players = 0;
-    cout << "Please enter the number of players: ";
-    cin >> num_of_players;
+    cout << "Please enter the number of players: " << endl;
+    string tmp;
+    getline(cin, tmp);
+    istringstream iss{tmp};
+    iss >> num_of_players;
     for (int i = 0; i < num_of_players; i++) {
-        cout << "Enter the name of Player " << i << ": " << endl;
+        cout << "Enter the name of Player " << i + 1 << ": " << endl;
         string name = " ";
-        getline(cin, name);
-        g.initPlayer(name);
+        if (getline(cin, name)) {
+            if (!g.initPlayer(name)) {
+                cout << "Invalid player name, input a valid name: " << endl;
+                i--;
+            }
+        }
         // g.initPlayer need to check it's a valid name and char
-    } // initialize currentplayer
+    } 
+    cout << endl << "Current Players: " << endl;
+    g.printPlayers();
+    g.gameStart();
 
     // game start
     string cmd = " ";
     while (cin >> cmd) {
+        if (g.endGame()) {
+            cout << "Winner is :" << g.getWinner() << endl;
+            break;
+        }
+
         if (cmd == "roll") {
             // roll dice and move
             // check if has passed over OSAP
@@ -55,6 +70,7 @@ int main(int argc,char* argv[]) {
                 num2 = g.roll();
             }
             g.move(num1 + num2);
+            g.printMap();
             
 
         } else if (cmd == "next") {
@@ -85,14 +101,14 @@ int main(int argc,char* argv[]) {
                 istringstream iss{give};
                 int money = 0;
                 iss >> money;
-                Board& b = g.getBoard(receive);
+                //Board& b = g.getBoard(receive);
 
                 // game functin need to check:
                 // property is owned by the given player
                 // and all properties in the monopoly have no improvements
                 // and player need to have enough money
-                string name = b.getName();
-                if (!(g.trade(p, money, name))) {
+                //string name = b.getName();
+                if (!(g.trade(p, money, receive))) {
                     cout << "reject" << endl;
                 }
 
@@ -106,7 +122,7 @@ int main(int argc,char* argv[]) {
                 }
 
                 Player& p = g.getPlayer(name);
-                Board& b = g.getBoard(give);
+                //Board& b = g.getBoard(give);
                 istringstream iss{receive};
                 int money = 0;
                 iss >> money;
@@ -115,8 +131,8 @@ int main(int argc,char* argv[]) {
                 // property is owned by the given player
                 // and all properties in the monopoly have no improvements
                 // and player need to have enough money
-                string name = b.getName();
-                if (!(g.trade(p, name, money))) {
+                //string name = b.getName();
+                if (!(g.trade(p, give, money))) {
                     cout << "reject" << endl;
                 }              
 
@@ -130,15 +146,15 @@ int main(int argc,char* argv[]) {
                 }
 
                 Player& p = g.getPlayer(name);
-                Board& b_give = g.getBoard(give);
-                Board& b_receive = g.getBoard(give);
+                //Board& b_give = g.getBoard(give);
+                //Board& b_receive = g.getBoard(give);
 
                 // game functin need to check:
                 // property is owned by the given player
                 // and all properties in the monopoly have no improvements
-                string name1 = b_give.getName();
-                string name2 = b_receive.getName();
-                if (!(g.trade(p, name1, name2))) {
+                //string name1 = b_give.getName();
+                //string name2 = b_receive.getName();
+                if (!(g.trade(p, give, receive))) {
                     cout << "reject" << endl;
                 } 
 
@@ -156,14 +172,14 @@ int main(int argc,char* argv[]) {
                 cout << "Invalid property name" << endl;
                 continue;
             }
-            Board& b = g.getBoard(property);
+            //Board& b = g.getBoard(property);
 
             if (behaviour == "buy") {
                 // game function need to check property is a property
                 // and player owns it
                 // and it can buy improve
                 // attempt to buy improvement
-                if (!(g.improve(b, true))) {
+                if (!(g.improve(property, true))) {
                     cout << "Unable to buy improve" << endl;
                 }
 
@@ -172,7 +188,7 @@ int main(int argc,char* argv[]) {
                 // and player owns it
                 // and it can sell improve
                 // attempt to sell improvement
-                if (!(g.improve(b, false))) {
+                if (!(g.improve(property, false))) {
                     cout << "Unable to sell improve" << endl;
                 }
 
@@ -188,12 +204,12 @@ int main(int argc,char* argv[]) {
                 cout << "Invalid property name" << endl;
                 continue;
             }
-            Board& b = g.getBoard(property);
+            //Board& b = g.getBoard(property);
 
             // attempt to mortgage property
             // check property is owned by player, and can mortgage 
             // (not already mortgaged, has no improvements)
-            if (!(g.mortgage(b))) {
+            if (!(g.mortgage(property))) {
                 cout << "Unable to mortgage" << endl;
             }
 
@@ -205,12 +221,12 @@ int main(int argc,char* argv[]) {
                 cout << "Invalid property name" << endl;
                 continue;
             }
-            Board& b = g.getBoard(property);
+            //Board& b = g.getBoard(property);
 
             // attempt to unmortgage property
             // check property used to owned by player, and can unmortgage 
             // (not already unmortgaged)
-            if (!(g.unmortgage(b))) {
+            if (!(g.unmortgage(property))) {
                 cout << "Unable to unmortgage" << endl;
             }
 
@@ -247,6 +263,9 @@ int main(int argc,char* argv[]) {
             string filename;
             cin >> filename;
             g.save(filename);
+
+        } else if (cmd == "print") {
+            g.printMap();
             
         } else {
             cerr << "Invalid Command" << endl;

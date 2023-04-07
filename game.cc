@@ -22,7 +22,7 @@ Game::Game(): activeRim{0} {
   // }
   dice = make_unique<Dice>();
   td = make_unique<TextDisplay>();
-  currentPlayer = *(player.begin() + 0);
+  currentPlayer = nullptr;
   // auto osap = make_shared<OSAP>(0, "COLLECT OSAP");
   // board.emplace_back(osap);
   board.emplace_back(make_shared<OSAP>(0, "COLLECT OSAP")); //unique or shared?
@@ -80,6 +80,24 @@ Game::~Game() {
 
 int Game::roll() {
   return dice->rollDice();
+}
+
+void Game::gameStart() {
+  currentPlayer = player[0];
+}
+
+bool Game::endGame() {
+  return player.size() == 1;
+}
+
+void Game::printPlayers() {
+  for (auto p : player) {
+    cout << "Name: " << p->getName() << endl << "Char:" << p->getNameChar() << endl;
+  }
+}
+
+string Game::getWinner() {
+  return (player[0])->getName();
 }
 
 // void Game::move(int num, Player *p) {
@@ -194,10 +212,28 @@ void Game::nextPlayer() {
   }
 }
 
-void Game::initPlayer(string name) {
+bool Game::initPlayer(string name) {
+  bool flag = false;
+  for (auto p: player) {
+    if (p->getName() == name) {
+      return false;
+    }
+  }
+  if (name == "Goose") flag = true;
+  if (name == "GRT Bus") flag = true;
+  if (name == "Tim Hortons Doughnut") flag = true;
+  if (name == "Professor") flag = true;
+  if (name == "Student") flag = true;
+  if (name == "Money") flag = true;
+  if (name == "Laptop") flag = true;
+  if (name == "Pink tie") flag = true;
+  if (!flag) {
+    return false;
+  }
   shared_ptr<Player> p = make_shared<Player>(name);
   player.emplace_back(p);
-  td->drawBoard(cout, player, board);
+  return true;
+  //td->drawBoard(cout, player, board);
 }
 
 shared_ptr<Player> Game::getOwner(const Board& b) {
@@ -238,13 +274,13 @@ bool Game::isValidProperty(string bName) {
   return false;
 }
 
-Board& Game::getBoard(string bName) {
+/*Board& Game::getBoard(string bName) {
   for (auto &b : this->board) {
     if (b->getName() == bName) return *b;
   }
   cerr << "can't find the Board" << endl;
   return *(board[0]);
-}
+}*/
 
 Player& Game::getPlayer(string name) {
   for (auto &p : player) {
@@ -329,12 +365,13 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
 
 bool Game::trade(Player& p, unsigned int n, string b) {
   shared_ptr<Board> sharedb = nullptr;
-      for(auto it : board){
-        if(it->getName()==b){
-          sharedb = it;
-          break;
-        }
-      }
+  for(auto it : board){
+    if(it->getName()==b){
+      sharedb = it;
+      break;
+    }
+  }
+
   shared_ptr<Player> sharedp = make_shared<Player>(p);
   if (sharedb->getOwner() == sharedp) {
     cout << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << sharedb->getName() << endl;
@@ -360,13 +397,21 @@ bool Game::trade(Player& p, unsigned int n, string b) {
   } else return false;
 }
 
-bool Game::improve(Board& b, bool improve) {
-  if (b.getOwner() == currentPlayer) {
+bool Game::improve(string b_name, bool improve) {
+  shared_ptr<Board> b = nullptr;
+  for(auto it : board){
+    if(it->getName()==b_name){
+      b = it;
+      break;
+    }
+  }
+
+  if (b->getOwner() == currentPlayer) {
     if (improve) {
-      if (b.getImproveLevel() < 5) {
-        if (currentPlayer->getCashAmount() >= b.getImproveCost()) {
-          currentPlayer->addCash(-b.getImproveCost());
-          b.improve();
+      if (b->getImproveLevel() < 5) {
+        if (currentPlayer->getCashAmount() >= b->getImproveCost()) {
+          currentPlayer->addCash(-b->getImproveCost());
+          b->improve();
           return true;
         } else {
           cout << "You don't have enough money to improve this property" << endl;
@@ -377,9 +422,9 @@ bool Game::improve(Board& b, bool improve) {
         return false;
       }
     } else { // degrade
-      if (b.getImproveLevel() > 0) {
-        currentPlayer->addCash(b.getImproveCost() / 2);
-        b.degrade();
+      if (b->getImproveLevel() > 0) {
+        currentPlayer->addCash(b->getImproveCost() / 2);
+        b->degrade();
         return true;
       } else {
         cout << "It can't be degraded anymore" << endl;
@@ -392,11 +437,19 @@ bool Game::improve(Board& b, bool improve) {
   }
 }
 
-bool Game::mortgage(Board& b) {
-  if (b.getOwner() == currentPlayer) {
-    if (b.getImproveLevel() == 0 && !b.isMortgaged()) {
-      currentPlayer->addCash(b.getPrice() / 2);
-      b.changeMortgage();
+bool Game::mortgage(string b_name) {
+  shared_ptr<Board> b = nullptr;
+  for(auto it : board){
+    if(it->getName()==b_name){
+      b = it;
+      break;
+    }
+  }
+
+  if (b->getOwner() == currentPlayer) {
+    if (b->getImproveLevel() == 0 && !b->isMortgaged()) {
+      currentPlayer->addCash(b->getPrice() / 2);
+      b->changeMortgage();
       return true;
     } else {
       cout << "You can't mortgage this property because it has improvements or it is already mortgaged" << endl;
@@ -408,12 +461,20 @@ bool Game::mortgage(Board& b) {
   }
 }
 
-bool Game::unmortgage(Board& b) {
-  if (b.getOwner() == currentPlayer) {
-    if (b.isMortgaged()) {
-      if (currentPlayer->getCashAmount() >= b.getPrice() / 10 * 6) {
-        currentPlayer->addCash(-b.getPrice() / 10 * 6);
-        b.changeMortgage();
+bool Game::unmortgage(string b_name) {
+  shared_ptr<Board> b = nullptr;
+  for(auto it : board){
+    if(it->getName()==b_name){
+      b = it;
+      break;
+    }
+  }
+
+  if (b->getOwner() == currentPlayer) {
+    if (b->isMortgaged()) {
+      if (currentPlayer->getCashAmount() >= b->getPrice() / 10 * 6) {
+        currentPlayer->addCash(-b->getPrice() / 10 * 6);
+        b->changeMortgage();
         return true;
       } else {
         cout << "You don't have enough money to unmortgage" << endl;
@@ -437,6 +498,10 @@ bool Game::checkIfBankruptcy() {
 }
 
 void Game::removePlayer() {
+  //
+  ///
+  //// 拍卖！！！！
+  ///
   for (size_t i = 0; i < player.size(); ++i) {
     if (player[i] == currentPlayer) {
       cout << currentPlayer->getName() << " is bankrupted" << endl;
