@@ -7,6 +7,7 @@
 #include "board.h"
 #include "game.h"
 #include "dice.h"
+#include "dctimsline.h"
 using namespace std;
 
 int main(int argc,char* argv[]) {
@@ -64,11 +65,18 @@ int main(int argc,char* argv[]) {
         } 
 
         
-
+        // In DC Tims Line
         if (cmd == "roll") {
             if (g.getCurrentPlayer().getsentToDCTL() == true) {
                 cout << "You are in DC Tims Line." << endl;
-                g.move(0);
+                int n = g.getActiverRim();
+                DCTimsLine tmp1{0, "dc times line"};
+                Player& p = g.getCurrentPlayer();
+                int m = tmp1.dclineaction(p, n);
+                g.printMap();
+                g.setActiverRim(m);
+                cout << "It is now the next player's turn. Enter 'next'." << endl;
+                continue;
             }
             // roll dice and move
             // check if has passed over OSAP

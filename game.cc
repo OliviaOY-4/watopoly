@@ -77,7 +77,7 @@ void Game::gameStart() {
   currentPlayer = player[0];
 }
 
-Player Game::getCurrentPlayer() {
+Player& Game::getCurrentPlayer() {
   return *currentPlayer;
 }
 
