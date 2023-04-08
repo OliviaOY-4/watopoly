@@ -44,7 +44,7 @@ public:
   void addCash(int amount);
   std::string getName();
   char getNameChar();
-  void ifMonopoly(std::string type);
+  bool ifMonopoly(std::string type);
   int getResidenceNum();
   bool getOSAPcollect();
   void setOSAPcollect(bool boo);

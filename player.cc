@@ -89,8 +89,14 @@ char Player::getNameChar() {
   return nameChar;
 }
 
-void Player::ifMonopoly(string type) {
-  int count = 0;
+bool Player::ifMonopoly(string type) {
+  for (auto it: monopoly) {
+    if (it == type) {
+      return true;
+    }
+  }
+  return false
+  /*int count = 0;
   int p_len =  property.size();
   for (int i = 0; i < p_len; i++){
     if (property[i]->getBlock() == type) count++;
@@ -101,7 +107,7 @@ void Player::ifMonopoly(string type) {
     }
   } else if (count == 3) {
     monopoly.emplace_back(type);
-  }
+  }*/
 }
 
 int Player::getResidenceNum() {
