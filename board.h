@@ -32,6 +32,7 @@ public:
   virtual void changeMortgage() = 0; 
   virtual bool isMortgaged() const = 0;
   virtual std::string getBlock() const = 0;
+  virtual void setImproveLevel(int level) = 0;
 };
 
 #endif

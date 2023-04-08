@@ -62,12 +62,12 @@ public:
   bool unmortgage(std::string b); 
   bool checkAssetVSLiability();
   bool checkIfBankruptcy();
-  void removePlayer();
+  void removePlayer(std::string name);
   void asset(); 
   void all(); 
   std::ofstream save(std::string filename);
-  void load(std::string file);
-  void bankruptcy(string playerName);
+  void load(std::ifstream& f);
+  void bankruptcy(std::string playerName);
   int getActiverRim();
   void setActiverRim(int n);
   void auction(std::string pro);

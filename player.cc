@@ -15,8 +15,7 @@ Player::Player(string name): name{name}, cash{1500}, position{0}, OSAPcollect{fa
   if (name == "Pink tie") nameChar = 'T';
 }
 
-Player::Player(string name, char nameChar, int RUR_Cup, int cash, int position, bool sentToDCTL, int DCTLtimes): name{name}, nameChar{nameChar}, cash{cash}, position{postion}, OSAPcollect{false}, sentToDCTL{sentToDCTL}, DCTLtimes{DCTLtimes}, RUR_Cup{RUR_Cup} {
-}
+Player::Player(string name, char nameChar, int RUR_Cup, int cash, int position, bool sentToDCTL, int DCTLtimes): name{name}, nameChar{nameChar}, cash{cash}, position{position}, OSAPcollect{false}, sentToDCTL{sentToDCTL}, DCTLtimes{DCTLtimes}, RUR_Cup{RUR_Cup} {}
 
 vector<shared_ptr<Board>> Player::getProperty(){
   return property;

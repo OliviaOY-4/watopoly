@@ -286,7 +286,7 @@ int main(int argc,char* argv[]) {
                 // need to find out who the player own money to 
                 // (another player or bank), then do someting to properties
                 // (giving the property to another player, auction, ...)
-                g.removePlayer();
+                g.removePlayer("tmp");
             } else {
                 cerr << "Cannot declare bankruptcy" << endl;
             }
@@ -294,17 +294,19 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "assets") {
             // displays the assets of the current player. 
             // Does not work if the player is deciding how to pay Tuition
-            if (!(g.asset())) {
-                cout << "Cannot display your assets at this stage" << endl;
-            }
+            // if (!(g.asset())) {
+            //     cout << "Cannot display your assets at this stage" << endl;
+            // }
+            g.asset();
 
         } else if (cmd == "all") {
             // displays the assets of every player. For verifying the 
             // correctness of your transactions. 
             // Does not work if a player is deciding how to pay Tuition. 
-             if (!(g.all())) {
-                cout << "Cannot display everyone's asset at this stage" << endl;
-            }
+            // if (!(g.all())) {
+            //     cout << "Cannot display everyone's asset at this stage" << endl;
+            // }
+            g.all();
 
         } else if (cmd == "save") {
             string filename;

@@ -47,3 +47,7 @@ void AcademicBuilding::improve() {
 void AcademicBuilding::degrade() {
   improvementLevel--;
 }
+
+void AcademicBuilding::setImproveLevel(int level){
+  improvementLevel = level;
+}

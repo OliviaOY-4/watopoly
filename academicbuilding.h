@@ -23,6 +23,7 @@ public:
   int getImproveCost() const;
   void improve();
   void degrade();
+  void setImproveLevel(int level);
 };
 
 #endif

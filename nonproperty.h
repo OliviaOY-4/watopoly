@@ -25,6 +25,7 @@ public:
   void changeMortgage() override {return;}
   bool isMortgaged() const override {return 1;}
   std::string getBlock() const override{return "noBlock";}
+  void setImproveLevel(int level) override {return;}
 
 };
 

@@ -16,6 +16,7 @@ public:
   void improve() override {return;}
   void degrade() override {return;}
   std::string getBlock() const override {return "Residence";}
+  void setImproveLevel(int level) override {return;}
 };
 
 #endif

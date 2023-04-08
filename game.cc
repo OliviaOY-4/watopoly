@@ -535,8 +535,8 @@ bool Game::checkIfBankruptcy() {
 }
 
 void Game::bankruptcy(string playerName){
-  shared<Player> p = nullptr;
-  for(auto a : players){
+  shared_ptr<Player> p = nullptr;
+  for(auto a : player){
     if(a->getName() == playerName){
       p = a;
     }
@@ -553,11 +553,11 @@ void Game::bankruptcy(string playerName){
           cout << "Input the name of the property you want to sell " << endl;
           string pro;
           cin >> pro;
-          for(auto it : p->getProperties()){
+          for(auto it : p->getProperty()){
             if(it->getName() == pro){
               if(it->getImproveLevel() != 0){
                 p->addCash(it->getImproveCost());
-                it->setImproveLevel(getImproveLevel()-1);
+                it->setImproveLevel(it->getImproveLevel()-1);
                 cout << "You've sell 1 improvement";
                 break;
               }
@@ -567,11 +567,11 @@ void Game::bankruptcy(string playerName){
           cout << "Input the name of the property you want to mortgage " << endl;
           string pro;
           cin >> pro;
-          for(auto it : p->getProperties()){
+          for(auto it : p->getProperty()){
             if(it->getName() == pro){
               if(!it->isMortgaged()){
                 p->addCash(it->getPrice()/2);
-                it->changeMortgaged();
+                it->changeMortgage();
                 cout << "You've mortgage the property";
                 break;
               }else{
@@ -589,7 +589,7 @@ void Game::bankruptcy(string playerName){
   } 
 }
 
-void Game::removePlayer() {
+void Game::removePlayer(string name) {
   //
   ///
   //// 拍卖！！！！
@@ -605,25 +605,25 @@ void Game::removePlayer() {
 void Game::asset() {
   cout << currentPlayer->getName()<<", your assets:" << endl;
   cout << "Cash: " << currentPlayer->getCashAmount() << endl;
-  cout << "Properties:" << endl;
-  for (auto it : currentPlayer->getProperties()) {
+  cout << "Properties: ";
+  for (auto it : currentPlayer->getProperty()) {
     cout << it->getName() << ", ";
   }
+  cout <<endl;
   cout << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
-  return 0;
 }
 
 void Game::all() {
   for (auto it : player) {
     cout << it->getName()<<", your assets:" << endl;
     cout << "Cash: " << it->getCashAmount() << endl;
-    cout << "Properties:" << endl;
-    for (auto it : it->getProperties()) {
+    cout << "Properties: " ;
+    for (auto it : it->getProperty()) {
       cout << it->getName() << ", ";
     }
+    cout << endl;
     cout << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
   }
-  return 0;
 }
 
 ofstream Game::save(string filename) {
@@ -633,9 +633,9 @@ ofstream Game::save(string filename) {
     file << it->getName() << " " << it->getNameChar() << " " << it->getRURCup() << " " << it->getCashAmount()<< " " << it->getPosition();
     if(it->getPosition() == 10){
       if (it->getsentToDCTL()){
-        file << " 0";
+        file << " 1" << it->getDCTLtimes();
       }else{
-        file << " 1" <<it->getDCTLtimes();
+        file << " 0";
       }
     }
     file << endl;
@@ -644,15 +644,15 @@ ofstream Game::save(string filename) {
     file << it2->getName() << " " ;
     auto tmp = dynamic_pointer_cast<Property>(it2);
     if(tmp){
-      if(tmp->getOwner != nullptr){
+      if(tmp->getOwner() != nullptr){
         file << it2->getOwner()->getName() << " " ;
       }else{
         file << "BANK ";
       }
       if(tmp->isMortgaged()){
-        file << "-1" << " " ;
+        file << "-1" << " "<< endl;
       }else{
-        auto tmp2 = dynamic_pointer_cast<Academic>(tmp);
+        auto tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
         if(tmp2){
           file << tmp2->getImproveLevel() << endl;
         }else{
@@ -667,13 +667,12 @@ ofstream Game::save(string filename) {
   return file;
 }
 
-void Game::load(string file) {
-  ifstream f(file);
+void Game::load(ifstream& f) {
   int num;
   string name;
   char namechar;
   int rurcup;
-  int  cash;
+  int cash;
   int pos;
   f >> num;
   for (int i = 0; i < num; i++) {
@@ -692,7 +691,7 @@ void Game::load(string file) {
         player.push_back(make_shared<Player>(name, namechar, rurcup, cash, pos, true, times));
       }
     } else {
-      g.player.push_back(make_shared<Player>(name, namechar, rurcup, cash, pos, false, 0));
+      player.push_back(make_shared<Player>(name, namechar, rurcup, cash, pos, false, 0));
     }
   }
   for(int i = 0; i < 40; i++){
@@ -719,8 +718,8 @@ void Game::load(string file) {
         }
       }
       p->setOwner(owner1);
-      owner1->addProperty(it);
-      auto academic = dynamic_pointer_cast<Academic>(it);
+      owner1->addProperties(it);
+      auto academic = dynamic_pointer_cast<AcademicBuilding>(it);
       if(academic){
         academic->setImproveLevel(level);
       }
