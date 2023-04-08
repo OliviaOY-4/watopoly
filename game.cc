@@ -602,11 +602,27 @@ void Game::removePlayer() {
   }
 }
 
-bool Game::asset() {
+void Game::asset() {
+  cout << currentPlayer->getName()<<", your assets:" << endl;
+  cout << "Cash: " << currentPlayer->getCashAmount() << endl;
+  cout << "Properties:" << endl;
+  for (auto it : currentPlayer->getProperties()) {
+    cout << it->getName() << ", ";
+  }
+  cout << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
   return 0;
 }
 
-bool Game::all() {
+void Game::all() {
+  for (auto it : player) {
+    cout << it->getName()<<", your assets:" << endl;
+    cout << "Cash: " << it->getCashAmount() << endl;
+    cout << "Properties:" << endl;
+    for (auto it : it->getProperties()) {
+      cout << it->getName() << ", ";
+    }
+    cout << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
+  }
   return 0;
 }
 

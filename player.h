@@ -28,6 +28,8 @@ protected:
 public:
   Player(std::string name);
   ~Player();
+  std::vector<std::shared_ptr<Board>> getProperty();
+  Player::Player(string name, char nameChar, int RUR_Cup, int cash, int position, bool sentToDCTL, int DCTLtimes);
   int roll();
   int getCashAmount();
   int getTotalWorth();
