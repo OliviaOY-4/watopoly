@@ -20,6 +20,7 @@ class Player {
   bool sentToDCTL;
   int DCTLtimes;
   int RUR_Cup;
+  // Dice *dice; 
   std::shared_ptr<Dice> dice;
 protected:
   std::vector<std::shared_ptr<Board>> property;
@@ -27,6 +28,7 @@ protected:
 public:
   Player(std::string name);
   ~Player();
+  int roll();
   int getCashAmount();
   int getTotalWorth();
   // void giveCash(Player* other, int amount);
