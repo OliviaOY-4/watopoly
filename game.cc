@@ -117,6 +117,7 @@ void Game::move(int num, shared_ptr<Player> p) {
 
   if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
     if (now->getOwner() == nullptr) { // No owner Property
+      printMap();
       cout << "You can buy " << now->getName() << " for " << now->getPrice() << endl;
       cout << "Choose: 'buy' or 'auction'" << endl;
       string choice;
@@ -143,6 +144,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       }
 
     } else { // Has owner Property
+      printMap();
       if (now->isMortgaged()) return;
       int visitPrice = now->getVisitPrice(*p);
       p->addCash(-visitPrice);
@@ -175,9 +177,11 @@ void Game::move(int num, shared_ptr<Player> p) {
       int m = tmp.slcaction(*p, n);
       setActiverRim(m);
       printMap();
+      move(tmp.getNextMove(), p);
     } else if (nowName == "TUITION") {
       Tuition tmp{0, "tuition"};
       tmp.action(*p);
+      printMap();
     } else if (nowName == "GO TO TIMS") {
       GoToTims tmp{0, "go to tims"};
       tmp.action(*p);
@@ -189,8 +193,10 @@ void Game::move(int num, shared_ptr<Player> p) {
     } else if (nowName == "COOP FEE") {
       CoopFee tmp{0, "coop fee"};
       tmp.action(*p);
+      printMap();
     } else if (nowName == "DC Tims Line") {
       cout << "Lands on DC Tims Line, nothing happens." << endl;
+      printMap();
     } else if (nowName == "NEEDLES HALL") {
       NeedleHall tmp{0, "needles hall"};
       int n = getActiverRim();
@@ -200,6 +206,7 @@ void Game::move(int num, shared_ptr<Player> p) {
     } else if (nowName == "Goose Nesting") {
       GooseNesting tmp{0, "goose nesting"};
       tmp.action(*p);
+      printMap();
     } 
   }
   //////////////////////////////////////////////////////////////////////////
@@ -575,6 +582,10 @@ void Game::auction(string pro) {
   vector<shared_ptr<Player>> participants = player;
   int n = participants.size();
   while(n != 1) {
+    if (n == 0) {
+      cout << "No one wants to buy this property" << endl;
+      return;
+    }
     cout << "There are " << n << " players in the auction." << endl;
     for (int i = 0; i < n; ++i) {
       cout << participants[i]->getName() << ", it is your turn" << endl;

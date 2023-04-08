@@ -55,17 +55,21 @@ int main(int argc,char* argv[]) {
     // game start
     string cmd = " ";
     int doubleroll = 0;
-    cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
+    cout << "The game begins." << endl;
     while (cin >> cmd) {
         
         if (g.endGame()) {
             cout << "Winner is :" << g.getWinner() << endl;
             break;
-        } cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
-        cout << "Enter a command: " << endl;
+        } 
+
+        
 
         if (cmd == "roll") {
-            
+            if (g.getCurrentPlayer().getsentToDCTL() == true) {
+                cout << "You are in DC Tims Line." << endl;
+                g.move(0);
+            }
             // roll dice and move
             // check if has passed over OSAP
             // if don't buy, auction.
@@ -76,16 +80,16 @@ int main(int argc,char* argv[]) {
             } else {
                 num1 = g.roll();
                 num2 = g.roll();
-                cout << num1 << " " << num2 << endl;
-            } g.printMap();
+            } 
             cout << "You rolled " << num1 + num2 << endl;
-            if (doubleroll == 3 && (num1 + num2) % 2 == 0) {
-                cout << "You have been sent to DC Tims Line." << endl;
-                g.move(10);
+            if (doubleroll >= 2 && num1 == num2) {
+                // cout << "You have been sent to DC Tims Line." << endl;
+                g.move(30 - g.getCurrentPlayer().getPosition());
                 cout << "It is now the next player's turn. Enter 'next'." << endl;
+                doubleroll++;
                 continue;
             } else g.move(num1 + num2);
-            if (num1 == num2) {
+            if (num1 == num2 && g.getCurrentPlayer().getsentToDCTL() != true) {
                 cout << "You can roll again. Enter 'roll'." << endl;
                 doubleroll++;
                 continue;
@@ -98,6 +102,7 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "next") {
             // move to next 
             g.nextPlayer();
+            cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
             doubleroll = 0;
             
         } else if (cmd == "trade") {

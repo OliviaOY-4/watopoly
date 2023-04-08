@@ -7,15 +7,17 @@
 #include <cstdlib>
 
 class SLC: public NonProperty {
-     int roll2(int n) {
+    int roll2(int n) {
         srand(static_cast<unsigned>(time(0)));
         int randnum = rand() % n + 1;
         return randnum;
     }
+    int nextmove;
 public:
     SLC(int position, std::string name): NonProperty(position, name) {}
     ~SLC() {};
     void action(Player &p) override {return;}
+    int getNextMove() {return nextmove;}
     int slcaction(Player &p, int n) {
         if (n < 4) {
             int ran = roll2(100);
@@ -28,28 +30,22 @@ public:
         }
         int rand = roll2(24);
         if (1 <= rand && rand <= 3) {
-            int to = p.getPosition() - 3;
-            p.setPosition(to);
+            nextmove = -3;
             std::cout << "You have been moved back 3 squares." << std::endl;
         } else if (4 <= rand && rand <= 7) {
-            int to = p.getPosition() - 2;
-            p.setPosition(to);
+            nextmove = -2;
             std::cout << "You have been moved back 2 squares." << std::endl;
         } else if (8 <= rand && rand <= 11) {
-            int to = p.getPosition() - 1;
-            p.setPosition(to);
+            nextmove = -1;
             std::cout << "You have been moved back 1 square." << std::endl;
         } else if (12 <= rand && rand <= 14) {
-            int to = p.getPosition() + 1;
-            p.setPosition(to);
+            nextmove = 1;
             std::cout << "You have been moved forward 1 square." << std::endl;
         } else if (15 <= rand && rand <= 18) {
-            int to = p.getPosition() + 2;
-            p.setPosition(to);
+            nextmove = 2;
             std::cout << "You have been moved forward 2 squares." << std::endl;
         } else if (19 <= rand && rand <= 22) {
-            int to = p.getPosition() + 3;
-            p.setPosition(to);
+            nextmove = 3;
             std::cout << "You have been moved forward 3 squares." << std::endl;
         } else if (rand == 23) {
             p.setDCTLtimes(0);

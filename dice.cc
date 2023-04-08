@@ -1,4 +1,4 @@
-// #include "dice.h"
+#include "dice.h"
 // #include <iostream>
 // #include <ctime>
 // #include <cstdlib>
@@ -22,7 +22,7 @@ int Dice::rollDice() {
 		std::shuffle( v.begin(), v.end(), rng );
 		for ( int i : v ) s.emplace_back(i);
 	} 
-	return s[0] + s[1];
+	return s[0];
 } // main
 
 
