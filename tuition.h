@@ -23,7 +23,7 @@ public:
         } else {
             int worth = p.getTotalWorth();
             p.addCash(-0.1 * worth);
-            std::cout << "You have paid " << 0.1 * worth << "tuition." << std::endl;
+            std::cout << "You have paid " << 0.1 * worth << " tuition." << std::endl;
         }
          
     }

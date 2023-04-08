@@ -101,6 +101,7 @@ int main(int argc,char* argv[]) {
             cout << "You rolled " << num1 + num2 << endl;
             if (doubleroll >= 2 && num1 == num2) {
                 // cout << "You have been sent to DC Tims Line." << endl;
+                g.printMap();
                 g.move(30 - g.getCurrentPlayer().getPosition());
                 cout << "You can not roll more." << endl;
                 cout << "Enter a command or end your turn by 'next'." << endl;

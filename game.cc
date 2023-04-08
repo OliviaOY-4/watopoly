@@ -481,19 +481,25 @@ bool Game::mortgage(string b_name) {
 
   if (b->getOwner() == currentPlayer) {
     if (b->getImproveLevel() == 0 && !b->isMortgaged()) {
-      currentPlayer->addCash(b->getPrice() / 2);
+      int m = b->getPrice() / 2;
+      currentPlayer->addCash(m);
       b->changeMortgage();
+      cout<< "You've mortgaged succesfully and received: $" << m <<endl;
+      cout << "Enter a command or end your turn by 'next'." << endl;
       return true;
     } else {
       if (b->getImproveLevel() != 0) {
         cout << "You can't mortgage this property because it has improvements" << endl;
+        cout << "Enter a command or end your turn by 'next'." << endl;
       } else {
         cout << "You can't mortgage this property because it is already mortgaged" << endl;
+        cout << "Enter a command or end your turn by 'next'." << endl;
       }
       return false;
     }
   } else {
     cout << "You don't own it" << endl;
+    cout << "Enter a command or end your turn by 'next'." << endl;
     return false;
   }
 }
@@ -509,8 +515,10 @@ bool Game::unmortgage(string b_name) {
   if (b->getOwner() == currentPlayer) {
     if (b->isMortgaged()) {
       if (currentPlayer->getCashAmount() >= b->getPrice() / 10 * 6) {
-        currentPlayer->addCash(-b->getPrice() / 10 * 6);
+        int m = -b->getPrice() / 10 * 6;
+        currentPlayer->addCash(m);
         b->changeMortgage();
+        cout << "You've unmortgaged by using $" << m << endl;
         return true;
       } else {
         cout << "You don't have enough money to unmortgage" << endl;
@@ -607,10 +615,11 @@ void Game::asset() {
   cout << "Cash: " << currentPlayer->getCashAmount() << endl;
   cout << "Properties: ";
   for (auto it : currentPlayer->getProperty()) {
-    cout << it->getName() << ", ";
+    cout << it->getName() << " ";
   }
   cout <<endl;
   cout << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
+  cout << "Enter a command or end your turn by 'next'." << endl;
 }
 
 void Game::all() {
@@ -619,10 +628,11 @@ void Game::all() {
     cout << "Cash: " << it->getCashAmount() << endl;
     cout << "Properties: " ;
     for (auto it : it->getProperty()) {
-      cout << it->getName() << ", ";
+      cout << it->getName() << " ";
     }
     cout << endl;
     cout << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
+    cout << "Enter a command or end your turn by 'next'." << endl;
   }
 }
 
@@ -633,7 +643,7 @@ ofstream Game::save(string filename) {
     file << it->getName() << " " << it->getNameChar() << " " << it->getRURCup() << " " << it->getCashAmount()<< " " << it->getPosition();
     if(it->getPosition() == 10){
       if (it->getsentToDCTL()){
-        file << " 1" << it->getDCTLtimes();
+        file << " 1" << " " << it->getDCTLtimes();
       }else{
         file << " 0";
       }
@@ -758,6 +768,9 @@ void Game::auction(string pro) {
     }
     cout << "There are " << n << " players in the auction." << endl;
     for (int i = 0; i < n; ++i) {
+      if(n==1){
+        break;
+      }
       cout << participants[i]->getName() << ", it is your turn" << endl;
       cout << "Choose between: bid or quit" << endl;
       string choice;
