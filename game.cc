@@ -109,7 +109,7 @@ void Game::move(int num, shared_ptr<Player> p) {
     newPos -= 40;
   }
   p->setPosition(newPos);
-  printMap();
+  
   
   bool buy = false;
   shared_ptr<Board> now = board[newPos];
@@ -117,7 +117,7 @@ void Game::move(int num, shared_ptr<Player> p) {
 
   if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
     if (now->getOwner() == nullptr) { // No owner Property
-      cout << "You can buy it for " << now->getPrice() << endl;
+      cout << "You can buy " << now->getName() << " for " << now->getPrice() << endl;
       cout << "Choose: 'buy' or 'auction'" << endl;
       string choice;
       
@@ -613,6 +613,7 @@ void Game::auction(string pro) {
       p->addCash(-max);
       p->addProperties(sharedb);
       sharedb->setOwner(p);
+      // check Brankruptcy
       return;
     }
   }
