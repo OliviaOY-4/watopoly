@@ -147,6 +147,10 @@ void Game::move(int num, shared_ptr<Player> p) {
     } else { // Has owner Property
       printMap();
       if (now->isMortgaged()) return;
+      if (now->getOwner() == p) {
+        cout << "Land on your own Property" << endl;
+        return;
+      }
       int visitPrice = now->getVisitPrice(*p);
       p->addCash(-visitPrice);
       cout << "You paid " << visitPrice << " to " << (now->getOwner())->getName() << endl;
