@@ -534,6 +534,61 @@ bool Game::checkIfBankruptcy() {
   return 0;
 }
 
+void Game::bankruptcy(string playerName){
+  shared<Player> p = nullptr;
+  for(auto a : players){
+    if(a->getName() == playerName){
+      p = a;
+    }
+  }
+  if(p->getCashAmount() < 0){
+    int choice;
+    cout << "Your cash is negative, you need to sell (input 0), or mortgage (input 1), or bankrupt (input 2)" <<endl;
+    cin >> choice;
+    if(choice == 2){
+      removePlayer(playerName);
+    }else{
+      do{
+        if(choice == 0){
+          cout << "Input the name of the property you want to sell " << endl;
+          string pro;
+          cin >> pro;
+          for(auto it : p->getProperties()){
+            if(it->getName() == pro){
+              if(it->getImproveLevel() != 0){
+                p->addCash(it->getImproveCost());
+                it->setImproveLevel(getImproveLevel()-1);
+                cout << "You've sell 1 improvement";
+                break;
+              }
+            }
+          }
+        }else if(choice == 1){
+          cout << "Input the name of the property you want to mortgage " << endl;
+          string pro;
+          cin >> pro;
+          for(auto it : p->getProperties()){
+            if(it->getName() == pro){
+              if(!it->isMortgaged()){
+                p->addCash(it->getPrice()/2);
+                it->changeMortgaged();
+                cout << "You've mortgage the property";
+                break;
+              }else{
+                cout << "The property is already mortgaged";
+              }
+            }
+          }
+        }
+        while(p->getCashAmount() < 0){
+          cout << "Your cash is still negative, you need to sell (input 0), or mortgage (input 1)" <<endl;
+          cin >> choice;
+        }
+      }while(p->getCashAmount() < 0);
+    }
+  } 
+}
+
 void Game::removePlayer() {
   //
   ///
@@ -556,12 +611,106 @@ bool Game::all() {
 }
 
 ofstream Game::save(string filename) {
-  ofstream n(filename);
-  return n;
+  ofstream file(filename);
+  file << player.size() << endl;
+  for (auto it : player) {
+    file << it->getName() << " " << it->getNameChar() << " " << it->getRURCup() << " " << it->getCashAmount()<< " " << it->getPosition();
+    if(it->getPosition() == 10){
+      if (it->getsentToDCTL()){
+        file << " 0";
+      }else{
+        file << " 1" <<it->getDCTLtimes();
+      }
+    }
+    file << endl;
+  }
+  for (auto it2 : board) {
+    file << it2->getName() << " " ;
+    auto tmp = dynamic_pointer_cast<Property>(it2);
+    if(tmp){
+      if(tmp->getOwner != nullptr){
+        file << it2->getOwner()->getName() << " " ;
+      }else{
+        file << "BANK ";
+      }
+      if(tmp->isMortgaged()){
+        file << "-1" << " " ;
+      }else{
+        auto tmp2 = dynamic_pointer_cast<Academic>(tmp);
+        if(tmp2){
+          file << tmp2->getImproveLevel() << endl;
+        }else{
+          file << "0" << endl;
+        }
+      }
+    }else{
+      file << "BANK 0" << endl;
+    } 
+  }
+  cout<<"Game saved!"<<endl;
+  return file;
 }
 
-void Game::load(ifstream &file) {
-  return;
+void Game::load(string file) {
+  ifstream f(file);
+  int num;
+  string name;
+  char namechar;
+  int rurcup;
+  int  cash;
+  int pos;
+  f >> num;
+  for (int i = 0; i < num; i++) {
+    string tmp;
+    getline(f, tmp);
+    istringstream ss(tmp);
+    ss >> name >> namechar >> rurcup >> cash >> pos;
+    if (pos == 10) {
+      int sent;
+      f >> sent;
+      if (sent == 0) {
+        player.push_back(make_shared<Player>(name, namechar, rurcup, cash, pos, false, 0));
+      } else {
+        int times;
+        f >> times;
+        player.push_back(make_shared<Player>(name, namechar, rurcup, cash, pos, true, times));
+      }
+    } else {
+      g.player.push_back(make_shared<Player>(name, namechar, rurcup, cash, pos, false, 0));
+    }
+  }
+  for(int i = 0; i < 40; i++){
+    auto it = board[i];
+    string tmp;
+    getline(f, tmp);
+    istringstream ss{tmp};
+    string name;
+    string owner;
+    int level;
+    ss >> name >> owner;
+    if(owner != "BANK"){
+      ss >> level;
+      auto p = dynamic_pointer_cast<Property>(it);
+      if(level == -1){
+        level = 0;
+        p->changeMortgage();
+      }
+      shared_ptr<Player> owner1;
+      for(auto it2 : player){
+        if(it2->getName() == owner){
+          owner1 = it2;
+          break;
+        }
+      }
+      p->setOwner(owner1);
+      owner1->addProperty(it);
+      auto academic = dynamic_pointer_cast<Academic>(it);
+      if(academic){
+        academic->setImproveLevel(level);
+      }
+    }
+  }
+  cout<<"Game loaded!"<<endl;
 }
 
 int Game::getActiverRim() {

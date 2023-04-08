@@ -63,10 +63,11 @@ public:
   bool checkAssetVSLiability();
   bool checkIfBankruptcy();
   void removePlayer();
-  bool asset(); 
-  bool all(); 
+  void asset(); 
+  void all(); 
   std::ofstream save(std::string filename);
-  void load(std::ifstream &file);
+  void load(std::string file);
+  void bankruptcy(string playerName);
   int getActiverRim();
   void setActiverRim(int n);
   void auction(std::string pro);
