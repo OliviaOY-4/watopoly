@@ -11,11 +11,14 @@ class DCTimsLine: public NonProperty {
         int randnum = rand() % n + 1;
         return randnum;
     }
+    int nextmove;
 public:
     DCTimsLine(int position, std::string name): NonProperty(position, name) {}
     ~DCTimsLine() {};
+    int getNextMove() {return nextmove;}
     int dclineaction(Player &p, int n){
         int tmp = n;
+        nextmove = 0;
         if (!p.getsentToDCTL()) std::cout << "Nothing happens." << std::endl;
         else {
             std::cout << "You are in DC Tims Line." << std::endl;
@@ -40,6 +43,7 @@ public:
                     p.setOSAPcollect(true);
                 } else {
                     if (p.getDCTLtimes() == 2) {
+                        int sum = dice1 + dice2;
                         std::cout << "You must pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
                         std::cout << "Input: ";
                         std::cin >> choice;
@@ -75,7 +79,7 @@ public:
                                 p.setOSAPcollect(true);
                                 //move???
                             }
-                        }
+                        } nextmove = sum;
                     } else {
                         std::cout << "Unfortunately, you will stay in DC Tims Line." << std::endl;
                         p.setDCTLtimes(p.getDCTLtimes() + 1);

@@ -106,6 +106,7 @@ void Game::move(int num, shared_ptr<Player> p) {
   // Check if get OSAP
   if (newPos >= 40) {
     p->addCash(200);
+    cout << "You passed OSAP and got $200" << endl;
     newPos -= 40;
   }
   p->setPosition(newPos);

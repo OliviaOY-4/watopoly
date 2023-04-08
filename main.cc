@@ -75,8 +75,15 @@ int main(int argc,char* argv[]) {
                 int m = tmp1.dclineaction(p, n);
                 g.printMap();
                 g.setActiverRim(m);
-                cout << "It is now the next player's turn. Enter 'next'." << endl;
-                continue;
+                int movenum = tmp1.getNextMove();
+                if (movenum != 0) {
+                    g.move(movenum);
+                    cout << "It is now the next player's turn. Enter 'next'." << endl;
+                    continue;
+                } else {
+                    cout << "It is now the next player's turn. Enter 'next'." << endl;
+                    continue;
+                }
             }
             // roll dice and move
             // check if has passed over OSAP
