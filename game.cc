@@ -506,7 +506,6 @@ bool Game::unmortgage(string b_name) {
       break;
     }
   }
-
   if (b->getOwner() == currentPlayer) {
     if (b->isMortgaged()) {
       if (currentPlayer->getCashAmount() >= b->getPrice() / 10 * 6) {

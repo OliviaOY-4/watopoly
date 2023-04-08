@@ -78,10 +78,10 @@ int main(int argc,char* argv[]) {
                 int movenum = tmp1.getNextMove();
                 if (movenum != 0) {
                     g.move(movenum);
-                    cout << "It is now the next player's turn. Enter 'next'." << endl;
+                    cout << "Enter a command or end your turn by 'next'." << endl;
                     continue;
                 } else {
-                    cout << "It is now the next player's turn. Enter 'next'." << endl;
+                    cout << "Enter a command or end your turn by 'next'." << endl;
                     continue;
                 }
             }
@@ -100,7 +100,7 @@ int main(int argc,char* argv[]) {
             if (doubleroll >= 2 && num1 == num2) {
                 // cout << "You have been sent to DC Tims Line." << endl;
                 g.move(30 - g.getCurrentPlayer().getPosition());
-                cout << "It is now the next player's turn. Enter 'next'." << endl;
+                cout << "Enter a command or end your turn by 'next'." << endl;
                 doubleroll++;
                 continue;
             } else g.move(num1 + num2);
@@ -109,7 +109,7 @@ int main(int argc,char* argv[]) {
                 doubleroll++;
                 continue;
             } else {
-                cout << "It is now the next player's turn. Enter 'next'." << endl;
+                cout << "Enter a command or end your turn by 'next'." << endl;
                 continue;
             }
             
