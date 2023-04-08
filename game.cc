@@ -668,12 +668,12 @@ ofstream Game::save(string filename) {
 }
 
 void Game::load(ifstream& f) {
-  int num;
-  string name;
-  char namechar;
-  int rurcup;
-  int cash;
-  int pos;
+  int num = 0;
+  string name = " ";
+  char namechar = ' ';
+  int rurcup = 0;
+  int cash = 0;
+  int pos = 0;
   f >> num;
   for (int i = 0; i < num; i++) {
     string tmp;
@@ -708,17 +708,19 @@ void Game::load(ifstream& f) {
       auto p = dynamic_pointer_cast<Property>(it);
       if(level == -1){
         level = 0;
-        p->changeMortgage();
+        if (p != nullptr) p->changeMortgage();
       }
-      shared_ptr<Player> owner1;
+      shared_ptr<Player> owner1 = nullptr;
       for(auto it2 : player){
         if(it2->getName() == owner){
           owner1 = it2;
           break;
         }
       }
-      p->setOwner(owner1);
-      owner1->addProperties(it);
+      if (owner1 != nullptr) {
+        p->setOwner(owner1);
+        owner1->addProperties(it);
+      }
       auto academic = dynamic_pointer_cast<AcademicBuilding>(it);
       if(academic){
         academic->setImproveLevel(level);
