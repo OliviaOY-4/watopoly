@@ -74,7 +74,7 @@ int main(int argc,char* argv[]) {
     cout << "==> " << "The game begins." << endl;
     while (true) {
 
-        cout << "==> " << "Available command: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print]" << endl;
+        cout << "==> " << "Available command: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print] [quit]" << endl;
         cout << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
         
         if (g.endGame()) {
@@ -355,6 +355,8 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "print") {
             g.printMap();
             
+        } else if (cmd == "quit") {
+            return 0;
         } else {
             cerr << "Invalid Command." << endl;
         }
