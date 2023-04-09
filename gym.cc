@@ -45,7 +45,7 @@ int Gym::getVisitPrice(Player& visitor) {
 void Gym::setVisitPrice(){
   int price1 = roll();
   int price2 = roll();
-  cout << "Roll result: " << price1 << " " << price2 << " " << endl;
+  cout << "==> " << "Roll result: " << price1 << " " << price2 << " " << endl;
   int price = price1 + price2;
   int count = owner->getGymNum();
   if (count == 1) visitPrice = price * 4;
