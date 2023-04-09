@@ -89,6 +89,11 @@ int main(int argc,char* argv[]) {
             continue;
         }
 
+        if (g.getCurrentPlayer().getCashAmount()<0) {
+            // owe to bank;
+            g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", g.getCurrentPlayer().getCashAmount())
+        }
+
 
 
         

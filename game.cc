@@ -621,7 +621,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
 
   if(cur_p->getCashAmount() < oweAmount){
     int choice;
-    cout << "==> Your cash is not enough, you need to sell (input 0), or mortgage (input 1), or bankrupt (input 2)" <<endl;
+    cout << "==> Your cash is not enough, you need to sell improvements(input 0), or mortgage (input 1), or declare bankrupt (input 2)" <<endl;
 
     while(cin >> choice) {
       if(choice == 2){
@@ -639,60 +639,74 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
             cur_p->sellProperties(it);
           }
           removePlayer(playerName);
+          return;
 
         } else {
-
+          // owe to bank;
+          cout << "==> All your buildings are returned to the open market as unmortgaged properties." << endl;
+          // cups are destroyed;
+          setActiverRim(getActiverRim() - cur_p->getRURCup());
+          // properties are actions;
+          std::vector<std::shared_ptr<Board>> cur_p_property = cur_p->getProperty();
+          removePlayer(playerName);
+          for (auto it: cur_p_property) {
+            if (it->isMortgaged()) {
+              it->changeMortgage();
+            }
+            auction(it->getName());
+          }
+          return;
         }
         break;
 
-      }else{
+      }else if (choice == 0 || choice == 1) {
         // sell or mortgage
-        while(p->getCashAmount() < oweAmount && p->getTotalWorth() > oweAmount){
-          // while total worth has enough money
-          if(choice == 0){
-            if(p->getPropertySize()<=0){
-              cout << "==> You don't have any property" <<endl;
-              break;
-            }
+        // has no property
+        if(cur_p->getPropertySize()<=0){
+            cout << "==> You don't have any property." <<endl;
+            continue;
+        }
+
+        if(choice == 0){
+            // choose to moargage
             cout << "==> Input the name of the property you want to sell " << endl;
             string pro;
             cin >> pro;
-            for(auto it : p->getProperty()){
-              if(it->getName() == pro){
-                if(it->getImproveLevel() != 0){
-                  int pri = it->getImproveCost()/2;
-                  p->addCash(pri);
-                  it->degrade();
-                  cout << "==> You've sell 1 improvement"<<endl;
-                  cout << "==> You've gained: $" << pri <<endl;
-                  break;
-                }else{
-                  cout << "==> Your improvement is 0, so you can not sell the improvement" <<endl;
-                  break;
-                }
-              }
+            if (isValidProperty(pro)) {
+              improve(pro, false);
             }
-          }else if(choice == 1){
+
+        } else if(choice == 1){
             cout << "==> Input the name of the property you want to mortgage " << endl;
             string pro;
             cin >> pro;
-            bool mor = false;
-            for(auto it : board){
-              if(it->getName()==pro){
-                mortgage(pro);
-                mor = true;
-              }
+            if (isValidProperty(pro)) {
+              mortgage(pro);
             }
-            if(!mor){ 
-              cout << "==> You don't have this property" << endl;
-            }
-          }
-          if(p->getCashAmount() < 0){
-            cout << "==> Your cash is still not enough, you need to sell (input 0), or mortgage (input 1)" <<endl;
-            cin >> choice;
-          }
-        } //do while loop
-          if(p->getCashAmount() >= oweAmount){
+        }
+      }
+      
+      if(p->getCashAmount() < oweAmount){
+          cout << "==> Your cash is still not enough, you need to sell (input 0), or mortgage (input 1), or declare bankrupt (input 2)" <<endl;
+          cin >> choice;
+      } else {
+        cout << "==> Your have enough money." <<endl;
+        if (owe_p) {
+          // owe player
+          owe_p->addCash(oweAmount);
+          cur_p->addCash(-oweAmount);
+        } else {
+          // owe bank
+          cur_p->addCash(-oweAmount);
+        }
+        break;
+      }
+      }
+    }
+  }
+}
+        
+        /*if(p->getCashAmount() >= oweAmount){
             p->addCash(-oweAmount);
             cout << "==> You've paid: " << oweAmount <<" to "<<owePlayer;
             return;
@@ -724,10 +738,14 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
               return;
             }
           }
+          break;
+      } else {
+        cout << "==> Invalid Input" << endl;
+        continue;
       }
     }
   } 
-}
+}*/
 
 void Game::removePlayer(string name) {
   for (size_t i = 0; i < player.size(); ++i) {
