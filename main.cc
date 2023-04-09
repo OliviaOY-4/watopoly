@@ -72,12 +72,20 @@ int main(int argc,char* argv[]) {
     string cmd = " ";
     int doubleroll = 0;
     cout << "The game begins." << endl;
-    while (cin >> cmd) {
+    while (true) {
+
+        cout << "Available command: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print]" << endl;
+        cout << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
         
         if (g.endGame()) {
             cout << "Winner is :" << g.getWinner() << endl;
             break;
         } 
+
+        if (!(cin>>cmd)) {
+            cout << "Invalid input." << endl;
+            continue;
+        }
 
         
         // In DC Tims Line
@@ -87,7 +95,7 @@ int main(int argc,char* argv[]) {
                 int n = g.getActiverRim();
                 DCTimsLine tmp1{0, "dc times line"};
                 Player& p = g.getCurrentPlayer();
-                int m = tmp1.dclineaction(p, n);
+                int m = tmp1.action(p, n);
                 g.printMap();
                 g.setActiverRim(m);
                 int movenum = tmp1.getNextMove();
@@ -149,7 +157,7 @@ int main(int argc,char* argv[]) {
             cin >> name >> give >> receive;
             // check it's a valid player name
             if (!(g.isValidPlayer(name))) {
-                cerr << "Invalid Player" << endl;
+                cerr << "Invalid Player." << endl;
                 continue;
             }
 
@@ -158,7 +166,7 @@ int main(int argc,char* argv[]) {
                 // trade money to building
                 // check receive is valid property name 
                 if (!(g.isValidProperty(receive))) {
-                    cout << "Invalid property name" << endl;
+                    cout << "Invalid property name." << endl;
                     continue;
                 }
 
@@ -182,7 +190,7 @@ int main(int argc,char* argv[]) {
                 // trade building to money
                 // check give is valid property name
                 if (!(g.isValidProperty(give))) {
-                    cout << "Invalid property name" << endl;
+                    cout << "Invalid property name." << endl;
                     continue;
                 }
 
@@ -206,7 +214,7 @@ int main(int argc,char* argv[]) {
                 // trade from building to building
                 // check both are valid property name
                 if (!(g.isValidProperty(give)) || !(g.isValidProperty(receive))) {
-                    cout << "Invalid property name" << endl;
+                    cout << "Invalid property name." << endl;
                     continue;
                 }
 
@@ -234,7 +242,7 @@ int main(int argc,char* argv[]) {
             cin >> property >> behaviour;
             // check property is a valid property name
             if (!(g.isValidProperty(property))) {
-                cout << "Invalid property name" << endl;
+                cout << "Invalid property name." << endl;
                 continue;
             }
             //Board& b = g.getBoard(property);
@@ -245,7 +253,7 @@ int main(int argc,char* argv[]) {
                 // and it can buy improve
                 // attempt to buy improvement
                 if (!(g.improve(property, true))) {
-                    cout << "Unable to buy improve" << endl;
+                    cout << "Unable to buy improve." << endl;
                 }
 
             } else if (behaviour == "sell") {
@@ -254,11 +262,11 @@ int main(int argc,char* argv[]) {
                 // and it can sell improve
                 // attempt to sell improvement
                 if (!(g.improve(property, false))) {
-                    cout << "Unable to sell improve" << endl;
+                    cout << "Unable to sell improve." << endl;
                 }
 
             } else {
-                cerr << "Invalid behaviour" << endl;
+                cerr << "Invalid behaviour." << endl;
             }
 
         } else if (cmd == "mortgage") {
@@ -266,7 +274,7 @@ int main(int argc,char* argv[]) {
             cin >> property;
             // check property is a valid property name
             if (!(g.isValidProperty(property))) {
-                cout << "Invalid property name" << endl;
+                cout << "Invalid property name." << endl;
                 continue;
             }
             //Board& b = g.getBoard(property);
@@ -275,7 +283,7 @@ int main(int argc,char* argv[]) {
             // check property is owned by player, and can mortgage 
             // (not already mortgaged, has no improvements)
             if (!(g.mortgage(property))) {
-                cout << "Unable to mortgage" << endl;
+                cout << "Unable to mortgage." << endl;
                 cout << "Enter a command or end your turn by 'next'." << endl;
             }
 
@@ -284,7 +292,7 @@ int main(int argc,char* argv[]) {
             cin >> property;
             // check property is a valid property name
             if (!(g.isValidProperty(property))) {
-                cout << "Invalid property name" << endl;
+                cout << "Invalid property name." << endl;
                 continue;
             }
             //Board& b = g.getBoard(property);
@@ -293,7 +301,7 @@ int main(int argc,char* argv[]) {
             // check property used to owned by player, and can unmortgage 
             // (not already unmortgaged)
             if (!(g.unmortgage(property))) {
-                cout << "Unable to unmortgage" << endl;
+                cout << "Unable to unmortgage." << endl;
             }
 
         } else if (cmd == "backrupt") {
@@ -337,7 +345,7 @@ int main(int argc,char* argv[]) {
             g.printMap();
             
         } else {
-            cerr << "Invalid Command" << endl;
+            cerr << "Invalid Command." << endl;
         }
     }
 }
