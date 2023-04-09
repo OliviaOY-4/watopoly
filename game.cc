@@ -209,17 +209,18 @@ void Game::move(int num, shared_ptr<Player> p) {
       // printMap();
     } else if (nowName == "GO TO TIMS") {
       GoToTims tmp{0, "go to tims"};
-      tmp.action(*p);
       int n = getActiverRim();
+      tmp.action(*p,n);
       DCTimsLine tmp1{0, "dc times line"};
       printMap();
-      int m = tmp1.dclineaction(*p, n);
+      int m = tmp1.action(*p, n);
       printMap();
       setActiverRim(m);
     } else if (nowName == "COOP FEE") {
       printMap();
       CoopFee tmp{0, "coop fee"};
-      tmp.action(*p);
+      int n = getActiverRim();
+      tmp.action(*p,n);
       // printMap();
     } else if (nowName == "DC Tims Line") {
       printMap();
@@ -229,13 +230,14 @@ void Game::move(int num, shared_ptr<Player> p) {
       printMap();
       NeedleHall tmp{0, "needles hall"};
       int n = getActiverRim();
-      int m = tmp.nhaction(*p, n);
+      int m = tmp.action(*p, n);
       setActiverRim(m);
       // printMap();
     } else if (nowName == "Goose Nesting") {
       printMap();
       GooseNesting tmp{0, "goose nesting"};
-      tmp.action(*p);
+      int n = getActiverRim();
+      tmp.action(*p,n);
       // printMap();
     } 
   }
