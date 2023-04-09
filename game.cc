@@ -112,10 +112,11 @@ void Game::move(int num, shared_ptr<Player> p) {
     cout << "You passed OSAP and got $200" << endl;
     newPos -= 40;
     printMap();
+  } else if (newPos < 0) {
+    newPos += 40;
   }
   p->setPosition(newPos);
-  
-  
+
   bool buy = false;
   shared_ptr<Board> now = board[newPos];
   string nowType = now->getType();
@@ -414,6 +415,7 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
   } else return false;
 }
 
+
 bool Game::trade(Player& p, unsigned int n, string b) {
   shared_ptr<Board> sharedb = nullptr;
   for(auto it : board){
@@ -448,8 +450,8 @@ bool Game::trade(Player& p, unsigned int n, string b) {
   } else return false;
 }
 
+
 bool Game::improve(string b_name, bool improve) {
-  /////////////需要判断monopoly
   shared_ptr<Board> b = nullptr;
   for(auto it : board){
     if(it->getName()==b_name){
@@ -465,17 +467,23 @@ bool Game::improve(string b_name, bool improve) {
 
   if (b->getOwner() == currentPlayer) {
     if (improve) {
+      // check if monopoly
+      string blockName = b->getBlock();
+      if (!(currentPlayer->ifMonopoly(blockName))) {
+        cout << "You haven't own all properties in a monopoly. Unable to improve." << endl;
+      }
+      // not fully improved
       if (b->getImproveLevel() < 5) {
         if (currentPlayer->getCashAmount() >= b->getImproveCost()) {
           currentPlayer->addCash(-b->getImproveCost());
           b->improve();
           return true;
         } else {
-          cout << "You don't have enough money to improve this property" << endl;
+          cout << "You don't have enough money to improve this property." << endl;
           return false;
         }
       } else{
-        cout << "It is already full grade!" << endl;
+        cout << "It is already full upgraded!" << endl;
         return false;
       }
     } else { // degrade
