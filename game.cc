@@ -489,6 +489,7 @@ bool Game::improve(string b_name, bool improve) {
         if (currentPlayer->getCashAmount() >= b->getImproveCost()) {
           currentPlayer->addCash(-b->getImproveCost());
           b->improve();
+          cout << "==> You have successfully improved " << b->getName() << endl;
           return true;
         } else {
           cout << "==> You don't have enough money to improve this property." << endl;
@@ -502,6 +503,7 @@ bool Game::improve(string b_name, bool improve) {
       if (b->getImproveLevel() > 0) {
         currentPlayer->addCash(b->getImproveCost() / 2);
         b->degrade();
+        cout << "==> You have successfully degraded " << b->getName() << endl;
         return true;
       } else {
         cout << "==> It can't be degraded anymore" << endl;
