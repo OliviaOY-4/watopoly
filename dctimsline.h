@@ -60,7 +60,7 @@ public:
                 } else {
                     if (p.getDCTLtimes() == 2) {
                         int sum = dice1 + dice2;
-                        std::cout << "It's yoru third turn at DC Tims Line" << endl << "You must pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
+                        std::cout << "It's your third turn at DC Tims Line" << endl << "You must pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
                         std::cout << "Input: ";
                         std::cin >> choice;
                         while (choice != "Pay" && choice != "RimCup") {

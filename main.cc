@@ -33,29 +33,29 @@ int main(int argc,char* argv[]) {
     }
 
     // initialize players
-    // int num_of_players = 0;
-    // cout << "Welcome to the game of Monopoly!" << endl;
-    // cout << "Number of players must be between 2 and 7." << endl;
-    // cout << "Please enter the number of players: " << endl;
-    // string tmp;
-    // getline(cin, tmp);
-    // istringstream iss{tmp};
-    // iss >> num_of_players;
-    // for (int i = 0; i < num_of_players; i++) {
-    //     cout << "Enter the name of Player " << i + 1 << ": " << endl;
-    //     string name = " ";
-    //     if (getline(cin, name)) {
-    //         if (!g.initPlayer(name)) {
-    //             cout << "Invalid player name, input a valid name: " << endl;
-    //             i--;
-    //         }
-    //     }
-    //     // g.initPlayer need to check it's a valid name and char
-    // } 
-    // cout << endl << "Current Players: " << endl;
-    // g.printPlayers();
-    // g.gameStart();
-    // g.printMap();
+    int num_of_players = 0;
+    cout << "Welcome to the game of Monopoly!" << endl;
+    cout << "Number of players must be between 2 and 7." << endl;
+    cout << "Please enter the number of players: " << endl;
+    string tmp;
+    getline(cin, tmp);
+    istringstream iss{tmp};
+    iss >> num_of_players;
+    for (int i = 0; i < num_of_players; i++) {
+        cout << "Enter the name of Player " << i + 1 << ": " << endl;
+        string name = " ";
+        if (getline(cin, name)) {
+            if (!g.initPlayer(name)) {
+                cout << "Invalid player name, input a valid name: " << endl;
+                i--;
+            }
+        }
+        // g.initPlayer need to check it's a valid name and char
+    } 
+    cout << endl << "Current Players: " << endl;
+    g.printPlayers();
+    g.gameStart();
+    g.printMap();
 
     // game start
     string cmd = " ";
@@ -72,7 +72,7 @@ int main(int argc,char* argv[]) {
         // In DC Tims Line
         if (cmd == "roll") {
             if (g.getCurrentPlayer().getsentToDCTL() == true) {
-                cout << "You are in DC Tims Line." << endl;
+                // cout << "You are in DC Tims Line." << endl;
                 int n = g.getActiverRim();
                 DCTimsLine tmp1{0, "dc times line"};
                 Player& p = g.getCurrentPlayer();
@@ -263,6 +263,7 @@ int main(int argc,char* argv[]) {
             // (not already mortgaged, has no improvements)
             if (!(g.mortgage(property))) {
                 cout << "Unable to mortgage" << endl;
+                cout << "Enter a command or end your turn by 'next'." << endl;
             }
 
         } else if (cmd == "unmortgage") {

@@ -18,8 +18,10 @@ public:
             std::cin >> choice;
         }
         if (choice == 0) {
-            p.addCash(-300);
-            std::cout << "You have paid $300 tuition." << std::endl;
+            if(p.getCashAmount()>=300){
+                p.addCash(-300);
+                std::cout << "You have paid $300 tuition." << std::endl;
+            }
         } else {
             int worth = p.getTotalWorth();
             p.addCash(-0.1 * worth);

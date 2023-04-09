@@ -1,3 +1,4 @@
+
 #include "game.h"
 #include "board.h"
 using namespace std;
@@ -110,6 +111,7 @@ void Game::move(int num, shared_ptr<Player> p) {
     p->addCash(200);
     cout << "You passed OSAP and got $200" << endl;
     newPos -= 40;
+    printMap();
   }
   p->setPosition(newPos);
   
@@ -154,14 +156,20 @@ void Game::move(int num, shared_ptr<Player> p) {
         return;
       }
       int visitPrice = now->getVisitPrice(*p);
-      p->addCash(-visitPrice);
-      cout << "You paid " << visitPrice << " to " << (now->getOwner())->getName() << endl;
-      if (p->getCashAmount() >= 0) return;
-      else { // in debt
-        cout << "You are in debt" << endl;
-        cout << "Choose: 'mortgage' or 'trade' or 'degrade'" << endl;
-        string choice;
-        cin >> choice;
+      if(p->getCashAmount() < visitPrice){
+        cout <<"going bankrucpt fun"<<endl;
+        bankruptcy(p->getName(),now->getOwner()->getName(),visitPrice);
+      }else{
+        p->addCash(-visitPrice);
+        cout << "You paid " << visitPrice << " to " << (now->getOwner())->getName() << endl;
+      }
+      // if (p->getCashAmount() >= 0) return;
+      // else { // in debt
+      //   // bankruptcy(p->getName(),now->getOwner()->getName(),visitPrice);
+      //   // cout << "You are in debt" << endl;
+      //   // cout << "Choose: 'mortgage' or 'trade' or 'degrade'" << endl;
+      //   // string choice;
+      //   // cin >> choice;
         ////////////////////////////////////////////////////////////////////////////
         // input property name and check
         // if (choice == "mortgage") {
@@ -174,46 +182,59 @@ void Game::move(int num, shared_ptr<Player> p) {
         //   cout << "Invalid input" << endl;
         // }
         ////////////////////////////////////////////////////////////////////////////////
-      } 
+      // } 
     }
   } else { // NonProperty //////////////////////////////////////////////////
+  printMap();
     string nowName = now->getName();
     if (nowName == "SLC") {
+      printMap();
       SLC tmp{0, "slc"};
       int n = getActiverRim();
       int m = tmp.slcaction(*p, n);
       setActiverRim(m);
-      printMap();
+      // printMap();
       move(tmp.getNextMove(), p);
     } else if (nowName == "TUITION") {
+      printMap();
       Tuition tmp{0, "tuition"};
       tmp.action(*p);
-      printMap();
+      if(p->getCashAmount() < 0 ){
+        cout << "You've owed the bank $" << -p->getCashAmount() <<endl;
+        string name = p->getName();
+        bankruptcy(name, "bank", -p->getCashAmount());
+      }
+      // printMap();
     } else if (nowName == "GO TO TIMS") {
       GoToTims tmp{0, "go to tims"};
       tmp.action(*p);
       int n = getActiverRim();
       DCTimsLine tmp1{0, "dc times line"};
+      printMap();
       int m = tmp1.dclineaction(*p, n);
       printMap();
       setActiverRim(m);
     } else if (nowName == "COOP FEE") {
+      printMap();
       CoopFee tmp{0, "coop fee"};
       tmp.action(*p);
-      printMap();
+      // printMap();
     } else if (nowName == "DC Tims Line") {
-      cout << "Lands on DC Tims Line, nothing happens." << endl;
       printMap();
+      cout << "Lands on DC Tims Line, nothing happens." << endl;
+      // printMap();
     } else if (nowName == "NEEDLES HALL") {
+      printMap();
       NeedleHall tmp{0, "needles hall"};
       int n = getActiverRim();
       int m = tmp.nhaction(*p, n);
       setActiverRim(m);
-      printMap();
+      // printMap();
     } else if (nowName == "Goose Nesting") {
+      printMap();
       GooseNesting tmp{0, "goose nesting"};
       tmp.action(*p);
-      printMap();
+      // printMap();
     } 
   }
   //////////////////////////////////////////////////////////////////////////
@@ -499,7 +520,7 @@ bool Game::mortgage(string b_name) {
         cout << "Enter a command or end your turn by 'next'." << endl;
       } else {
         cout << "You can't mortgage this property because it is already mortgaged" << endl;
-        cout << "Enter a command or end your turn by 'next'." << endl;
+        // cout << "Enter a command or end your turn by 'next'." << endl;
       }
       return false;
     }
@@ -525,17 +546,21 @@ bool Game::unmortgage(string b_name) {
         currentPlayer->addCash(m);
         b->changeMortgage();
         cout << "You've unmortgaged by using $" << m << endl;
+        cout << "Enter a command or end your turn by 'next'." << endl;
         return true;
       } else {
         cout << "You don't have enough money to unmortgage" << endl;
+        cout << "Enter a command or end your turn by 'next'." << endl;
         return false;
       }
     } else {
       cout << "This property is not mortgaged" << endl;
+      cout << "Enter a command or end your turn by 'next'." << endl;
       return false;
     }
   } else {
      cout << "You are not the owner" << endl;
+     cout << "Enter a command or end your turn by 'next'." << endl;
     return false;
   }
 }
@@ -564,6 +589,10 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
     }else{
       do{
         if(choice == 0){
+          if(p->getPropertySize()<=0){
+            cout << "You don't have any property" <<endl;
+            break;
+          }
           cout << "Input the name of the property you want to sell " << endl;
           string pro;
           cin >> pro;
@@ -586,16 +615,25 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
           cout << "Input the name of the property you want to mortgage " << endl;
           string pro;
           cin >> pro;
-          mortgage(pro);
+          bool mor = false;
+          for(auto it : board){
+            if(it->getName()==pro){
+              mortgage(pro);
+              mor = true;
+            }
+          }
+          if(!mor){ 
+            cout << "You don't have this property" << endl;
+          }
         }
-        while(p->getCashAmount() < 0){
+        if(p->getCashAmount() < 0){
           cout << "Your cash is still not enough, you need to sell (input 0), or mortgage (input 1)" <<endl;
           cin >> choice;
         }
       }while(p->getCashAmount() < oweAmount && p->getTotalWorth() > oweAmount); //do while loop
         if(p->getCashAmount() >= oweAmount){
           p->addCash(-oweAmount);
-          cout << "You've paid: " <<oweAmount;
+          cout << "You've paid: " << oweAmount <<" to "<<owePlayer;
           return;
         }
         while(p->getTotalWorth() < 0){
@@ -809,7 +847,7 @@ void Game::auction(string pro) {
     }
     cout << "There are " << n << " players in the auction." << endl;
     for (int i = 0; i < n; ++i) {
-      if(n==1){
+      if(n==1&& i > 0){
         break;
       }
       cout << participants[i]->getName() << ", it is your turn" << endl;
@@ -822,12 +860,24 @@ void Game::auction(string pro) {
           n--;
           i--;
           cout << "There are " << n << " players in the auction." << endl;
+          if(n==1){
+            cout << "The final bid is " << max << " from " << bider << endl;
+            for (auto p : player) {
+              if (p->getName() == bider) {
+                p->addCash(-max);
+                p->addProperties(sharedb);
+                sharedb->setOwner(p);
+                // check Brankruptcy
+                return;
+              }
+            }
+          }
           break;
         } else if (choice == "bid") {
           cout << "Input your bid. Your bid must be higher than " << max << endl;
           int bid;
           cin >> bid;
-          if (bid > max) {
+          if (bid > max && participants[i]->getCashAmount() >= bid) {
             max = bid;
             bider = participants[i]->getName();
             cout << "Your bid is accepted" << endl;
