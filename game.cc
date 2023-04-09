@@ -778,7 +778,7 @@ void Game::all() {
     cout << "==> " << "Cash: " << it->getCashAmount() << endl;
     cout << "==> " << "Properties: " ;
     for (auto& it : it->getProperty()) {
-      cout << "==> " << it->getName() << " ";
+      cout << it->getName() << " ";
     }
     cout << "==> " << endl;
     cout << "==> " << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
