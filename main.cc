@@ -278,7 +278,7 @@ int main(int argc,char* argv[]) {
 
             } else {
                 cerr << "Invalid behaviour." << endl;
-            }
+            } g.printMap();
 
         } else if (cmd == "mortgage") {
             string property = " ";
