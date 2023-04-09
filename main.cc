@@ -121,7 +121,7 @@ int main(int argc,char* argv[]) {
                 num1 = g.roll();
                 num2 = g.roll();
             } 
-            cout << "==> " << "You rolled " << num1 + num2 << endl;
+            cout << "==> " << "Roll result: " << num1 << " " << num2 << endl;
             if (doubleroll >= 2 && num1 == num2) {
                 // cout << "==> " << "You have been sent to DC Tims Line." << endl;
                 g.printMap();
@@ -132,6 +132,7 @@ int main(int argc,char* argv[]) {
                 continue;
             } else g.move(num1 + num2);
             if (num1 == num2 && g.getCurrentPlayer().getsentToDCTL() != true) {
+                cout << "==> " << "You rolled double." << endl;
                 cout << "==> " << "You can roll again. Enter 'roll'." << endl;
                 doubleroll++;
                 continue;
