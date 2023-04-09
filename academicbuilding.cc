@@ -5,9 +5,8 @@ using namespace std;
 AcademicBuilding::AcademicBuilding(int position, string name, unsigned int purchasePrice, unsigned int visitPrice, vector<unsigned int> tut, int improvementCost, string monopolyBlock): 
   Property{position, name, purchasePrice, visitPrice}, tutWithImprove{tut}, improvementLevel{0}, improvementCost{improvementCost}, monopolyBlock{monopolyBlock} {}
 
-AcademicBuilding::~AcademicBuilding() {
-   //delete tutWithImprove;
-}
+AcademicBuilding::~AcademicBuilding() {}
+
 
 void AcademicBuilding::setVisitPrice() {
   return;

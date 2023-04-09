@@ -4,9 +4,6 @@ using namespace std;
 // Property::Property(unsigned int purchasePrice, unsigned int visitPrice): owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
 Property::Property(int position, std::string name, unsigned int purchasePrice, unsigned int visitPrice): Board{position, name}, owner{nullptr}, mortgage{false}, purchasePrice{purchasePrice}, visitPrice{visitPrice} {}
 
-// Property::~Property() {
-//   if (!owner == nullptr) owner=nullptr;//???
-// }
 
 Property::~Property() {} //don't need delete
 
@@ -34,6 +31,3 @@ bool Property::isMortgaged() const {
   return mortgage;
 }
 
-// int Property::getPurchasePrice(){
-//   return purchasePrice;
-// }

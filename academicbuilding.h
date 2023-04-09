@@ -6,7 +6,6 @@
 #include <string>
 
 class AcademicBuilding: public Property {
-  // int tutWithImprove[6];
   std::vector<unsigned int> tutWithImprove;
   int improvementLevel;
   int improvementCost;

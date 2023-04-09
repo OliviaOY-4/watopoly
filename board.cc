@@ -19,10 +19,6 @@ Board::Board(int position, string name): position{position}, name{name} {
 }
 
 Board::~Board() {
-  // delete game;
-  // for (auto i:curPlayer) { why????
-  //   delete i;
-  // }
 }
 
 string Board::getName() {
