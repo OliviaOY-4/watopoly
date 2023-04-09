@@ -6,13 +6,13 @@ Board::Board(int position, string name): position{position}, name{name} {
   vector<string> academic = {"AL", "ML", "ECH", "PAS", "HH", "RCH", "DWE", "CPH", "LHI", "BMH", "OPT", "EV1", "EV2", "EV3", "PHYS", "B1", "B2", "EIT", "ESC", "C2", "MC", "DC"};
   vector<string> residence = {"MKV", "UWP", "V1", "REV"};
   vector<string> gyms = {"PAC", "CIF"};
-  for (auto i : nonpro) {
+  for (auto& i : nonpro) {
     if (name == i) this->type = "NonProperty";
-  } for (auto i : academic) {
+  } for (auto& i : academic) {
     if (name == i) this->type = "AcademicBuilding";
-  } for (auto i : residence) {
+  } for (auto& i : residence) {
     if (name == i) this->type = "Residence";
-  } for (auto i : gyms) {
+  } for (auto& i : gyms) {
     if (name == i) this->type = "Gym";
   }
   
