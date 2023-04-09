@@ -10,7 +10,7 @@ public:
     int getNextMove() override {return 0;}
     int action(Player& p, int cup) override {
         p.addCash(-150);
-        std::cout << "You have paid $150 for the Coop Fee." << std::endl;
+        std::cout << "==> You have paid $150 for the Coop Fee." << std::endl;
         return cup;
     }
 };

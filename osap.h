@@ -12,7 +12,7 @@ public:
     int action(Player &p, int cup) override {
         if (p.getOSAPcollect()){
             p.addCash(200);
-            std::cout << "You have arrived Collect OSAP, collected $200." << std::endl;
+            std::cout << "==> " << "You have arrived Collect OSAP, collected $200." << std::endl;
         }
         return cup;
     }
