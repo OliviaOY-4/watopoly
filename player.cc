@@ -30,6 +30,7 @@ int Player::getCashAmount() {
   return cash;
 }
 
+
 int Player::getTotalWorth() {
   int total = cash;
   int p_len = property.size();
@@ -38,10 +39,7 @@ int Player::getTotalWorth() {
   } return total;
 }
 
-// void Player::giveCash(Player* other, int amount){
-//   other->addCash(amount);
-//   cash -= amount;
-// }
+
 void Player::giveCash(shared_ptr<Player> other, int amount){
   other->addCash(amount);
   cash -= amount;
@@ -57,7 +55,6 @@ void Player::addProperties(shared_ptr<Board> b){
     }
   }
 }
-
 
 
 void Player::sellProperties(shared_ptr<Board> b){
@@ -102,6 +99,7 @@ char Player::getNameChar() {
   return nameChar;
 }
 
+
 bool Player::ifMonopoly(string type) {
   int target = 0;
   if (type == "Arts1" || type == "Math") {
@@ -114,8 +112,9 @@ bool Player::ifMonopoly(string type) {
       return true;
     }
   }
-  return false
+  return false;
 }
+
 
 int Player::getResidenceNum() {
   int count = 0;
