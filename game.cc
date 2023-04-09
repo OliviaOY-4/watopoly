@@ -121,8 +121,10 @@ void Game::move(int num, shared_ptr<Player> p) {
   shared_ptr<Board> now = board[newPos];
   string nowType = now->getType();
 
+  // cout << "//////////////////////It is owned by " << board[newPos]->getOwner()->getName() << endl;
+
   if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
-    if (now->getOwner() == nullptr) { // No owner Property
+    if (board[newPos]->getOwner() == nullptr) { // No owner Property
       printMap();
       cout << "==> You can buy " << now->getName() << " for " << now->getPrice() << endl;
       cout << "==> Choose: 'buy' or 'auction'" << endl;
@@ -132,9 +134,9 @@ void Game::move(int num, shared_ptr<Player> p) {
         if (choice == "buy") {
           if (p->getCashAmount() >= now->getPrice()) {
             string name = now->getName();
-            purchase(name, *p);
+            purchase(name, *p); //////////////////////////
             buy = true;
-            cout << "==> You bought " << name << endl;
+            // cout << "==> You bought " << name << endl;
           } else {
             cout << "==> You don't have enough money" << endl;
             buy = false;
@@ -286,24 +288,27 @@ shared_ptr<Player> Game::getOwner(const Board& b) {
 void Game::purchase(string b, Player& p) {
   shared_ptr<Board> tmp = nullptr;
   shared_ptr<Player> tmp1 = nullptr;
-  for(auto it:board){
+  for(auto& it:board){
       if(it->getName()==b){
     //    p.addProperties(it);
         //p.addCash(-it->getPrice());
         tmp = it;
+        break;
       }
     }
 
   if (tmp->getOwner() == nullptr) {
     if (p.getCashAmount() >= tmp->getPrice()) {
-      for (auto it1:player) {
+      for (auto& it1:player) {
         if (it1->getName() == p.getName()) {
           tmp1 = it1;
+          break;
         }
       }
       tmp->setOwner(tmp1);
       p.addProperties(tmp);
       p.addCash(-tmp->getPrice());
+      cout << "==> " << p.getName() << " purchased " << tmp->getName() << endl;
     } else {
       cout << "==> You don't have enough money" << endl;
     }
@@ -313,6 +318,7 @@ void Game::purchase(string b, Player& p) {
     // shared_ptr<Board> sharedb = b;
     
   } else cout << "==> This property is already owned by " << (tmp->getOwner())->getName() << endl;
+  cout << "the new owner is " << (tmp->getOwner())->getName() << endl;
 }
 
 bool Game::isValidPlayer(string name) {
