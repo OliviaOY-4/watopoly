@@ -529,9 +529,8 @@ bool Game::improve(string b_name, bool improve) {
       string blockName = b->getBlock();
       if (!(currentPlayer->ifMonopoly(blockName))) {
         cout << "==> You haven't own all properties in a monopoly. Unable to improve." << endl;
-      }
-      // not fully improved
-      if (b->getImproveLevel() < 5) {
+      } else if (b->getImproveLevel() < 5) {
+        // not fully improved
         if (currentPlayer->getCashAmount() >= b->getImproveCost()) {
           currentPlayer->addCash(-b->getImproveCost());
           b->improve();
