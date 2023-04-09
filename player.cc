@@ -49,15 +49,16 @@ void Player::giveCash(shared_ptr<Player> other, int amount){
 void Player::addProperties(shared_ptr<Board> b){
   property.emplace_back(b);
   string blockName = b->getBlock();
-  for (auto it: ownBlock) {
+  for (auto& it: ownBlock) {
     if (it.first == blockName) {
       it.second++;
+      cout << blockName << " " << it.second << endl; //////
     }
   }
 }
 
 
-void Player::sellProperties(shared_ptr<Board> b){
+void Player::sellProperties (shared_ptr<Board> b) {
   int p_len = property.size();
   string blockName = b->getBlock();
   // delete from property
@@ -68,7 +69,7 @@ void Player::sellProperties(shared_ptr<Board> b){
     }
   }
   // delete from ownBlock
-  for (auto it: ownBlock) {
+  for (auto& it: ownBlock) {
     if (it.first == blockName) {
       --it.second;
       if (it.second < 0) {
@@ -76,7 +77,6 @@ void Player::sellProperties(shared_ptr<Board> b){
       }
     }
   }
-
 }
 
 int Player::getPosition() {
@@ -107,7 +107,7 @@ bool Player::ifMonopoly(string type) {
   } else {
     target = 3;
   }
-  for (auto it: ownBlock) {
+  for (auto& it: ownBlock) {
     if (it.first == type && it.second == target) {
       return true;
     }

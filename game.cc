@@ -51,7 +51,7 @@ Game::Game(): activeRim{0} {
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<Residence>(25, "V1", 200, 25)));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(26, "PHYS", 260, 0, vector<unsigned int>{22, 110, 330, 800, 975, 1150}, 150, "Sci1")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(27, "B1", 260, 0, vector<unsigned int>{22, 110, 330, 800, 975, 1150}, 150, "Sci1")));
-  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Gym>(28, "PAC", 150, 0)));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Gym>(28, "CIF", 150, 0)));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(29, "B2", 280, 0, vector<unsigned int>{24, 120, 360, 850, 1025, 1200}, 150, "Sci1")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<GoToTims>(30, "GO TO TIMS")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(31, "EIT", 300, 0, vector<unsigned int>{26, 130, 390, 900, 1100, 1275}, 200, "Sci2")));
@@ -222,11 +222,11 @@ void Game::move(int num, shared_ptr<Player> p) {
       int m = tmp1.action(*p, n);
       printMap();
       setActiverRim(m);
-    } else if (nowName == "COOP FEE") {
+    } else if (nowName == "Coop Fee") {
       printMap();
       CoopFee tmp{0, "coop fee"};
       int n = getActiverRim();
-      tmp.action(*p,n);
+      tmp.action(*p, n);
       // printMap();
     } else if (nowName == "DC Tims Line") {
       printMap();
@@ -239,7 +239,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       int m = tmp.action(*p, n);
       setActiverRim(m);
       // printMap();
-    } else if (nowName == "Goose Nesting") {
+    } else if (nowName == "GOOSE NESTING") {
       printMap();
       GooseNesting tmp{0, "goose nesting"};
       int n = getActiverRim();
@@ -433,15 +433,15 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
 
 bool Game::trade(Player& p, unsigned int n, string b) {
   shared_ptr<Board> sharedb = nullptr;
-  for(auto it : board){
+  for(auto& it : board){
     if(it->getName()==b){
       sharedb = it;
       break;
     }
   }
 
-  shared_ptr<Player> sharedp = make_shared<Player>(p);
-  if (sharedb->getOwner() == sharedp) {
+  // shared_ptr<Player> sharedp = make_shared<Player>(p);
+  if (sharedb->getOwner()->getName() == p.getName()) {
     cout << "==> " << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << sharedb->getName() << endl;
     cout << "==> " << p.getName() << ", please make a decision." << endl;
     cout << "==>Choose: 'accept' or 'reject'" << endl;
@@ -455,6 +455,7 @@ bool Game::trade(Player& p, unsigned int n, string b) {
       currentPlayer->addCash(-n);
       p.sellProperties(sharedb);
       p.addCash(n);
+      cout << "==> Trade accepted" << endl;
       return true;
     } else if (choice == "reject") {
       cout << "==> Trade rejected" << endl;
@@ -463,7 +464,10 @@ bool Game::trade(Player& p, unsigned int n, string b) {
       cout << "==> Invalid input" << endl;
       return false;
     }
-  } else return false;
+  } else {
+    cout << "==> " << p.getName() << " doesn't own " << sharedb->getName() << endl;
+    return false;
+  }
 }
 
 
@@ -493,6 +497,7 @@ bool Game::improve(string b_name, bool improve) {
         if (currentPlayer->getCashAmount() >= b->getImproveCost()) {
           currentPlayer->addCash(-b->getImproveCost());
           b->improve();
+          cout << "==> You have successfully improved " << b->getName() << endl;
           return true;
         } else {
           cout << "==> You don't have enough money to improve this property." << endl;
@@ -506,6 +511,7 @@ bool Game::improve(string b_name, bool improve) {
       if (b->getImproveLevel() > 0) {
         currentPlayer->addCash(b->getImproveCost() / 2);
         b->degrade();
+        cout << "==> You have successfully degraded " << b->getName() << endl;
         return true;
       } else {
         cout << "==> It can't be degraded anymore" << endl;
