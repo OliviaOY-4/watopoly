@@ -19,13 +19,9 @@ int AcademicBuilding::getVisitPrice(Player& visitor) {
 }
 
 int AcademicBuilding::getPrice() const {
-  return purchasePrice + improvementCost * improvementLevel; 
+  return purchasePrice; 
 }
 
-// string AcademicBuilding::getType() {
-//   // return "AcademicBuilding";
-//   return type;
-// }
 
 string AcademicBuilding::getBlock() const {
   return monopolyBlock;

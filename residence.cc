@@ -1,20 +1,15 @@
 #include "residence.h"
 using namespace std;
 
-// int roll() {
-//   srand(static_cast<unsigned>(time(0)));
-//   int randnum = rand() % 6 + 1;
-//   return randnum;
-// }
 
 Residence::Residence(int position, std::string name, unsigned int purchasePrice, unsigned int visitPrice): Property{position, name, purchasePrice, visitPrice} {}
 
 Residence::~Residence() {}
 
 int Residence::getPrice() const{
-  //return 200;
   return purchasePrice;
 }
+
 
 // string Residence::getType() {
 //   // return "Residence";
@@ -28,7 +23,9 @@ void Residence::setVisitPrice(){
   else if (count == 4) visitPrice = 200;
 }
 
+
 int Residence::getVisitPrice(Player& visitor) {
+  setVisitPrice();
   if (isMortgaged()) return 0;
   if (owner->getName() == visitor.getName() || owner == nullptr) return 0;
   return visitPrice;

@@ -93,10 +93,12 @@ void Game::printPlayers() {
   }
 }
 
+
 // get the winner
 string Game::getWinner() {
   return (player[0])->getName();
 }
+
 
 // move the player num steps and do corresponding actions
 void Game::move(int num, shared_ptr<Player> p) {

@@ -13,7 +13,7 @@ using namespace std;
 
 int Dice::rollDice() {
 	vector<int> v = { 1, 2, 3, 4, 5, 6};
-  vector<int> s = {};
+  	vector<int> s = {};
 	unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 	
 	default_random_engine rng{seed};
