@@ -322,7 +322,7 @@ void Game::purchase(string b, Player& p) {
     // shared_ptr<Board> sharedb = b;
     
   } else cout << "==> This property is already owned by " << (tmp->getOwner())->getName() << endl;
-  cout << "the new owner is " << (tmp->getOwner())->getName() << endl;
+  cout << tmp->getName() <<" the new owner is " << (tmp->getOwner())->getName() << endl;
 }
 
 bool Game::isValidPlayer(string name) {
@@ -545,7 +545,7 @@ bool Game::mortgage(string b_name) {
       int n = b->getPrice()*0.1;
       currentPlayer->addCash(-n);
       cout<< "==> You've mortgaged succesfully and received: $" << m <<endl;
-      cout<< "==> You've paid" << n << " to the bank" <<endl;
+      cout<< "==> You've paid " << n << " to the bank" <<endl;
       cout << "==> Enter a command or end your turn by 'next'." << endl;
       return true;
     } else {
@@ -560,7 +560,7 @@ bool Game::mortgage(string b_name) {
     }
   } else {
     cout << "==> You don't own it" << endl;
-    cout << "==> Enter a command or end your turn by 'next'." << endl;
+    // cout << "==> Enter a command or end your turn by 'next'." << endl;
     return false;
   }
 }
@@ -801,6 +801,7 @@ ofstream Game::save(string filename) {
     file << endl;
   }
   for (auto& it2 : board) {
+    if(it2->getType()!= "NonProperty"){
     file << it2->getName() << " " ;
     auto tmp = dynamic_pointer_cast<Property>(it2);
     if(tmp){
@@ -823,6 +824,7 @@ ofstream Game::save(string filename) {
       file << "BANK 0" << endl;
     } 
   }
+  }
   cout << "==> "<<"Game saved!"<<endl;
   return file;
 }
@@ -836,64 +838,59 @@ void Game::load(ifstream& f) {
   int pos = 0;
   string tmp;
   getline(f, tmp);
-  cout <<"test1: "<< tmp;
+  // cout <<"test1: "<< tmp;
   istringstream ss{tmp};
   ss >> num;
   for (int i = 0; i < num; i++) {
     getline(f, tmp);
-    ss >> name >> namechar >> rurcup >> cash >> pos;
+    istringstream s1{tmp};
+    s1 >> name >> namechar >> rurcup >> cash >> pos;
     if (pos == 10) {
       int sent;
-      ss >> sent;
+      s1 >> sent;
       if (sent == 0) {
         shared_ptr<Player> p = make_shared<Player>(name, namechar, rurcup, cash, pos, false, 0);
         player.push_back(p);
       } else {
         int times;
-        ss >> times;
+        s1 >> times;
         shared_ptr<Player> p = make_shared<Player>(name, namechar, rurcup, cash, pos, true, times);
         player.push_back(p);
-        // player.push_back(make_shared<Player>(name, namechar, rurcup, cash, pos, true, times));
       }
     } else {
       shared_ptr<Player> p = make_shared<Player>(name, namechar, rurcup, cash, pos, false, 0);
        player.push_back(p);
-      // player.push_back(make_shared<Player>(name, namechar, rurcup, cash, pos, false, 0));
     }
   }
-  for(int i = 0; i < 40; i++){
-    auto& it = board[i];
-    //string tmp;
-    getline(f, tmp);
-    //istringstream ss{tmp};
-    string name;
-    string owner;
-    int level;
-    ss >> name >> owner;
-    if(owner != "BANK"){
-      ss >> level;
-      auto p = dynamic_pointer_cast<Property>(it);
-      if(level == -1){
-        level = 0;
-        if (p != nullptr) p->changeMortgage();
-      }
-      shared_ptr<Player> owner1 = nullptr;
-      for(auto& it2 : player){
-        if(it2->getName() == owner){
-          owner1 = it2;
-          break;
-        }
-      }
-      if (owner1 != nullptr && p) {
-        p->setOwner(owner1);
-        owner1->addProperties(it);
-      }
-      auto academic = dynamic_pointer_cast<AcademicBuilding>(it);
-      if(academic){
-        academic->setImproveLevel(level);
+    while(getline(f, tmp)){
+      istringstream s2{tmp};
+      string name;
+      string owner;
+      int level;
+      s2 >> name >> owner;
+      for(int j = 0; j<40; j++){
+          if(board[j]->getName()==name){
+            auto p = dynamic_pointer_cast<Property>(board[j]);
+            if(owner != "BANK"){
+              s2 >> level;
+              if(level == -1){
+                level = 0;
+                if (p != nullptr) p->changeMortgage();
+              }
+              for(size_t i =0; i<player.size();i++){
+                  if(player[i]->getName()==owner){
+                    p->setOwner(player[i]);
+                    player[i]->addProperties(p);
+                  }
+                }
+              auto academic = dynamic_pointer_cast<AcademicBuilding>(p);
+              if(academic){
+                academic->setImproveLevel(level);
+              }
+            }
+          }
       }
     }
-  }
   currentPlayer = player[0];
   cout << "==> "<<"Game loaded!"<<endl;
 }

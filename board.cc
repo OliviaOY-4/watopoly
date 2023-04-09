@@ -2,7 +2,7 @@
 using namespace std;
 
 Board::Board(int position, string name): position{position}, name{name} {
-  vector<string> nonpro = {"COLLECT OSAP", "SLC", "TUITION", "NEEDLES HALL", "DC Tims Line", "Goose Nesting", "GO TO TIMS", "COOP FEE"};
+    vector<string> nonpro = {"COLLECT OSAP", "SLC", "TUITION", "NEEDLES HALL", "DC Tims Line", "GOOSE NESTING", "GO TO TIMS", "Coop Fee"};
   vector<string> academic = {"AL", "ML", "ECH", "PAS", "HH", "RCH", "DWE", "CPH", "LHI", "BMH", "OPT", "EV1", "EV2", "EV3", "PHYS", "B1", "B2", "EIT", "ESC", "C2", "MC", "DC"};
   vector<string> residence = {"MKV", "UWP", "V1", "REV"};
   vector<string> gyms = {"PAC", "CIF"};
