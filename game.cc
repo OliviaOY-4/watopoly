@@ -780,7 +780,7 @@ ofstream Game::save(string filename) {
   }
   for (auto& it2 : board) {
     file << it2->getName() << " " ;
-    auto& tmp = dynamic_pointer_cast<Property>(it2);
+    auto tmp = dynamic_pointer_cast<Property>(it2);
     if(tmp){
       if(tmp->getOwner() != nullptr){
         file << it2->getOwner()->getName() << " " ;
@@ -790,7 +790,7 @@ ofstream Game::save(string filename) {
       if(tmp->isMortgaged()){
         file << "-1" << " "<< endl;
       }else{
-        auto& tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
+        auto tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
         if(tmp2){
           file << tmp2->getImproveLevel() << endl;
         }else{
@@ -850,7 +850,7 @@ void Game::load(ifstream& f) {
     ss >> name >> owner;
     if(owner != "BANK"){
       ss >> level;
-      auto& p = dynamic_pointer_cast<Property>(it);
+      auto p = dynamic_pointer_cast<Property>(it);
       if(level == -1){
         level = 0;
         if (p != nullptr) p->changeMortgage();
@@ -866,7 +866,7 @@ void Game::load(ifstream& f) {
         p->setOwner(owner1);
         owner1->addProperties(it);
       }
-      auto& academic = dynamic_pointer_cast<AcademicBuilding>(it);
+      auto academic = dynamic_pointer_cast<AcademicBuilding>(it);
       if(academic){
         academic->setImproveLevel(level);
       }
