@@ -597,7 +597,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
           return;
         }
         while(p->getTotalWorth() < 0){
-          cout << "You don't have anything to sell or raise your money, please decleare bankrupt" << end;
+          cout << "You don't have anything to sell or raise your money, please decleare bankrupt" << endl;
           string c;
           getline(cin, c);
           if(c == "bankrupt"){ //if actually bankrupt
@@ -629,7 +629,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
 
 void Game::removePlayer(string name) {
   for (size_t i = 0; i < player.size(); ++i) {
-    if (player[i] == name) {
+    if (player[i]->getName() == name) {
       cout << player[i]->getName() << " is bankrupted" << endl;
       for(auto a : player[i]->getProperty()){ //拍卖！！！！
         auction(a->getName());
@@ -718,6 +718,7 @@ void Game::load(ifstream& f) {
   string tmp;
   getline(f, tmp);
   cout <<"test1: "<< tmp;
+  istringstream ss{tmp};
   ss >> num;
   for (int i = 0; i < num; i++) {
     getline(f, tmp);
