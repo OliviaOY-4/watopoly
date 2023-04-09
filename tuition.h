@@ -30,7 +30,7 @@ public:
                 std::cout << "==> " << "You have paid " << 0.1 * worth << " tuition." << std::endl;
                 break;
             } else {
-                std::cout << "==> " << "Invalid input. Please try again." << std::endl;
+                std::cout << std::endl << "==> " << "Invalid input. Please try again." << std::endl;
                 std::cout << "==> " << "Your choice: ";
             }
         }
