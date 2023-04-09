@@ -17,13 +17,13 @@ public:
         
         while (std::cin >> choice) {
             if (choice == 0) {
-                if (p.getCashAmount() < 300) {
-                    std::cout << "==> " << "You do not have $300. Choose a valid option." << std::endl  << "==> "<< "Your choice: ";
-                    continue;
+                // if (p.getCashAmount() < 300) {
+                //     std::cout << "==> " << "You do not have $300. Choose a valid option." << std::endl  << "==> "<< "Your choice: ";
+                //     continue;
                 p.addCash(-300);
                 std::cout << "==> " << "You have paid $300 tuition." << std::endl;
                 break;
-                }
+                
             } else if (choice == 1) {
                 int worth = p.getTotalWorth();
                 p.addCash(-0.1 * worth);
