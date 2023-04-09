@@ -192,14 +192,15 @@ void Game::move(int num, shared_ptr<Player> p) {
       printMap();
       SLC tmp{0, "slc"};
       int n = getActiverRim();
-      int m = tmp.slcaction(*p, n);
+      int m = tmp.action(*p, n);
       setActiverRim(m);
       // printMap();
       move(tmp.getNextMove(), p);
     } else if (nowName == "TUITION") {
       printMap();
       Tuition tmp{0, "tuition"};
-      tmp.action(*p);
+      int n = getActiverRim();
+      tmp.action(*p,n);
       if(p->getCashAmount() < 0 ){
         cout << "You've owed the bank $" << -p->getCashAmount() <<endl;
         string name = p->getName();
