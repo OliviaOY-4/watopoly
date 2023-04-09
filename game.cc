@@ -854,14 +854,25 @@ void Game::auction(string pro) {
   string bider = " ";
   vector<shared_ptr<Player>> participants = player;
   int n = participants.size();
-  while(n != 1) {
+  while (1) {
     if (n == 0) {
       cout << "==> " << "No one wants to buy this property" << endl;
       return;
-    }
+    } if (n == 1 && max != 0) {
+      cout << "==> " << "The final bid is " << max << " from " << bider << endl;
+      for (auto p : player) {
+        if (p->getName() == bider) {
+          p->addCash(-max);
+          p->addProperties(sharedb);
+          sharedb->setOwner(p);
+          cout << "==> " << p->getName() << " has bought " << sharedb->getName() << " for " << max << endl;
+          return;
+        }
+      }
+    } 
     cout << "==> " << "There are " << n << " players in the auction." << endl;
     for (int i = 0; i < n; ++i) {
-      if(n==1&& i > 0){
+      if( n == 1 && i > 0){
         break;
       }
       cout << "==> " << participants[i]->getName() << ", it is your turn" << endl;
@@ -874,7 +885,7 @@ void Game::auction(string pro) {
           n--;
           i--;
           cout << "==> " << "There are " << n << " players in the auction." << endl;
-          if(n==1){
+          if (n == 1 && max != 0) {
             cout << "==> " << "The final bid is " << max << " from " << bider << endl;
             for (auto p : player) {
               if (p->getName() == bider) {
