@@ -115,18 +115,6 @@ bool Player::ifMonopoly(string type) {
     }
   }
   return false
-  /*int count = 0;
-  int p_len =  property.size();
-  for (int i = 0; i < p_len; i++){
-    if (property[i]->getBlock() == type) count++;
-  }
-  if (count == 2){
-    if (type == "Arts1" || type == "Math") {
-      monopoly.emplace_back(type);
-    }
-  } else if (count == 3) {
-    monopoly.emplace_back(type);
-  }*/
 }
 
 int Player::getResidenceNum() {
