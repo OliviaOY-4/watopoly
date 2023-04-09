@@ -101,6 +101,11 @@ string Game::getWinner() {
 }
 
 
+
+
+
+
+
 // move the player num steps and do corresponding actions
 void Game::move(int num, shared_ptr<Player> p) {
   if (p == nullptr) p = currentPlayer;
@@ -261,6 +266,10 @@ void Game::nextPlayer() {
   }
 }
 
+
+
+
+
 bool Game::initPlayer(string name) {
   bool flag = false;
   for (auto& p: player) {
@@ -285,9 +294,17 @@ bool Game::initPlayer(string name) {
   //td->drawBoard(cout, player, board);
 }
 
+
+
+
+
 shared_ptr<Player> Game::getOwner(const Board& b) {
   return b.getOwner();
 }
+
+
+
+
 
 void Game::purchase(string b, Player& p) {
   shared_ptr<Board> tmp = nullptr;
@@ -325,12 +342,19 @@ void Game::purchase(string b, Player& p) {
   cout << tmp->getName() <<" the new owner is " << (tmp->getOwner())->getName() << endl;
 }
 
+
+
+
 bool Game::isValidPlayer(string name) {
   for (auto& p : player) {
     if (p->getName() == name) return true;
   }
   return false;
 }
+
+
+
+
 
 bool Game::isValidProperty(string bName) {
   for (auto& b : board) {
@@ -347,6 +371,9 @@ bool Game::isValidProperty(string bName) {
   return *(board[0]);
 }*/
 
+
+
+
 Player& Game::getPlayer(string name) {
   for (auto &p : player) {
     if (p->getName() == name) return *p;
@@ -354,6 +381,10 @@ Player& Game::getPlayer(string name) {
   cerr << "can't find the Player" << endl;
   return *(player[0]);
 }
+
+
+
+
 
 bool Game::trade(Player& p, string b, unsigned int n) {
   shared_ptr<Board> sharedb = nullptr;
@@ -475,6 +506,9 @@ bool Game::trade(Player& p, unsigned int n, string b) {
 }
 
 
+
+
+
 bool Game::improve(string b_name, bool improve) {
   shared_ptr<Board> b = nullptr;
   for(auto& it : board){
@@ -564,6 +598,10 @@ bool Game::mortgage(string b_name) {
     return false;
   }
 }
+
+
+
+
 
 bool Game::unmortgage(string b_name) {
   shared_ptr<Board> b = nullptr;
