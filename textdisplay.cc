@@ -103,8 +103,8 @@ void TextDisplay::addImprovement(Board& a){
         int h = it.first;
         int w = it.second;
         for(int i = 0; i<improvementL; i++){
-            if(boardMap[h][w+i-1]==' '){
-                boardMap[h][w+i-1]='I';
+            if(boardMap[h][w+i]==' '){
+                boardMap[h][w+i]='I';
             }
         }
 }
