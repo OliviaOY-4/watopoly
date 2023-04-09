@@ -429,15 +429,15 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
 
 bool Game::trade(Player& p, unsigned int n, string b) {
   shared_ptr<Board> sharedb = nullptr;
-  for(auto it : board){
+  for(auto& it : board){
     if(it->getName()==b){
       sharedb = it;
       break;
     }
   }
 
-  shared_ptr<Player> sharedp = make_shared<Player>(p);
-  if (sharedb->getOwner() == sharedp) {
+  // shared_ptr<Player> sharedp = make_shared<Player>(p);
+  if (sharedb->getOwner()->getName() == p.getName()) {
     cout << "==> " << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << sharedb->getName() << endl;
     cout << "==> " << p.getName() << ", please make a decision." << endl;
     cout << "==>Choose: 'accept' or 'reject'" << endl;
@@ -451,6 +451,7 @@ bool Game::trade(Player& p, unsigned int n, string b) {
       currentPlayer->addCash(-n);
       p.sellProperties(sharedb);
       p.addCash(n);
+      cout << "==> Trade accepted" << endl;
       return true;
     } else if (choice == "reject") {
       cout << "==> Trade rejected" << endl;
@@ -459,7 +460,10 @@ bool Game::trade(Player& p, unsigned int n, string b) {
       cout << "==> Invalid input" << endl;
       return false;
     }
-  } else return false;
+  } else {
+    cout << "==> " << p.getName() << " doesn't own " << sharedb->getName() << endl;
+    return false;
+  }
 }
 
 
