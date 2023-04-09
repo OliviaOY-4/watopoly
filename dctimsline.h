@@ -150,7 +150,7 @@ public:
                         std::cout << "==> You will move " << nextmove << " steps." << std::endl;
                         //move*/
                     // }
-                    // break;
+                    break;
 
                 } else if (choice == "RimCup") {
                     if (p.getRURCup() == 0) {
