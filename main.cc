@@ -75,6 +75,7 @@ int main(int argc,char* argv[]) {
     while (true) {
 
         cout << "==> " << "Available command: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print]" << endl;
+        cout << "==> " << "You must roll first." << endl;
         cout << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
         
         if (g.endGame()) {
@@ -82,10 +83,14 @@ int main(int argc,char* argv[]) {
             break;
         } 
 
+
+
         if (!(cin>>cmd)) {
             cout << "==> " << "Invalid input." << endl;
             continue;
         }
+
+
 
         
         // In DC Tims Line

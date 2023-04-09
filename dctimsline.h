@@ -143,12 +143,12 @@ public:
                         p.setsentToDCTL(false);
                         p.setDCTLtimes(0);
                         p.setOSAPcollect(true);
-                        int dice1 = roll();
+                        /*int dice1 = roll();
                         int dice2 = roll();
                         std::cout << "==> Roll result: " << dice1 << " " << dice2 << std::endl;
                         nextmove = dice1 + dice2;
                         std::cout << "==> You will move " << nextmove << " steps." << std::endl;
-                        //move
+                        //move*/
                     }
                     break;
 
@@ -165,12 +165,12 @@ public:
                         p.setRURCup(p.getRURCup() - 1);
                         tmpCup--;
                         p.setOSAPcollect(true);
-                        int dice1 = roll();
+                        /*int dice1 = roll();
                         int dice2 = roll();
                         std::cout << "==> Roll result: " << dice1 << " " << dice2 << std::endl;
                         nextmove = dice1 + dice2;
                         std::cout << "==> You will move " << nextmove << " steps." << std::endl;
-                        //move
+                        //move*/
                     }
                     break;
 

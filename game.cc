@@ -700,7 +700,7 @@ void Game::asset() {
   cout << "==> " << "Cash: " << currentPlayer->getCashAmount() << endl;
   cout << "==> " << "Properties: ";
   for (auto it : currentPlayer->getProperty()) {
-    cout << "==> " << it->getName() << " ";
+    cout << it->getName() << " ";
   }
   cout << "==> " <<endl;
   cout << "==> " << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
