@@ -13,6 +13,7 @@ public:
         p.setPosition(10);
         p.setOSAPcollect(false);
         std::cout << "You have been sent to DC Tims Line." << std::endl;
+        p
         //move???
     }
 };

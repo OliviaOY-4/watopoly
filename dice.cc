@@ -1,7 +1,4 @@
 #include "dice.h"
-// #include <iostream>
-// #include <ctime>
-// #include <cstdlib>
 #include <iostream>
 #include <string>
 #include <stdexcept>

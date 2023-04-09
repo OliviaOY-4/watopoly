@@ -1,15 +1,29 @@
 #ifndef DCTIMSLINE_H
 #define DCTIMSLINE_H
 
-#include "nonproperty.h"
-#include "dice.h"
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <chrono>
 #include <sstream>
+#include "nonproperty.h"
+
 
 class DCTimsLine: public NonProperty {
-    int roll1(int n) {
-        srand(static_cast<unsigned>(time(0)));
-        int randnum = rand() % n + 1;
-        return randnum;
+    int roll() {
+        vector<int> v = { 1, 2, 3, 4, 5, 6};
+        vector<int> s = {};
+        unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+        default_random_engine rng{seed};
+        for ( int i = 0; i < 1; i++ ) {
+        std::shuffle( v.begin(), v.end(), rng );
+        for ( int i : v ) s.emplace_back(i);
+	    } 
+
+	return s[0];
     }
     int nextmove;
 public:
@@ -33,18 +47,20 @@ public:
                 std::cin >> choice;
             }
             if (choice == "Roll") {
-                Dice dice;
-                int dice1 = dice.rollDice();
-                int dice2 = dice.rollDice();
+                int dice1 = roll();
+                int dice2 = roll();
+                cout << "Roll result: " << dice1 << " " << dice2 << endl;
                 if (dice1 == dice2) {
                     std::cout << "You rolled doubles and you may leave the DC Tims Line." << std::endl;
                     p.setsentToDCTL(false);
                     p.setDCTLtimes(0);
                     p.setOSAPcollect(true);
+                    nextmove = dice1 + dice2;
+                    std::cout << "You will move " << nextmove << " steps." << std::endl;
                 } else {
                     if (p.getDCTLtimes() == 2) {
                         int sum = dice1 + dice2;
-                        std::cout << "You must pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
+                        std::cout << "It's yoru third turn at DC Tims Line" << endl << "You must pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
                         std::cout << "Input: ";
                         std::cin >> choice;
                         while (choice != "Pay" && choice != "RimCup") {
@@ -58,7 +74,7 @@ public:
                             p.setsentToDCTL(false);
                             p.setDCTLtimes(0);
                             p.setOSAPcollect(true);
-                            //move???
+                            //move
                         } else {
                             if (p.getRURCup() == 0) {
                                 std::cout << "You do not have any Roll Up the Rim cups." << std::endl;
@@ -68,20 +84,21 @@ public:
                                 p.setsentToDCTL(false);
                                 p.setDCTLtimes(0);
                                 p.setOSAPcollect(true);
-                                //move???
+                                //move
                             } else {
                                 std::cout << "You used a Roll Up the Rim cup and left DC Tims Line." << std::endl;
                                 p.setsentToDCTL(false);
                                 p.setDCTLtimes(0);
                                 p.setRURCup(p.getRURCup() - 1);
-                                // game->setActiverRim(game->getActiverRim() - 1);
                                 tmp--;
                                 p.setOSAPcollect(true);
-                                //move???
+                                //move
                             }
-                        } nextmove = sum;
+                        } 
+                        nextmove = sum;
+                        std::cout << "You will move " << nextmove << " steps." << std::endl;
                     } else {
-                        std::cout << "Unfortunately, you will stay in DC Tims Line." << std::endl;
+                        std::cout << "Unfortunately, you didn't roll doubles. You will stay in DC Tims Line." << std::endl;
                         p.setDCTLtimes(p.getDCTLtimes() + 1);
                     }
                 }
@@ -91,7 +108,12 @@ public:
                 p.setsentToDCTL(false);
                 p.setDCTLtimes(0);
                 p.setOSAPcollect(true);
-                //move???
+                int dice1 = roll();
+                int dice2 = roll();
+                cout << "Roll result: " << dice1 << " " << dice2 << endl;
+                nextmove = dice1 + dice2;
+                std::cout << "You will move " << nextmove << " steps." << std::endl;
+                //move
             } else {
                 if (p.getRURCup() == 0) {
                     std::cout << "You do not have any Roll Up the Rim cups." << std::endl;
@@ -102,7 +124,6 @@ public:
                     p.setsentToDCTL(false);
                     p.setDCTLtimes(0);
                     p.setRURCup(p.getRURCup() - 1);
-                    // game->setActiverRim(game->getActiverRim() - 1);
                     tmp--;
                     p.setOSAPcollect(true);
                     //move???
