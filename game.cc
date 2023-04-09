@@ -21,7 +21,7 @@ Game::Game(): activeRim{0} {
 
   dice = make_unique<Dice>();
   currentPlayer = nullptr;
-  // auto osap = make_shared<OSAP>(0, "COLLECT OSAP");
+  // auto& osap = make_shared<OSAP>(0, "COLLECT OSAP");
   // board.emplace_back(osap);
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<OSAP>(0, "COLLECT OSAP"))); //unique or shared?
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(1, "AL", 40, 0, vector<unsigned int>{2, 10, 30, 90, 160, 250}, 50, "Arts1")));
@@ -89,7 +89,7 @@ bool Game::endGame() {
 
 // print all Players' name and char
 void Game::printPlayers() {
-  for (auto p : player) {
+  for (auto& p : player) {
     cout << "==> Name: " << p->getName() << endl << "==> Char:" << p->getNameChar() << endl;
   }
 }
@@ -263,7 +263,7 @@ void Game::nextPlayer() {
 
 bool Game::initPlayer(string name) {
   bool flag = false;
-  for (auto p: player) {
+  for (auto& p: player) {
     if (p->getName() == name) {
       return false;
     }
@@ -638,9 +638,12 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
             owe_p->addProperties(it);
             cur_p->sellProperties(it);
           }
+          removePlayer(playerName);
+
+        } else {
 
         }
-        removePlayer(playerName);
+        break;
 
       }else{
         // sell or mortgage
@@ -707,12 +710,12 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
                   }
                 }
                 if(p2){ //if owes to player
-                  for(auto a : p->getProperty()){
+                  for(auto& a : p->getProperty()){
                     a->setOwner(p2);
                     p->sellProperties(a);
                   }
                 }else{ //if owes to bank
-                  for(auto a : p->getProperty()){
+                  for(auto& a : p->getProperty()){
                     auction(a->getName());
                     p->sellProperties(a);
                   }
@@ -739,7 +742,7 @@ void Game::asset() {
   cout << "==> " << currentPlayer->getName()<<", your assets:" << endl;
   cout << "==> " << "Cash: " << currentPlayer->getCashAmount() << endl;
   cout << "==> " << "Properties: ";
-  for (auto it : currentPlayer->getProperty()) {
+  for (auto& it : currentPlayer->getProperty()) {
     cout << it->getName() << " ";
   }
   cout << "==> " <<endl;
@@ -748,11 +751,11 @@ void Game::asset() {
 }
 
 void Game::all() {
-  for (auto it : player) {
+  for (auto& it : player) {
     cout << "==> " << it->getName()<<", your assets:" << endl;
     cout << "==> " << "Cash: " << it->getCashAmount() << endl;
     cout << "==> " << "Properties: " ;
-    for (auto it : it->getProperty()) {
+    for (auto& it : it->getProperty()) {
       cout << "==> " << it->getName() << " ";
     }
     cout << "==> " << endl;
@@ -764,7 +767,7 @@ void Game::all() {
 ofstream Game::save(string filename) {
   ofstream file(filename);
   file << player.size() << endl;
-  for (auto it : player) {
+  for (auto& it : player) {
     file << it->getName() << " " << it->getNameChar() << " " << it->getRURCup() << " " << it->getCashAmount()<< " " << it->getPosition();
     if(it->getPosition() == 10){
       if (it->getsentToDCTL()){
@@ -775,9 +778,9 @@ ofstream Game::save(string filename) {
     }
     file << endl;
   }
-  for (auto it2 : board) {
+  for (auto& it2 : board) {
     file << it2->getName() << " " ;
-    auto tmp = dynamic_pointer_cast<Property>(it2);
+    auto& tmp = dynamic_pointer_cast<Property>(it2);
     if(tmp){
       if(tmp->getOwner() != nullptr){
         file << it2->getOwner()->getName() << " " ;
@@ -787,7 +790,7 @@ ofstream Game::save(string filename) {
       if(tmp->isMortgaged()){
         file << "-1" << " "<< endl;
       }else{
-        auto tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
+        auto& tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
         if(tmp2){
           file << tmp2->getImproveLevel() << endl;
         }else{
@@ -837,7 +840,7 @@ void Game::load(ifstream& f) {
     }
   }
   for(int i = 0; i < 40; i++){
-    auto it = board[i];
+    auto& it = board[i];
     //string tmp;
     getline(f, tmp);
     //istringstream ss{tmp};
@@ -847,13 +850,13 @@ void Game::load(ifstream& f) {
     ss >> name >> owner;
     if(owner != "BANK"){
       ss >> level;
-      auto p = dynamic_pointer_cast<Property>(it);
+      auto& p = dynamic_pointer_cast<Property>(it);
       if(level == -1){
         level = 0;
         if (p != nullptr) p->changeMortgage();
       }
       shared_ptr<Player> owner1 = nullptr;
-      for(auto it2 : player){
+      for(auto& it2 : player){
         if(it2->getName() == owner){
           owner1 = it2;
           break;
@@ -863,7 +866,7 @@ void Game::load(ifstream& f) {
         p->setOwner(owner1);
         owner1->addProperties(it);
       }
-      auto academic = dynamic_pointer_cast<AcademicBuilding>(it);
+      auto& academic = dynamic_pointer_cast<AcademicBuilding>(it);
       if(academic){
         academic->setImproveLevel(level);
       }
@@ -883,7 +886,7 @@ void Game::setActiverRim(int n) {
 
 void Game::auction(string pro) {
   shared_ptr<Board> sharedb= nullptr;
-  for(auto it : board){
+  for(auto& it : board){
     if(it->getName() == pro){
       sharedb=it;
       break;
@@ -900,7 +903,7 @@ void Game::auction(string pro) {
       return;
     } if (n == 1 && max != 0) {
       cout << "==> " << "The final bid is " << max << " from " << bider << endl;
-      for (auto p : player) {
+      for (auto& p : player) {
         if (p->getName() == bider) {
           p->addCash(-max);
           p->addProperties(sharedb);
@@ -927,7 +930,7 @@ void Game::auction(string pro) {
           cout << "==> " << "There are " << n << " players in the auction." << endl;
           if (n == 1 && max != 0) {
             cout << "==> " << "The final bid is " << max << " from " << bider << endl;
-            for (auto p : player) {
+            for (auto& p : player) {
               if (p->getName() == bider) {
                 p->addCash(-max);
                 p->addProperties(sharedb);
@@ -958,7 +961,7 @@ void Game::auction(string pro) {
     }
   }
   cout << "==> " << "The final bid is " << max << " from " << bider << endl;
-  for (auto p : player) {
+  for (auto& p : player) {
     if (p->getName() == bider) {
       p->addCash(-max);
       p->addProperties(sharedb);
