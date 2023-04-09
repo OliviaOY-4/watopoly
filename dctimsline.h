@@ -67,15 +67,15 @@ public:
                             std::cout << "==> It's yoru third turn at DC Tims Line" << std::endl;
 
                             // have neither
-                            if (p.getCashAmount() < 50 && p.getRURCup() == 0) {
-                                std::cout << "==> You don't have $50 or any Roll Up the Rim cups so you must pay 50." << std::endl;
-                                p.addCash(-50);
-                                std::cout << "==> You paid $50 and you may leave the DC Tims Line." << std::endl;
-                                p.setsentToDCTL(false);
-                                p.setDCTLtimes(0);
-                                p.setOSAPcollect(true);
-                                //move
-                            }
+                            // if (p.getCashAmount() < 50 && p.getRURCup() == 0) {
+                            //     std::cout << "==> You don't have $50 or any Roll Up the Rim cups so you must pay 50." << std::endl;
+                            //     p.addCash(-50);
+                            //     std::cout << "==> You paid $50 and you may leave the DC Tims Line." << std::endl;
+                            //     p.setsentToDCTL(false);
+                            //     p.setDCTLtimes(0);
+                            //     p.setOSAPcollect(true);
+                            //     //move
+                            // }
 
                             std::cout << "==> You must pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
                             std::cout << "==> Input: ";
@@ -84,18 +84,18 @@ public:
                             while (std::cin >> option) {
                                 if (option == "Pay") {
                                     // if has 50$, pay. 
-                                    if (p.getCashAmount() < 50) {
-                                        std::cout << "==> You don't have $50, choose a valid option." << std::endl;
-                                        std::cout << "==> Input: ";
-                                        continue;
-                                    } else {
-                                        p.addCash(-50);
-                                        std::cout << "==> You paid $50 and you may leave the DC Tims Line." << std::endl;
-                                        p.setsentToDCTL(false);
-                                        p.setDCTLtimes(0);
-                                        p.setOSAPcollect(true);
-                                        //move
-                                    }
+                                    // if (p.getCashAmount() < 50) {
+                                    //     std::cout << "==> You don't have $50, choose a valid option." << std::endl;
+                                    //     std::cout << "==> Input: ";
+                                    //     continue;
+                                    // } else {
+                                    p.addCash(-50);
+                                    std::cout << "==> You paid $50 and you may leave the DC Tims Line." << std::endl;
+                                    p.setsentToDCTL(false);
+                                    p.setDCTLtimes(0);
+                                    p.setOSAPcollect(true);
+                                    //     //move
+                                    // }
                                     break;
                                     
 
@@ -134,23 +134,23 @@ public:
                     break;
 
                 } else if (choice == "Pay") {
-                    if (p.getCashAmount() < 50) {
-                        std::cout << "==> You do not have $50. Choose a valid option." << std::endl << "Input: ";
-                        continue;
-                    } else {
-                        p.addCash(-50);
-                        std::cout << "==> You paid $50 and you may leave the DC Tims Line." << std::endl;
-                        p.setsentToDCTL(false);
-                        p.setDCTLtimes(0);
-                        p.setOSAPcollect(true);
+                    // if (p.getCashAmount() < 50) {
+                    //     std::cout << "==> You do not have $50. Choose a valid option." << std::endl << "Input: ";
+                    //     continue;
+                    // } else {
+                    p.addCash(-50);
+                    std::cout << "==> You paid $50 and you may leave the DC Tims Line." << std::endl;
+                    p.setsentToDCTL(false);
+                    p.setDCTLtimes(0);
+                    p.setOSAPcollect(true);
                         /*int dice1 = roll();
                         int dice2 = roll();
                         std::cout << "==> Roll result: " << dice1 << " " << dice2 << std::endl;
                         nextmove = dice1 + dice2;
                         std::cout << "==> You will move " << nextmove << " steps." << std::endl;
                         //move*/
-                    }
-                    break;
+                    // }
+                    // break;
 
                 } else if (choice == "RimCup") {
                     if (p.getRURCup() == 0) {
