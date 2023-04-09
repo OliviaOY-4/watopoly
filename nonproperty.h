@@ -7,10 +7,7 @@
 #include <memory>
 
 class NonProperty: public Board {
-public:
-  // std::string getType() {
-  //   return "NonProperty";
-  // }
+public: 
   NonProperty(int position, std::string name): Board(position, name) {};
   virtual ~NonProperty() = 0;
   virtual void action(Player &p) = 0;

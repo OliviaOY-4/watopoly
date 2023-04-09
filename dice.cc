@@ -18,7 +18,6 @@ int Dice::rollDice() {
 	
 	default_random_engine rng{seed};
 	for ( int i = 0; i < 1; i++ ) {
-		//std::shuffle( v.begin(), v.end(), std::default_random_engine(seed) );
 		std::shuffle( v.begin(), v.end(), rng );
 		for ( int i : v ) s.emplace_back(i);
 	} 

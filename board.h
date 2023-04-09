@@ -11,7 +11,6 @@ class Board {
   int position;
   std::string name;
   std::string type;
-  // std::vector<Player*> curPlayer;
   std::vector<std::shared_ptr<Player>> curPlayer;
 public:
   Board(int position, std::string name);
