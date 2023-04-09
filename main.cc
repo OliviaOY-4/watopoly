@@ -247,6 +247,7 @@ int main(int argc,char* argv[]) {
             }
 
         } else if (cmd == "improve") {
+            cout << "==> <Property> buy/sell" << endl;
             string property = " ";
             string behaviour = " ";
             cin >> property >> behaviour;
