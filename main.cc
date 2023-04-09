@@ -16,6 +16,7 @@ int main(int argc,char* argv[]) {
 
     // command line options
     bool testMode = false;
+    bool loadFile = false;
     for (int i = 1; i < argc; i++) {
         string arg = argv[i];
         if (arg == "-test") {
@@ -28,34 +29,44 @@ int main(int argc,char* argv[]) {
                 g.printPlayers();
                 g.gameStart();
                 g.printMap();
+                loadFile = true;
             }
         }
     }
 
+
+
+
+
     // initialize players
-    int num_of_players = 0;
-    cout << "Welcome to the game of Monopoly!" << endl;
-    cout << "Number of players must be between 2 and 7." << endl;
-    cout << "Please enter the number of players: " << endl;
-    string tmp;
-    getline(cin, tmp);
-    istringstream iss{tmp};
-    iss >> num_of_players;
-    for (int i = 0; i < num_of_players; i++) {
-        cout << "Enter the name of Player " << i + 1 << ": " << endl;
-        string name = " ";
-        if (getline(cin, name)) {
-            if (!g.initPlayer(name)) {
-                cout << "Invalid player name, input a valid name: " << endl;
-                i--;
+    if (!loadFile){
+        int num_of_players = 0;
+        cout << "Welcome to the game of Monopoly!" << endl;
+        cout << "Number of players must be between 2 and 7." << endl;
+        cout << "Please enter the number of players: " << endl;
+        string tmp;
+        getline(cin, tmp);
+        istringstream iss{tmp};
+        iss >> num_of_players;
+        for (int i = 0; i < num_of_players; i++) {
+            cout << "Enter the name of Player " << i + 1 << ": " << endl;
+            string name = " ";
+            if (getline(cin, name)) {
+                if (!g.initPlayer(name)) {
+                    cout << "Invalid player name, input a valid name: " << endl;
+                    i--;
+                }
             }
-        }
-        // g.initPlayer need to check it's a valid name and char
-    } 
-    cout << endl << "Current Players: " << endl;
-    g.printPlayers();
-    g.gameStart();
-    g.printMap();
+            // g.initPlayer need to check it's a valid name and char
+        } 
+        cout << endl << "Current Players: " << endl;
+        g.printPlayers();
+        g.gameStart();
+        g.printMap();
+    }
+
+
+
 
     // game start
     string cmd = " ";
@@ -129,6 +140,8 @@ int main(int argc,char* argv[]) {
             cout << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
             doubleroll = 0;
             
+
+
         } else if (cmd == "trade") {
             string name = " ";
             string give = " ";
