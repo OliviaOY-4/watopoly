@@ -10,7 +10,8 @@ class NonProperty: public Board {
 public: 
   NonProperty(int position, std::string name): Board(position, name) {};
   virtual ~NonProperty() = 0;
-  virtual void action(Player &p) = 0;
+  virtual int action(Player &p, int cup) = 0;
+  virtual int getNextMove() = 0;
   std::shared_ptr<Player> getOwner() const override {return nullptr;}
   int getPrice() const override {return 0;}
   int getVisitPrice(Player& visitor) override {return 0;}

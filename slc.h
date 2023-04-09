@@ -16,16 +16,15 @@ class SLC: public NonProperty {
 public:
     SLC(int position, std::string name): NonProperty(position, name) {}
     ~SLC() {};
-    void action(Player &p) override {return;}
-    int getNextMove() {return nextmove;}
-    int slcaction(Player &p, int n) {
-        if (n < 4) {
+    int getNextMove() override {return nextmove;}
+    int action(Player &p, int cup) override {
+        if (cup < 4) {
             int ran = roll2(100);
             if (ran == 1) {
                 int tmp = p.getRURCup();
                 p.setRURCup(tmp + 1);
                 std::cout << "You got a Roll Up the Rim cup." << std::endl;
-                return n + 1;
+                return cup + 1;
             }
         }
         int rand = roll2(24);
@@ -58,7 +57,7 @@ public:
             p.setPosition(0);
             std::cout << "You have been sent to OSAP." << std::endl;
         }
-        return n;
+        return cup;
     }
 };
 

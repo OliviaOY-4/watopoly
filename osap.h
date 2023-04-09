@@ -7,11 +7,14 @@ class OSAP: public NonProperty {
 public:
     OSAP(int position, std::string name): NonProperty(position, name) {}
     ~OSAP() {};
-    void action(Player &p) override {
+    int getNextMove() override {return 0;}
+
+    int action(Player &p, int cup) override {
         if (p.getOSAPcollect()){
             p.addCash(200);
             std::cout << "You have arrived Collect OSAP, collected $200." << std::endl;
         }
+        return cup;
     }
 };
 

@@ -19,7 +19,7 @@ int AcademicBuilding::getVisitPrice(Player& visitor) {
 }
 
 int AcademicBuilding::getPrice() const {
-  return purchasePrice; 
+  return purchasePrice + improvementLevel * improvementCost; 
 }
 
 
