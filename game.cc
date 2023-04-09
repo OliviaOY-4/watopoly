@@ -711,6 +711,12 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
         if(cur_p->getPropertySize()<=0){
             cout << "==> You don't have any property." <<endl;
             continue;
+        } else {
+          cout << "Your current property: ";
+          for (auto it: cur_p->getProperty()) {
+            cout << it->getName() << " ";
+          }
+          cout << endl;
         }
 
         if(choice == 0){
