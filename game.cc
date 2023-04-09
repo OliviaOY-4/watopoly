@@ -439,7 +439,11 @@ bool Game::trade(Player& p, unsigned int n, string b) {
       break;
     }
   }
-
+  int q = n;
+  if (p.getCashAmount() < q) {
+    cout << "==> " << p.getName() << " doesn't have enough money" << endl;
+    return false;
+  }
   // shared_ptr<Player> sharedp = make_shared<Player>(p);
   if (sharedb->getOwner()->getName() == p.getName()) {
     cout << "==> " << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << sharedb->getName() << endl;
