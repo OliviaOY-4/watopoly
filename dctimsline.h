@@ -14,10 +14,10 @@
 
 class DCTimsLine: public NonProperty {
     int roll() {
-        vector<int> v = { 1, 2, 3, 4, 5, 6};
-        vector<int> s = {};
-        unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-        default_random_engine rng{seed};
+        std::vector<int> v = { 1, 2, 3, 4, 5, 6};
+        std::vector<int> s = {};
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::default_random_engine rng{seed};
         for ( int i = 0; i < 1; i++ ) {
         std::shuffle( v.begin(), v.end(), rng );
         for ( int i : v ) s.emplace_back(i);
@@ -79,9 +79,9 @@ public:
 
                             std::cout << "You must pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
                             std::cout << "Input: ";
-                            string option = " ";
+                            std::string option = " ";
 
-                            while (cin >> option) {
+                            while (std::cin >> option) {
                                 if (option == "Pay") {
                                     // if has 50$, pay. 
                                     if (p.getCashAmount() < 50) {

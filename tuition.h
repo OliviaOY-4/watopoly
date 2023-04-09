@@ -34,6 +34,7 @@ public:
                 std::cout << "Your choice: ";
             }
         }
+        return cup;
     }
             
 };
