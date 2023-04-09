@@ -21,7 +21,7 @@ Game::Game(): activeRim{0} {
 
   dice = make_unique<Dice>();
   currentPlayer = nullptr;
-  // auto osap = make_shared<OSAP>(0, "COLLECT OSAP");
+  // auto& osap = make_shared<OSAP>(0, "COLLECT OSAP");
   // board.emplace_back(osap);
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<OSAP>(0, "COLLECT OSAP"))); //unique or shared?
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(1, "AL", 40, 0, vector<unsigned int>{2, 10, 30, 90, 160, 250}, 50, "Arts1")));
@@ -638,9 +638,12 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
             owe_p->addProperties(it);
             cur_p->sellProperties(it);
           }
+          removePlayer(playerName);
+
+        } else {
 
         }
-        removePlayer(playerName);
+        break;
 
       }else{
         // sell or mortgage
@@ -777,7 +780,7 @@ ofstream Game::save(string filename) {
   }
   for (auto& it2 : board) {
     file << it2->getName() << " " ;
-    auto tmp = dynamic_pointer_cast<Property>(it2);
+    auto& tmp = dynamic_pointer_cast<Property>(it2);
     if(tmp){
       if(tmp->getOwner() != nullptr){
         file << it2->getOwner()->getName() << " " ;
@@ -787,7 +790,7 @@ ofstream Game::save(string filename) {
       if(tmp->isMortgaged()){
         file << "-1" << " "<< endl;
       }else{
-        auto tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
+        auto& tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
         if(tmp2){
           file << tmp2->getImproveLevel() << endl;
         }else{
@@ -837,7 +840,7 @@ void Game::load(ifstream& f) {
     }
   }
   for(int i = 0; i < 40; i++){
-    auto it = board[i];
+    auto& it = board[i];
     //string tmp;
     getline(f, tmp);
     //istringstream ss{tmp};
@@ -847,7 +850,7 @@ void Game::load(ifstream& f) {
     ss >> name >> owner;
     if(owner != "BANK"){
       ss >> level;
-      auto p = dynamic_pointer_cast<Property>(it);
+      auto& p = dynamic_pointer_cast<Property>(it);
       if(level == -1){
         level = 0;
         if (p != nullptr) p->changeMortgage();
@@ -863,7 +866,7 @@ void Game::load(ifstream& f) {
         p->setOwner(owner1);
         owner1->addProperties(it);
       }
-      auto academic = dynamic_pointer_cast<AcademicBuilding>(it);
+      auto& academic = dynamic_pointer_cast<AcademicBuilding>(it);
       if(academic){
         academic->setImproveLevel(level);
       }
