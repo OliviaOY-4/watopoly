@@ -529,6 +529,8 @@ bool Game::improve(string b_name, bool improve) {
       string blockName = b->getBlock();
       if (!(currentPlayer->ifMonopoly(blockName))) {
         cout << "==> You haven't own all properties in a monopoly. Unable to improve." << endl;
+        return  false;
+
       } else if (b->getImproveLevel() < 5) {
         // not fully improved
         if (currentPlayer->getCashAmount() >= b->getImproveCost()) {
@@ -540,16 +542,19 @@ bool Game::improve(string b_name, bool improve) {
           cout << "==> You don't have enough money to improve this property." << endl;
           return false;
         }
+
       } else{
         cout << "==> It is already full upgraded!" << endl;
         return false;
       }
+
     } else { // degrade
       if (b->getImproveLevel() > 0) {
         currentPlayer->addCash(b->getImproveCost() / 2);
         b->degrade();
         cout << "==> You have successfully degraded " << b->getName() << endl;
         return true;
+        
       } else {
         cout << "==> It can't be degraded anymore" << endl;
         return false;
