@@ -52,7 +52,7 @@ void Player::addProperties(shared_ptr<Board> b){
   for (auto& it: ownBlock) {
     if (it.first == blockName) {
       it.second++;
-      cout << blockName << " " << it.second << endl; //////
+      // cout << blockName << " " << it.second << endl; //////
     }
   }
 }
