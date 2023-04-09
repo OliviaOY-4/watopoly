@@ -67,7 +67,7 @@ public:
   void all(); 
   std::ofstream save(std::string filename);
   void load(std::ifstream& f);
-  void bankruptcy(std::string playerName);
+  void bankruptcy(std::string playerName,std::string owePlayer, int oweAmount);
   int getActiverRim();
   void setActiverRim(int n);
   void auction(std::string pro);

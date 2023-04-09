@@ -24,34 +24,38 @@ int main(int argc,char* argv[]) {
             if (++i < argc) {
                 ifstream f{argv[i]};
                 g.load(f);
+                 cout << endl << "Current Players: " << endl;
+                g.printPlayers();
+                g.gameStart();
+                g.printMap();
             }
         }
     }
 
     // initialize players
-    int num_of_players = 0;
-    cout << "Welcome to the game of Monopoly!" << endl;
-    cout << "Number of players must be between 2 and 7." << endl;
-    cout << "Please enter the number of players: " << endl;
-    string tmp;
-    getline(cin, tmp);
-    istringstream iss{tmp};
-    iss >> num_of_players;
-    for (int i = 0; i < num_of_players; i++) {
-        cout << "Enter the name of Player " << i + 1 << ": " << endl;
-        string name = " ";
-        if (getline(cin, name)) {
-            if (!g.initPlayer(name)) {
-                cout << "Invalid player name, input a valid name: " << endl;
-                i--;
-            }
-        }
-        // g.initPlayer need to check it's a valid name and char
-    } 
-    cout << endl << "Current Players: " << endl;
-    g.printPlayers();
-    g.gameStart();
-    g.printMap();
+    // int num_of_players = 0;
+    // cout << "Welcome to the game of Monopoly!" << endl;
+    // cout << "Number of players must be between 2 and 7." << endl;
+    // cout << "Please enter the number of players: " << endl;
+    // string tmp;
+    // getline(cin, tmp);
+    // istringstream iss{tmp};
+    // iss >> num_of_players;
+    // for (int i = 0; i < num_of_players; i++) {
+    //     cout << "Enter the name of Player " << i + 1 << ": " << endl;
+    //     string name = " ";
+    //     if (getline(cin, name)) {
+    //         if (!g.initPlayer(name)) {
+    //             cout << "Invalid player name, input a valid name: " << endl;
+    //             i--;
+    //         }
+    //     }
+    //     // g.initPlayer need to check it's a valid name and char
+    // } 
+    // cout << endl << "Current Players: " << endl;
+    // g.printPlayers();
+    // g.gameStart();
+    // g.printMap();
 
     // game start
     string cmd = " ";
@@ -281,16 +285,17 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "backrupt") {
             // if money is negative, own money
             // if can still sell properties, can't declare
-            bool isBankrupted = g.checkIfBankruptcy();
+            //bool isBankrupted = g.checkIfBankruptcy();
 
-            if (isBankrupted) {
-                // need to find out who the player own money to 
-                // (another player or bank), then do someting to properties
-                // (giving the property to another player, auction, ...)
-                g.removePlayer("tmp");
-            } else {
-                cerr << "Cannot declare bankruptcy" << endl;
-            }
+            // if ( g.getCurrentPlayer->getCashAmount < 0) {
+            //     // need to find out who the player own money to 
+            //     // (another player or bank), then do someting to properties
+            //     // (giving the property to another player, auction, ...)
+            //     string name = g.getCurrentPlayer->getName();
+            //     g.bankruptcy(name);
+            // } else {
+            //     cerr << "Cannot declare bankruptcy" << endl;
+            // }
             
         } else if (cmd == "assets") {
             // displays the assets of the current player. 
