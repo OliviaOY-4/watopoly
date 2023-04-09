@@ -15,13 +15,12 @@ class Player {
   int cash;
   int position;
   std::vector<std::pair<std::string, int>> ownBlock;
-  std::vector<std::string> monopoly;
   bool OSAPcollect;
   bool sentToDCTL;
   int DCTLtimes;
   int RUR_Cup;
   // Dice *dice; 
-  std::shared_ptr<Dice> dice;
+  //std::shared_ptr<Dice> dice;
 protected:
   std::vector<std::shared_ptr<Board>> property;
   // std::vector<Board*> property;

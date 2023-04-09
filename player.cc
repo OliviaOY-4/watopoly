@@ -1,10 +1,11 @@
+#include <iostream>
 #include "player.h"
-using namespace std;
 #include "board.h"
+using namespace std;
 
 Player::Player(string name): name{name}, cash{1500}, position{0}, OSAPcollect{false}, sentToDCTL{false}, DCTLtimes{0}, RUR_Cup{0} {
-  // dice = new Dice();
-  dice = make_shared<Dice>();
+  ownBlock = {{"Arts1", 0}, {"Arts2", 0}, {"Eng", 0}, {"Health", 0}, {"Env", 0}, {"Sci1", 0}, {"Sci2", 0}, {"Math", 0}, {"Residence", 0}, {"Gym", 0}};
+  //dice = make_shared<Dice>();
   if (name == "Goose") nameChar = 'G';
   if (name == "GRT Bus") nameChar = 'B';
   if (name == "Tim Hortons Doughnut") nameChar = 'D';
@@ -46,27 +47,39 @@ void Player::giveCash(shared_ptr<Player> other, int amount){
   cash -= amount;
 }
 
-// void Player::addProperties(Board* b){
-//   property.emplace_back(b);
-// }
+
 void Player::addProperties(shared_ptr<Board> b){
   property.emplace_back(b);
+  string blockName = b->getBlock();
+  for (auto it: ownBlock) {
+    if (it.first == blockName) {
+      it.second++;
+    }
+  }
 }
 
-// void Player::sellProperties(Board* b){
-//   for (int i = 0; i < property.size(); i++){
-//     if (property[i] == b){
-//       property.erase(property.begin() + i);
-//     }
-//   }
-// }
+
+
 void Player::sellProperties(shared_ptr<Board> b){
   int p_len = property.size();
+  string blockName = b->getBlock();
+  // delete from property
   for (int i = 0; i < p_len; i++){
     if (property[i] == b){
       property.erase(property.begin() + i);
+      break;
     }
   }
+  // delete from ownBlock
+  for (auto it: ownBlock) {
+    if (it.first == blockName) {
+      --it.second;
+      if (it.second < 0) {
+        cerr << "Error: ownBlock < 0" << endl;
+      }
+    }
+  }
+
 }
 
 int Player::getPosition() {
@@ -90,8 +103,14 @@ char Player::getNameChar() {
 }
 
 bool Player::ifMonopoly(string type) {
-  for (auto it: monopoly) {
-    if (it == type) {
+  int target = 0;
+  if (type == "Arts1" || type == "Math") {
+    target = 2;
+  } else {
+    target = 3;
+  }
+  for (auto it: ownBlock) {
+    if (it.first == type && it.second == target) {
       return true;
     }
   }
@@ -114,7 +133,7 @@ int Player::getResidenceNum() {
   int count = 0;
   int p_len =  property.size();
   for (int i = 0; i < p_len; i++){
-    if (property[i]->getType() == "Residence") count++; ///// type 只能分辨是不是property，本来一个存在monopoly里面，到时候再商量一下
+    if (property[i]->getType() == "Residence") count++; 
   } return count;
 }
 
