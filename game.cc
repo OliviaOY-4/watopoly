@@ -156,7 +156,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       // Has owner Property
       printMap();
       if (now->isMortgaged()) {
-        cout << "==> This property has been morgaged."
+        cout << "==> This property has been morgaged.";
       }
       if (now->getOwner() == p) {
         cout << "==> It is your own Property" << endl;
@@ -357,7 +357,7 @@ Player& Game::getPlayer(string name) {
 
 bool Game::trade(Player& p, string b, unsigned int n) {
   shared_ptr<Board> sharedb = nullptr;
-  for(auto it : board){
+  for(auto& it : board){
     if(it->getName()==b){
       sharedb = it;
       break;
@@ -390,14 +390,14 @@ bool Game::trade(Player& p, string b, unsigned int n) {
 
 bool Game::trade(Player& p, string b_give, string b_receive) {
       shared_ptr<Board> sharedb = nullptr;
-      for(auto it : board){
+      for(auto& it : board){
         if(it->getName()==b_give){
           sharedb = it;
           break;
         }
       }
   shared_ptr<Board> sharedb2 = nullptr;
-      for(auto it2 : board){
+      for(auto& it2 : board){
         if(it2->getName()==b_receive){
           sharedb2 = it2;
           break;
@@ -439,7 +439,11 @@ bool Game::trade(Player& p, unsigned int n, string b) {
       break;
     }
   }
-
+  int q = n;
+  if (p.getCashAmount() < q) {
+    cout << "==> " << p.getName() << " doesn't have enough money" << endl;
+    return false;
+  }
   // shared_ptr<Player> sharedp = make_shared<Player>(p);
   if (sharedb->getOwner()->getName() == p.getName()) {
     cout << "==> " << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << sharedb->getName() << endl;
@@ -473,7 +477,7 @@ bool Game::trade(Player& p, unsigned int n, string b) {
 
 bool Game::improve(string b_name, bool improve) {
   shared_ptr<Board> b = nullptr;
-  for(auto it : board){
+  for(auto& it : board){
     if(it->getName()==b_name){
       b = it;
       break;
@@ -526,7 +530,7 @@ bool Game::improve(string b_name, bool improve) {
 
 bool Game::mortgage(string b_name) {
   shared_ptr<Board> b = nullptr;
-  for(auto it : board){
+  for(auto& it : board){
     if(it->getName()==b_name){
       b = it;
       break;
@@ -563,7 +567,7 @@ bool Game::mortgage(string b_name) {
 
 bool Game::unmortgage(string b_name) {
   shared_ptr<Board> b = nullptr;
-  for(auto it : board){
+  for(auto& it : board){
     if(it->getName()==b_name){
       b = it;
       break;
@@ -606,13 +610,13 @@ bool Game::checkIfBankruptcy() {
 void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
   shared_ptr<Player> cur_p = nullptr;
   shared_ptr<Player> owe_p = nullptr;
-  for(auto a : player){
+  for(auto& a : player){
     if(a->getName() == playerName){
       cur_p = a;
     }
   }
   if (owePlayer != "Bank") {
-    for(auto a : player){
+    for(auto& a : player){
       if(a->getName() == owePlayer){
         owe_p = a;
       }
@@ -634,7 +638,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
           owe_p->addCash(cur_p->getCashAmount());
           // give property
           std::vector<std::shared_ptr<Board>> cur_p_property = cur_p->getProperty();
-          for (auto it: cur_p_property) {
+          for (auto& it: cur_p_property) {
             owe_p->addProperties(it);
             cur_p->sellProperties(it);
           }
@@ -717,7 +721,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
             getline(cin, c);
             if(c == "bankrupt"){ //if actually bankrupt
                 shared_ptr<Player> p2 = nullptr;
-                for(auto it : player){
+                for(auto& it : player){
                   if(it->getName() == owePlayer){
                     p2 = it;
                     break;
@@ -798,7 +802,7 @@ ofstream Game::save(string filename) {
   }
   for (auto& it2 : board) {
     file << it2->getName() << " " ;
-    auto& tmp = dynamic_pointer_cast<Property>(it2);
+    auto tmp = dynamic_pointer_cast<Property>(it2);
     if(tmp){
       if(tmp->getOwner() != nullptr){
         file << it2->getOwner()->getName() << " " ;
@@ -808,7 +812,7 @@ ofstream Game::save(string filename) {
       if(tmp->isMortgaged()){
         file << "-1" << " "<< endl;
       }else{
-        auto& tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
+        auto tmp2 = dynamic_pointer_cast<AcademicBuilding>(tmp);
         if(tmp2){
           file << tmp2->getImproveLevel() << endl;
         }else{
@@ -868,7 +872,7 @@ void Game::load(ifstream& f) {
     ss >> name >> owner;
     if(owner != "BANK"){
       ss >> level;
-      auto& p = dynamic_pointer_cast<Property>(it);
+      auto p = dynamic_pointer_cast<Property>(it);
       if(level == -1){
         level = 0;
         if (p != nullptr) p->changeMortgage();
@@ -884,7 +888,7 @@ void Game::load(ifstream& f) {
         p->setOwner(owner1);
         owner1->addProperties(it);
       }
-      auto& academic = dynamic_pointer_cast<AcademicBuilding>(it);
+      auto academic = dynamic_pointer_cast<AcademicBuilding>(it);
       if(academic){
         academic->setImproveLevel(level);
       }

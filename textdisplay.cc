@@ -123,12 +123,12 @@ void TextDisplay::removeImprovement(Board& a){
 
 
 void TextDisplay::drawBoard(std::ostream& out, vector<shared_ptr<Player>> player, vector<shared_ptr<Board>> board){
-    for (auto it : player) {
+    for (auto& it : player) {
         int pos = it->getPosition();
         char symbol = it->getNameChar();
         addPlayer(pos, symbol);
     }
-    for  (auto it1 : board) {
+    for  (auto& it1 : board) {
         addImprovement(*it1);
     }
     for(size_t i = 0; i<boardMap.size(); i++){
