@@ -18,7 +18,7 @@ public:
   // Player* getOwner() const;
   // void setOwner(Player* owner);
   std::shared_ptr<Player> getOwner() const override;
-  void setOwner(std::shared_ptr<Player> owner) override;
+  void setOwner(std::shared_ptr<Player> owner = nullptr) override;
   void changeMortgage() override; 
   bool isMortgaged() const override;
   // int getPurchasePrice() const;
