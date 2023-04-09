@@ -51,7 +51,7 @@ Game::Game(): activeRim{0} {
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<Residence>(25, "V1", 200, 25)));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(26, "PHYS", 260, 0, vector<unsigned int>{22, 110, 330, 800, 975, 1150}, 150, "Sci1")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(27, "B1", 260, 0, vector<unsigned int>{22, 110, 330, 800, 975, 1150}, 150, "Sci1")));
-  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Gym>(28, "PAC", 150, 0)));
+  board.emplace_back(std::static_pointer_cast<Board>(make_shared<Gym>(28, "CIF", 150, 0)));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(29, "B2", 280, 0, vector<unsigned int>{24, 120, 360, 850, 1025, 1200}, 150, "Sci1")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<GoToTims>(30, "GO TO TIMS")));
   board.emplace_back(std::static_pointer_cast<Board>(make_shared<AcademicBuilding>(31, "EIT", 300, 0, vector<unsigned int>{26, 130, 390, 900, 1100, 1275}, 200, "Sci2")));
@@ -188,7 +188,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       // } 
     }
   } else { // NonProperty //////////////////////////////////////////////////
-  printMap();
+    printMap();
     string nowName = now->getName();
     if (nowName == "SLC") {
       printMap();
@@ -218,11 +218,11 @@ void Game::move(int num, shared_ptr<Player> p) {
       int m = tmp1.action(*p, n);
       printMap();
       setActiverRim(m);
-    } else if (nowName == "COOP FEE") {
+    } else if (nowName == "Coop Fee") {
       printMap();
       CoopFee tmp{0, "coop fee"};
       int n = getActiverRim();
-      tmp.action(*p,n);
+      tmp.action(*p, n);
       // printMap();
     } else if (nowName == "DC Tims Line") {
       printMap();
@@ -235,7 +235,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       int m = tmp.action(*p, n);
       setActiverRim(m);
       // printMap();
-    } else if (nowName == "Goose Nesting") {
+    } else if (nowName == "GOOSE NESTING") {
       printMap();
       GooseNesting tmp{0, "goose nesting"};
       int n = getActiverRim();
