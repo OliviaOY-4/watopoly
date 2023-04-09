@@ -60,8 +60,6 @@ public:
   bool improve(std::string b_name, bool improve); 
   bool mortgage(std::string b); 
   bool unmortgage(std::string b); 
-  bool checkAssetVSLiability();
-  bool checkIfBankruptcy();
   void removePlayer(std::string name);
   void asset(); 
   void all(); 
