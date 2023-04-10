@@ -19,7 +19,7 @@ int main(int argc,char* argv[]) {
     bool loadFile = false;
     for (int i = 1; i < argc; i++) {
         string arg = argv[i];
-        if (arg == "-test") {
+        if (arg == "-testing") {
             testMode = true;
         } else if (arg == "-load") {
             if (++i < argc) {
@@ -174,6 +174,10 @@ int main(int argc,char* argv[]) {
 
         } else if (cmd == "next") {
             // move to next 
+            if (!rollFlag) {
+                // not rolled yet
+                cout << endl << "==> Cannot move to the next player. You must roll in your turn." << endl;
+            }
             g.nextPlayer();
             cout << endl << "==> " << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
             doubleroll = 0;
@@ -269,7 +273,7 @@ int main(int argc,char* argv[]) {
             }
 
         } else if (cmd == "improve") {
-            cout << endl << "==> <Property> buy/sell" << endl;
+            // cout << endl << "==> <Property> buy/sell" << endl;
             string property = " ";
             string behaviour = " ";
             cin >> property >> behaviour;
@@ -338,20 +342,13 @@ int main(int argc,char* argv[]) {
                 cout << endl << "==> " << "Unable to unmortgage." << endl;
             }
 
-        } else if (cmd == "backrupt") {
-            // if money is negative, own money
-            // if can still sell properties, can't declare
-            //bool isBankrupted = g.checkIfBankruptcy();
-
-            // if ( g.getCurrentPlayer->getCashAmount < 0) {
-            //     // need to find out who the player own money to 
-            //     // (another player or bank), then do someting to properties
-            //     // (giving the property to another player, auction, ...)
-            //     string name = g.getCurrentPlayer->getName();
-            //     g.bankruptcy(name);
-            // } else {
-            //     cerr << "Cannot declare bankruptcy" << endl;
-            // }
+        } else if (cmd == "bankrupt") {
+            if (g.getCurrentPlayer().getCashAmount()<0) {
+            // owe to bank;
+            g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", g.getCurrentPlayer().getCashAmount());
+            } else {
+                cout << endl << "==> You still have sufficient muney. You cannot declare bankruptcy." << endl;
+            }
             
         } else if (cmd == "assets") {
             // displays the assets of the current player. 

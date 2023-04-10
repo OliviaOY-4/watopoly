@@ -407,7 +407,6 @@ bool Game::trade(Player& p, string b, unsigned int n) {
         }
       }
       sharedb->setOwner(sharedp);
-      // shared_ptr<Board> sharedb = make_shared<Board>(b);
       p.addProperties(sharedb);
       p.addCash(-n);
       currentPlayer->sellProperties(sharedb);
@@ -460,9 +459,7 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
     if (choice == "accept") {
       // shared_ptr<Player> sharedp = make_shared<Player>(p);
       sharedb->setOwner(sharedp);
-      // shared_ptr<Board> sharedb = make_shared<Board>(b_give);
       p.addProperties(sharedb);
-      // shared_ptr<Board> sharedb2 = make_shared<Board>(b_receive);
       p.sellProperties(sharedb2);
       sharedb2->setOwner(currentPlayer);
       currentPlayer->addProperties(sharedb2);
@@ -505,8 +502,6 @@ bool Game::trade(Player& p, unsigned int n, string b) {
     cin >> choice;
     if (choice == "accept") {
       sharedb->setOwner(currentPlayer);
-    
-      // shared_ptr<Board> sharedb = make_shared<Board>(b);
       currentPlayer->addProperties(sharedb);
       currentPlayer->addCash(-n);
       p.sellProperties(sharedb);
@@ -557,7 +552,7 @@ bool Game::improve(string b_name, bool improve) {
         if (currentPlayer->getCashAmount() >= b->getImproveCost()) {
           currentPlayer->addCash(-b->getImproveCost());
           b->improve();
-          cout << std::endl << "==> You have successfully improved " << b->getName() << endl;
+          cout << std::endl << "==> You have successfully improved " << b->getName() << " by paying $" << b->getImproveCost() << "." << endl;
           return true;
         } else {
           cout << std::endl << "==> You don't have enough money to improve this property." << endl;
@@ -569,11 +564,12 @@ bool Game::improve(string b_name, bool improve) {
         return false;
       }
 
-    } else { // degrade
+    } else {
+       // degrade
       if (b->getImproveLevel() > 0) {
         currentPlayer->addCash(b->getImproveCost() / 2);
         b->degrade();
-        cout << std::endl << "==> You have successfully degraded " << b->getName() << endl;
+        cout << std::endl << "==> You have successfully degraded " << b->getName() << " and gained $" << (b->getImproveCost() / 2) << "." << endl;
         return true;
         
       } else {
@@ -607,16 +603,13 @@ bool Game::mortgage(string b_name) {
       int m = b->getPrice() / 2;
       currentPlayer->addCash(m);
       b->changeMortgage();
-      int n = b->getPrice()*0.1;
-      currentPlayer->addCash(-n);
       cout << std::endl << "==> You've mortgaged succesfully and received: $" << m <<endl;
-      cout << std::endl<< "==> You've paid " << n << " to the bank" <<endl;
-      cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
+      //cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
       return true;
     } else {
       if (b->getImproveLevel() != 0) {
         cout << std::endl << "==> You can't mortgage this property because it has improvements" << endl;
-        cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
+        //cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
       } else {
         cout << std::endl << "==> You can't mortgage this property because it is already mortgaged" << endl;
         // cout << "Enter a command or end your turn by 'next'." << endl;
@@ -690,22 +683,69 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
 
   if(cur_p->getCashAmount() < oweAmount){
     int choice;
-    cout << std::endl << "==> Your cash is not enough, you need to sell improvements(input 0), or mortgage (input 1), or declare bankrupt (input 2)" <<endl;
+    cout << std::endl << "==> Your cash is not enough, you need to sell improvements(input 0), or mortgage (input 1), or declare bankruptcy (input 2)" <<endl;
+    cout << endl << "==> Input: "<< endl;
 
     while(cin >> choice) {
       if(choice == 2){
         cout << std::endl << "==> You decided to declare bankruptcy." << endl;
         // decide bankrupty
         if (owe_p) {
-          cout << std::endl << "==> All you asset will be moved to " << owePlayer << endl;
           // owe to a player
+          cout << std::endl << "==> All your asset will be moved to " << owePlayer << endl;
           // give cash
           owe_p->addCash(cur_p->getCashAmount());
           // give property
           std::vector<std::shared_ptr<Board>> cur_p_property = cur_p->getProperty();
+          // for every property
           for (auto& it: cur_p_property) {
+            // move to owe_p
             owe_p->addProperties(it);
+            it->setOwner(owe_p);
             cur_p->sellProperties(it);
+            if (it->isMortgaged()) {
+              // found a mortgaged property
+              int movePrice_10pc = it->getPrice() / 10;
+              int movePrice_50pc = it->getPrice() / 2;
+
+              cout << endl << "==> Found a mortgaged property: " << it->getName() << endl;
+              cout << endl << "==>" << owePlayer << " has been charged 10% of property price from the bank." << endl;
+              owe_p->addCash(-movePrice_10pc);
+              cout << endl << "==>" << owePlayer << " can choose to unmortgage now (input 0) with $" << movePrice_50pc <<  " or unmortgage later (input 1) with 10% extra charge." << endl;
+              cout << endl << "==>" << owePlayer << ", please make a decision."<< endl;
+              cout << endl << "==> Input: "<< endl;
+              int opt = -1;
+
+              while (true) {
+                cin >> opt;
+                if (cin.eof()) {
+                  return;
+                } else if (cin.fail()) {
+                  cout << endl << "==> Invalid Input"<< endl;
+                  cout << endl << "==> Input: "<< endl;
+                }
+
+                if (opt == 0) {
+                  if (cur_p->getCashAmount() < movePrice_50pc) {
+                    // not enough money
+                    cout << endl << "==> You don't have enough money to unmortgage the property now. Try other options." << endl;
+                    cout << endl << "==> Input: "<< endl;
+                    continue;
+                  }
+                  // unmortgage now
+                  owe_p->addCash(-movePrice_50pc);
+                  it->changeMortgage();
+                  cout << endl << "==> You have unmortgaged " << it->getName() << "." << endl;
+
+                } else if (opt >> 1) {
+                  cout << endl << "==> " << it->getName() << " is still mortgaged." << endl;
+
+                } else {
+                  cout << endl << "==> Invalid Input"<< endl;
+                  cout << endl << "==> Input: "<< endl;
+                }
+              }
+            }
           }
           removePlayer(playerName);
           return;
@@ -733,6 +773,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
         // has no property
         if(cur_p->getPropertySize()<=0){
             cout << std::endl << "==> You don't have any property." << endl;
+            cout << endl << "==> Input: "<< endl;
             continue;
         } else {
           cout << std::endl << "==> Your current property: ";
@@ -743,8 +784,8 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
         }
 
         if(choice == 0){
-            // choose to moargage
-            cout << std::endl << "==> Input the name of the property you want to sell " << endl;
+            // choose to sell improvements
+            cout << std::endl << "==> Input the name of the property you want to sell: " << endl;
             string pro;
             cin >> pro;
             if (isValidProperty(pro)) {
@@ -754,7 +795,8 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
             }
 
         } else if(choice == 1){
-            cout << std::endl << "==> Input the name of the property you want to mortgage " << endl;
+          // choose to mortgage
+            cout << std::endl << "==> Input the name of the property you want to mortgage: " << endl;
             string pro;
             cin >> pro;
             if (isValidProperty(pro)) {
@@ -763,13 +805,17 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
               cout << std::endl << "==> Invalid Property" << endl;
             }
         }
+      } else {
+        cout << std::endl << "==> Invalid Input" << endl;
+        cout << endl << "==> Input: "<< endl;
       }
+
       
       if(cur_p->getCashAmount() < oweAmount){
           cout << std::endl << "==> Your cash is still not enough, you need to sell (input 0), or mortgage (input 1), or declare bankrupt (input 2)" <<endl;
           cin >> choice;
       } else {
-        cout << std::endl << "==> Your have enough money." <<endl;
+        cout << std::endl << "==> You have raised enough money." <<endl;
         if (owe_p) {
           // owe player
           owe_p->addCash(oweAmount);
