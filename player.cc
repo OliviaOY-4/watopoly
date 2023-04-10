@@ -73,7 +73,7 @@ void Player::sellProperties (shared_ptr<Board> b) {
     if (it.first == blockName) {
       --it.second;
       if (it.second < 0) {
-        cerr << "Error: ownBlock < 0" << endl;
+        cerr << endl << "==> Error: ownBlock < 0" << endl;
       }
     }
   }

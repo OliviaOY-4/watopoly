@@ -43,7 +43,7 @@ int main(int argc,char* argv[]) {
     // initialize players
     if (!loadFile){
         int num_of_players = 0;
-        cout << endl << "==> " << "Welcome to the game of Monopoly!" << endl;
+        cout << endl << "==> " << "Welcome to Watopoly!" << endl;
         cout << endl <<  "==> " << "Number of players must be between 2 and 7." << endl;
         cout << endl <<  "==> " << "Please enter the number of players: " << endl;
         string tmp;
@@ -88,17 +88,28 @@ int main(int argc,char* argv[]) {
     cout << endl << "==> " << "The game begins." << endl;
     while (true) {
 
+         if (g.endGame()) {
+            cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
+            break;
+        } 
+
+
+        if (g.getCurrentPlayer().getCashAmount() < 0) {
+            // owe to bank;
+            g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", -g.getCurrentPlayer().getCashAmount());
+        }
+
+
         cout << endl << "|-----------------------------------------------------------------------------------------------------------------|" << endl;
         cout <<         "| Commands: [roll], [next], [trade <name> <give> <receive>], [improve <property> buy/sell], [mortgage <prpperty>] |" << endl; 
         cout <<         "|           [unmortgage <property>], [bankrupt], [assets], [all], [save <filename>], [print], [quit]              |" << endl;
         cout <<         "|-----------------------------------------------------------------------------------------------------------------|" << endl;
         cout << endl << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
+        cout << endl << "==> " << "Your current cash: " << g.getCurrentPlayer().getCashAmount() << endl;
         cout << endl << "==> " << "Please Enter Command: " << endl;
         
-        if (g.endGame()) {
-            cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
-            break;
-        } 
+
+
         
         cin >> cmd;
         if (cin.eof()){
@@ -110,10 +121,6 @@ int main(int argc,char* argv[]) {
             continue;
         }
 
-        if (g.getCurrentPlayer().getCashAmount()<0) {
-            // owe to bank;
-            g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", g.getCurrentPlayer().getCashAmount());
-        }
 
         
         // In DC Tims Line
@@ -162,6 +169,10 @@ int main(int argc,char* argv[]) {
                 //g.printMap();
                 cout << endl << "==> It's your third time with double roll, you will be sent to DC Tims Line." << endl;
                 g.move(10 - g.getCurrentPlayer().getPosition());
+                g.getCurrentPlayer().setsentToDCTL(true);
+                g.getCurrentPlayer().setDCTLtimes(0);
+                g.getCurrentPlayer().setPosition(10);
+                g.getCurrentPlayer().setOSAPcollect(false);
                 cout << endl << "==> " << "You cannot roll more than three times." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                 rollFlag = true;
@@ -174,6 +185,7 @@ int main(int argc,char* argv[]) {
                 cout << endl << "==> " << "You rolled double." << endl;
                 cout << endl << "==> " << "You can roll again by 'roll'." << endl;
                 doubleroll++;
+                rollFlag = true;
                 continue;
             } else {
                 cout << endl << "==> " << "You didn't roll double, you cannot roll more." << endl;
@@ -189,6 +201,7 @@ int main(int argc,char* argv[]) {
             if (!rollFlag) {
                 // not rolled yet
                 cout << endl << "==> Cannot move to the next player. You must roll in your turn." << endl;
+                continue;
             }
             g.nextPlayer();
             cout << endl << "==> " << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
@@ -204,7 +217,7 @@ int main(int argc,char* argv[]) {
             cin >> name >> give >> receive;
             // check it's a valid player name
             if (!(g.isValidPlayer(name))) {
-                cerr << "Invalid Player." << endl;
+                cerr << endl << "==> Invalid Player." << endl;
                 continue;
             }
 
@@ -315,7 +328,7 @@ int main(int argc,char* argv[]) {
                 }
 
             } else {
-                cerr << "Invalid behaviour." << endl;
+                cerr << endl << "==> Invalid behaviour." << endl;
             } 
             g.printMap();
 
@@ -391,7 +404,7 @@ int main(int argc,char* argv[]) {
             return 0;
 
         } else {
-            cerr << "==> Invalid Command." << endl;
+            cerr << endl << "==> Invalid Command." << endl;
         }
     }
 }

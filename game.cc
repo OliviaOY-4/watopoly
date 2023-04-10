@@ -127,6 +127,7 @@ void Game::move(int num, shared_ptr<Player> p) {
 
 
   if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
+    cout << std::endl << "==> You have arrived at " << now->getName() << "." << endl;
     // is property
     if (board[newPos]->getOwner() == nullptr) { 
       // No owner Property
@@ -368,7 +369,7 @@ Player& Game::getPlayer(string name) {
   for (auto &p : player) {
     if (p->getName() == name) return *p;
   }
-  cerr << "can't find the Player" << endl;
+  cerr << endl << "==> Cannot find the Player" << endl;
   return *(player[0]);
 }
 
@@ -521,7 +522,7 @@ bool Game::trade(Player& p, unsigned int n, string b) {
   if (sharedb->getOwner()->getName() == p.getName()) {
     cout << std::endl << "==> " << currentPlayer->getName() << " is trading " << n << " with " << p.getName() <<  " for " << sharedb->getName() << endl;
     cout << std::endl << "==> " << p.getName() << ", please make a decision." << endl;
-    cout << std::endl << "==>Choose: 'accept' or 'reject'" << endl;
+    cout << std::endl << "==> Choose: 'accept' or 'reject'" << endl;
     string choice;
     cin >> choice;
     if (choice == "accept") {
@@ -704,6 +705,11 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
         owe_p = a;
       }
     }
+  }
+
+  if (owePlayer == "Bank") {
+    // cash is negative when owe bank. make cash amount back to 0
+    cur_p->addCash(oweAmount);
   }
 
   if(cur_p->getCashAmount() < oweAmount){
