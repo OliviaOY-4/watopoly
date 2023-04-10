@@ -179,9 +179,9 @@ int main(int argc,char* argv[]) {
                 cout << endl << "==> It's your third time with double roll, you will be sent to DC Tims Line." << endl;
                 g.getCurrentPlayer().setsentToDCTL(true);
                 g.getCurrentPlayer().setDCTLtimes(0);
-                g.getCurrentPlayer().setPosition(10);
+                g.getCurrentPlayer().setPosition(10); /////////////
                 g.getCurrentPlayer().setOSAPcollect(false);
-                g.move(10 - g.getCurrentPlayer().getPosition());
+                g.move(10 - g.getCurrentPlayer().getPosition()); /////////
                 cout << endl << "==> " << "You cannot roll more than three times." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                 g.setcannotRoll(true);
