@@ -29,7 +29,6 @@ public:
   ~Player();
   std::vector<std::shared_ptr<Board>> getProperty();
   Player(std::string name, char nameChar, int RUR_Cup, int cash, int position, bool sentToDCTL, int DCTLtimes);
-  int roll();
   int getCashAmount();
   int getTotalWorth();
   // void giveCash(Player* other, int amount);
