@@ -792,7 +792,15 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
 
       if(choice == 2){
         std::cout << std::endl << "==> You decided to declare bankruptcy. " << endl;
+        
+        if (player.size() == 2) {
+          nextPlayer();
+          removePlayer(playerName);
+          return;
+        }
+        
         std::cout << std::endl << "==> Your properties will be liquidated and we will move to the next player. " << endl;
+
         // decide bankrupty
         if (owe_p) {
           // owe to a player
