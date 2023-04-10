@@ -392,8 +392,9 @@ bool Game::trade(Player& p, string b, unsigned int n) {
     return false;
   }
 
-  if(sharedb->getOwner()->getName() != p.getName()){
-      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb->getName() << endl;
+  // check owner
+  if(sharedb->getOwner() == nullptr || sharedb->getOwner()->getName() != currentPlayer->getName()){
+      std::cout << std::endl << "==> " << currentPlayer->getName() << " doesn't own " << sharedb->getName() << endl;
       return false;
   }
 
@@ -488,11 +489,11 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
     }
 
     // check owner
-    if(sharedb2->getOwner()->getName() != p.getName()){
+    if(sharedb2->getOwner() == nullptr || sharedb2->getOwner()->getName() != p.getName()){
       std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb2->getName() << endl;
       return false;
     }
-    if(sharedb->getOwner()->getName() != currentPlayer->getName()){
+    if(sharedb->getOwner() == nullptr || sharedb->getOwner()->getName() != currentPlayer->getName()){
       std::cout << std::endl << "==> " << currentPlayer->getName() << " doesn't own " << sharedb->getName() << endl;
       return false;
     }
@@ -571,8 +572,8 @@ bool Game::trade(Player& p, unsigned int n, string b) {
     return false;
   }
 
-  if(sharedb->getOwner()->getName() != currentPlayer->getName()){
-      std::cout << std::endl << "==> " << currentPlayer->getName() << " doesn't own " << sharedb->getName() << endl;
+  if(sharedb->getOwner() == nullptr || sharedb->getOwner()->getName() != p.getName()){
+      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb->getName() << endl;
       return false;
     }
 
@@ -1009,11 +1010,11 @@ void Game::all() {
     std::cout << std::endl << "==> " << it->getName()<<", your assets:" << endl;
     std::cout << std::endl << "==> " << "Cash: " << it->getCashAmount() << endl;
     std::cout << std::endl << "==> " << "Properties: " ;
-    for (auto& it : it->getProperty()) {
-      std::cout << it->getName() << " ";
+    for (auto& it2 : it->getProperty()) {
+      std::cout << it2->getName() << " ";
     }
     std::cout << endl;
-    std::cout << std::endl << "==> " << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
+    std::cout << std::endl << "==> " << "Roll up the Rim Cup: " << it->getRURCup() << endl;
     std::cout << endl << "=============================================" << endl;
   }
   std::cout << std::endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
