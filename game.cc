@@ -1010,11 +1010,11 @@ void Game::all() {
     std::cout << std::endl << "==> " << it->getName()<<", your assets:" << endl;
     std::cout << std::endl << "==> " << "Cash: " << it->getCashAmount() << endl;
     std::cout << std::endl << "==> " << "Properties: " ;
-    for (auto& it : it->getProperty()) {
-      std::cout << it->getName() << " ";
+    for (auto& it2 : it->getProperty()) {
+      std::cout << it2->getName() << " ";
     }
     std::cout << endl;
-    std::cout << std::endl << "==> " << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
+    std::cout << std::endl << "==> " << "Roll up the Rim Cup: " << it->getRURCup() << endl;
     std::cout << endl << "=============================================" << endl;
   }
   std::cout << std::endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
