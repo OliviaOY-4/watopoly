@@ -80,7 +80,7 @@ public:
     doubleroll = num;
   }
   bool getrolled() {
-    return rolled
+    return rolled;
   }
   void setrolled(bool flag) {
     rolled = flag;
@@ -88,7 +88,7 @@ public:
   bool getcannotRoll() {
     return cannotRoll;
   }
-  void setcnnnotRoll(bool flag) {
+  void setcannotRoll(bool flag) {
     cannotRoll = flag;
   }
 };

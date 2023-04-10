@@ -730,7 +730,8 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
       }
 
       if(choice == 2){
-        std::cout << std::endl << "==> You decided to declare bankruptcy." << endl;
+        std::cout << std::endl << "==> You decided to declare bankruptcy. " << endl;
+        std::cout << std::endl << "==> Your properties will be liquidated and we will move to the next player. " << endl;
         // decide bankrupty
         if (owe_p) {
           // owe to a player
@@ -783,7 +784,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
                   std::cout << endl << "==> You have unmortgaged " << it->getName() << "." << endl;
                   break;
 
-                } else if (opt >> 1) {
+                } else if (opt == 1) {
                   std::cout << endl << "==> " << it->getName() << " is still mortgaged." << endl;
                   break;
 
@@ -795,6 +796,12 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
               }
             }
           }
+          // initialize to next turn;
+          string removeName = playerName;
+          nextPlayer();
+          setdoubleroll(0);
+          setrolled(false);
+          setcannotRoll(false);
           removePlayer(playerName);
           return;
 
@@ -805,6 +812,10 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
           setActiverRim(getActiverRim() - cur_p->getRURCup());
           // properties are actions;
           std::vector<std::shared_ptr<Board>> cur_p_property = cur_p->getProperty();
+          nextPlayer();
+          setdoubleroll(0);
+          setrolled(false);
+          setcannotRoll(false);
           removePlayer(playerName);
           for (auto it: cur_p_property) {
             if (it->isMortgaged()) {
