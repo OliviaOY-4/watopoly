@@ -151,7 +151,7 @@ int main(int argc,char* argv[]) {
             if (doubleroll >= 2 && num1 == num2) {
                 // cout << "==> " << "You have been sent to DC Tims Line." << endl;
                 //g.printMap();
-                cout << endl << "==> " << "Roll result: " << num1 << " " << num2 << endl;
+                cout << endl << "==> It's your third time with double roll." << endl;
                 g.move(30 - g.getCurrentPlayer().getPosition());
                 cout << endl << "==> " << "You can not roll more." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
