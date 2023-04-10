@@ -826,7 +826,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
         std::cout << std::endl << "==> Your properties will be liquidated and we will move to the next player. " << endl;
 
         // decide bankrupty
-        if (owe_p) {
+        if (owe_p != nullptr) {
           // owe to a player
           std::cout << std::endl << "==> All your asset will be moved to " << owePlayer << endl;
           // give cash
@@ -834,13 +834,13 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
           // give cup
           owe_p->setRURCup(owe_p->getRURCup() + cur_p->getRURCup());
           // give property
-          std::vector<std::shared_ptr<Board>> cur_p_property = cur_p->getProperty();
+          // std::vector<std::shared_ptr<Board>> cur_p_property = cur_p->getProperty();
           // for every property
-          for (auto& it: cur_p_property) {
+          for (auto& it: (cur_p->getProperty())) {
             // move to owe_p
             owe_p->addProperties(it);
             it->setOwner(owe_p);
-            cur_p->sellProperties(it);
+            // cur_p->sellProperties(it);
             if (it->isMortgaged()) {
               // found a mortgaged property
               int movePrice_10pc = it->getPrice() / 10;
