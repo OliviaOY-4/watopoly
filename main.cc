@@ -146,7 +146,7 @@ int main(int argc,char* argv[]) {
                     g.setcannotRoll (true);
                     g.setrolled (true);
                     continue;
-                } else if (movenum = 0) {
+                } else if (movenum == 0) {
                     cout << endl << "==> " << "You can roll to leave DC Tims Line." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                     g.setcannotRoll (false);
@@ -188,12 +188,13 @@ int main(int argc,char* argv[]) {
                 g.setrolled(true);
                 g.setdoubleroll (g.getdoubleroll() + 1);
                 continue;
-            } else {
-                g.move(num1 + num2);
-            }
+            } //else {
+                //g.move(num1 + num2);
+            //}
             if (num1 == num2 && g.getCurrentPlayer().getsentToDCTL() != true) {
                 cout << endl << "==> " << "You rolled double." << endl;
                 cout << endl << "==> " << "You can roll again by 'roll'." << endl;
+                g.move(num1 + num2);
                 g.setdoubleroll (g.getdoubleroll() + 1);
                 g.setrolled(true);
                 g.setcannotRoll (false);
@@ -201,6 +202,7 @@ int main(int argc,char* argv[]) {
             } else {
                 cout << endl << "==> " << "You didn't roll double, you cannot roll more." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                g.move(num1 + num2);
                 g.setcannotRoll (true);
                 g.setrolled(true);
                 continue;
