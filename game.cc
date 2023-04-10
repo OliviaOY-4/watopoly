@@ -125,7 +125,6 @@ void Game::move(int num, shared_ptr<Player> p) {
   shared_ptr<Board> now = board[newPos];
   string nowType = now->getType();
 
-  // cout << "//////////////////////It is owned by " << board[newPos]->getOwner()->getName() << endl;
 
   if (nowType == "AcademicBuilding" || nowType == "Gym" || nowType == "Residence") {
     // is property
@@ -197,7 +196,7 @@ void Game::move(int num, shared_ptr<Player> p) {
         ////////////////////////////////////////////////////////////////////////////////
       // } 
     }
-  } else { // NonProperty //////////////////////////////////////////////////
+  } else { // NonProperty 
     printMap();
     string nowName = now->getName();
     if (nowName == "SLC") {
@@ -226,6 +225,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       int m = tmp1.action(*p, n);
       printMap();
       setActiverRim(m);
+      
     } else if (nowName == "Coop Fee") {
       CoopFee tmp{0, "coop fee"};
       int n = getActiverRim();
