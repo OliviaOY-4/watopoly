@@ -84,23 +84,20 @@ int main(int argc,char* argv[]) {
     // game start
     string cmd = " ";
     cout << endl << "==> " << "The game begins." << endl;
-    while (true) {
-
-         if (g.endGame()) {
-            cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
-            break;
-        } 
-
+    while (true) { 
 
         if (g.getCurrentPlayer().getCashAmount() < 0) {
             // owe to bank;
             g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", -g.getCurrentPlayer().getCashAmount());
         }
 
-
+        if (g.endGame()) {
+            cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
+            break;
+        }
 
         cout << endl << "|-----------------------------------------------------------------------------------------------------------------|" << endl;
-        cout <<         "| Commands: [roll], [next], [trade <name> <give> <receive>], [improve <property> buy/sell], [mortgage <prpperty>] |" << endl; 
+        cout <<         "| Commands: [roll], [next], [trade <name> <give> <receive>], [improve <property> buy/sell], [mortgage <property>] |" << endl; 
         cout <<         "|           [unmortgage <property>], [bankrupt], [assets], [all], [save <filename>], [print], [quit]              |" << endl;
         cout <<         "|-----------------------------------------------------------------------------------------------------------------|" << endl;
         cout << endl << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
@@ -140,6 +137,15 @@ int main(int argc,char* argv[]) {
                 g.setActiverRim(m);
                 int movenum = tmp1.getNextMove();
                 if (movenum > 0) {
+                    if (g.getCurrentPlayer().getCashAmount() < 0) {
+                        // owe to bank;
+                        string cur_p = g.getCurrentPlayer().getName();
+                        g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", -g.getCurrentPlayer().getCashAmount());
+                        if (!g.isValidPlayer(cur_p)) {
+                            // player changed
+                            continue;
+                        }
+                    }
                     g.move(movenum);
                     cout << endl << "==> " << "You cannot roll more after being moved out of DC Tims Line." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;

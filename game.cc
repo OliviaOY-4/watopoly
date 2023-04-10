@@ -176,7 +176,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       }else{
         p->addCash(-visitPrice);
         now->getOwner()->addCash(visitPrice);
-        std::cout << std::endl << "==> You paid " << visitPrice << " to " << (now->getOwner())->getName() << endl;
+        std::cout << std::endl << "==> You paid $" << visitPrice << " to " << (now->getOwner())->getName() << endl;
       }
       // if (p->getCashAmount() >= 0) return;
       // else { // in debt
@@ -388,13 +388,21 @@ bool Game::trade(Player& p, string b, unsigned int n) {
 
   // check if mortgage;
   if (sharedb->isMortgaged()) {
-    std::cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property" << endl;
+    std::cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property." << endl;
     return false;
   }
-  //check if improve
-  if (sharedb->getImproveLevel() > 0) {
-    std::cout << endl  << "==> " << sharedb->getName() << " is improved, you need to sell them before trade this property" << endl;
-    return false;
+  //check if monopoly block has improved
+  string blockName = sharedb->getBlock();
+  if (currentPlayer->ifMonopoly(blockName)) {
+    // if monopoly this block
+    for (auto it: board) {
+      if (it->getBlock() == blockName && it->getImproveLevel() > 0) {
+        // in the block and improved
+        std::cout << endl  << "==> " << it->getName() << " is in the monopoly block of " << b << "." << endl;
+        std::cout << endl  << "==> However, " << sharedb->getName() << " is improved, you need to sell them before trade this property." << endl;
+        return false;
+    }
+    }
   }
 
 
@@ -465,6 +473,7 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
         }
       }
 
+    // if mortgaged
     if (sharedb->isMortgaged()) {
       std::cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property" << endl;
       return false;
@@ -473,13 +482,30 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
       return false;
     }
 
-    //check if improve
-    if (sharedb->getImproveLevel() > 0) {
-      std::cout << endl  << "==> " << sharedb->getName() << " is improved, you need to sell them before trade this property" << endl;
-      return false;
-    }else if (sharedb2->getImproveLevel() > 0){
-      std::cout << endl  << "==> " << sharedb2->getName() << " is improved, they need to sell them before trade this property" << endl;
-      return false;
+    //check if both monopoly block has improved
+    string blockName = sharedb->getBlock();
+    if (currentPlayer->ifMonopoly(blockName)) {
+      // if monopoly this block
+      for (auto it: board) {
+        if (it->getBlock() == blockName && it->getImproveLevel() > 0) {
+          // in the block and improved
+          std::cout << endl  << "==> " << it->getName() << " is in the monopoly block of " << b_give << "." << endl;
+          std::cout << endl  << "==> However, " << sharedb->getName() << " is improved, you need to sell them before trade this property." << endl;
+          return false;
+        }
+      }
+    }
+    string blockName2 = sharedb2->getBlock();
+    if (p.ifMonopoly(blockName2)) {
+      // if monopoly this block
+      for (auto it: board) {
+        if (it->getBlock() == blockName2 && it->getImproveLevel() > 0) {
+          // in the block and improved
+          std::cout << endl  << "==> " << it->getName() << " is in the monopoly block of " << b_receive << "." << endl;
+          std::cout << endl  << "==> However, " << sharedb->getName() << " is improved, you need to sell them before trade this property." << endl;
+          return false;
+        }
+      }
     }
     
 
@@ -532,11 +558,22 @@ bool Game::trade(Player& p, unsigned int n, string b) {
     std::cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property" << endl;
     return false;
   }
-  //check if improve
-    if (sharedb->getImproveLevel() > 0) {
-      std::cout << endl  << "==> " << sharedb->getName() << " is improved, is improved, they need to sell them before trade this property" << endl;
-      return false;
+
+  // check is monopoly
+  string blockName = sharedb->getBlock();
+    if (p.ifMonopoly(blockName)) {
+      // if monopoly this block
+      for (auto it: board) {
+        if (it->getBlock() == blockName && it->getImproveLevel() > 0) {
+          // in the block and improved
+          std::cout << endl  << "==> " << it->getName() << " is in the monopoly block of " << b << "." << endl;
+          std::cout << endl  << "==> However, " << sharedb->getName() << " is improved, you need to sell them before trade this property." << endl;
+          return false;
+        }
+      }
     }
+
+
   int q = n;
   if (currentPlayer->getCashAmount() < q) {
     std::cout << std::endl << "==> " << currentPlayer->getName() << " doesn't have enough money" << endl;
