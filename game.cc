@@ -162,6 +162,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       printMap();
       if (now->isMortgaged() && now->getOwner() != p) {
         cout << std::endl << "==> This property has been morgaged.";
+        return;
       }
       if (now->getOwner() == p) {
         cout << std::endl << "==> It is your own Property" << endl;
@@ -624,7 +625,7 @@ bool Game::mortgage(string b_name) {
       return false;
     }
   } else {
-    cout << std::endl << "==> You don't own it" << endl;
+    cout << std::endl << "==> You don't own this property." << endl;
     // cout << "==> Enter a command or end your turn by 'next'." << endl;
     return false;
   }
@@ -649,21 +650,21 @@ bool Game::unmortgage(string b_name) {
         currentPlayer->addCash(m);
         b->changeMortgage();
         cout << std::endl << "==> You've unmortgaged by using $" << m << endl;
-        cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
+        //cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
         return true;
       } else {
         cout << std::endl << "==> You don't have enough money to unmortgage" << endl;
-        cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
+        //cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
         return false;
       }
     } else {
       cout << std::endl << "==> This property is not mortgaged" << endl;
-      cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
+      //cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
       return false;
     }
   } else {
      cout << std::endl << "==> You are not the owner" << endl;
-     cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
+     //cout << std::endl << "==> Enter a command or end your turn by 'next'." << endl;
     return false;
   }
 }
