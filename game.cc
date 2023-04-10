@@ -868,10 +868,11 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
           // owe player
           owe_p->addCash(oweAmount);
           cur_p->addCash(-oweAmount);
-          cout << std::endl << "==> You've paid " << owe_p->getName() << " $" << oweAmount <<endl;
+          cout << std::endl << "==> You've paid the money you owed to " << owe_p->getName() << " ($" << oweAmount << ")." <<endl;
         } else {
           // owe bank
           cur_p->addCash(-oweAmount);
+          cout << std::endl << "==> You've paid the money you owed to Bank ($" << oweAmount << ")." <<endl;
         }
         break;
       }
