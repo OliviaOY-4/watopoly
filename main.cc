@@ -98,7 +98,7 @@ int main(int argc,char* argv[]) {
         // In DC Tims Line
         if (cmd == "roll") {
             if (g.getCurrentPlayer().getsentToDCTL() == true) {
-                // cout << "You are in DC Tims Line." << endl;
+                cout << endl << "You are in DC Tims Line." << endl;
                 int n = g.getActiverRim();
                 DCTimsLine tmp1{0, "dc times line"};
                 Player& p = g.getCurrentPlayer();
@@ -128,16 +128,20 @@ int main(int argc,char* argv[]) {
                 num1 = g.roll();
                 num2 = g.roll();
             } 
-            cout << endl << "==> " << "Roll result: " << num1 << " " << num2 << endl;
+            
             if (doubleroll >= 2 && num1 == num2) {
                 // cout << "==> " << "You have been sent to DC Tims Line." << endl;
-                g.printMap();
+                //g.printMap();
+                cout << endl << "==> " << "Roll result: " << num1 << " " << num2 << endl;
                 g.move(30 - g.getCurrentPlayer().getPosition());
                 cout << endl << "==> " << "You can not roll more." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                 doubleroll++;
                 continue;
-            } else g.move(num1 + num2);
+            } else {
+                cout << endl << "==> " << "Roll result: " << num1 << " " << num2 << endl;
+                g.move(num1 + num2);
+            }
             if (num1 == num2 && g.getCurrentPlayer().getsentToDCTL() != true) {
                 cout << endl << "==> " << "You rolled double." << endl;
                 cout << endl << "==> " << "You can roll again. Enter 'roll'." << endl;
@@ -148,6 +152,7 @@ int main(int argc,char* argv[]) {
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                 continue;
             }
+            
             
 
         } else if (cmd == "next") {

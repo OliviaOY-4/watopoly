@@ -801,7 +801,7 @@ void Game::asset() {
 }
 
 void Game::all() {
-  cout << endl << "=============================================" << endl
+  cout << endl << "=============================================" << endl;
   for (auto& it : player) {
     cout << std::endl << "==> " << it->getName()<<", your assets:" << endl;
     cout << std::endl << "==> " << "Cash: " << it->getCashAmount() << endl;
@@ -811,7 +811,7 @@ void Game::all() {
     }
     cout << endl;
     cout << std::endl << "==> " << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
-    cout << endl << "=============================================" << endl
+    cout << endl << "=============================================" << endl;
   }
   cout << std::endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
 }
