@@ -84,20 +84,17 @@ int main(int argc,char* argv[]) {
     // game start
     string cmd = " ";
     cout << endl << "==> " << "The game begins." << endl;
-    while (true) {
-
-         if (g.endGame()) {
-            cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
-            break;
-        } 
-
+    while (true) { 
 
         if (g.getCurrentPlayer().getCashAmount() < 0) {
             // owe to bank;
             g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", -g.getCurrentPlayer().getCashAmount());
         }
 
-
+        if (g.endGame()) {
+            cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
+            break;
+        }
 
         cout << endl << "|-----------------------------------------------------------------------------------------------------------------|" << endl;
         cout <<         "| Commands: [roll], [next], [trade <name> <give> <receive>], [improve <property> buy/sell], [mortgage <property>] |" << endl; 
