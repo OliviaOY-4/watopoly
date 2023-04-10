@@ -830,6 +830,8 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
           std::cout << std::endl << "==> All your asset will be moved to " << owePlayer << endl;
           // give cash
           owe_p->addCash(cur_p->getCashAmount());
+          // give cup
+          owe_p->setRURCup(owe_p->getRURCup() + cur_p->getRURCup());
           // give property
           std::vector<std::shared_ptr<Board>> cur_p_property = cur_p->getProperty();
           // for every property
