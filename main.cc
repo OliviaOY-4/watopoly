@@ -140,6 +140,15 @@ int main(int argc,char* argv[]) {
                 g.setActiverRim(m);
                 int movenum = tmp1.getNextMove();
                 if (movenum > 0) {
+                    if (g.getCurrentPlayer().getCashAmount() < 0) {
+                        // owe to bank;
+                        string cur_p = g.getCurrentPlayer().getName();
+                        g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", -g.getCurrentPlayer().getCashAmount());
+                        if (!g.isValidPlayer(cur_p)) {
+                            // player changed
+                            continue;
+                        }
+                    }
                     g.move(movenum);
                     cout << endl << "==> " << "You cannot roll more after being moved out of DC Tims Line." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
