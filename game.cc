@@ -411,8 +411,8 @@ bool Game::trade(Player& p, string b, unsigned int n) {
     std::cout << std::endl << "==> " << p.getName() << " doesn't have enough money" << endl;
     return false;
   }
-  if(sharedb2->getOwner()->getName() != p.getName()){
-      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb2->getName() << endl;
+  if(sharedb->getOwner()->getName() != p.getName()){
+      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb->getName() << endl;
       return false;
   }
   if (sharedb->getOwner() == currentPlayer) {
