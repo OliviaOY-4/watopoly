@@ -630,7 +630,7 @@ bool Game::improve(string b_name, bool improve) {
       // check if monopoly
       string blockName = b->getBlock();
       if (!(currentPlayer->ifMonopoly(blockName))) {
-        std::cout << std::endl << "==> You haven't own all properties in a monopoly. Unable to improve." << endl;
+        std::cout << std::endl << "==> You haven't own all properties in a monopoly." << endl;
         return  false;
 
       } else if (b->getImproveLevel() < 5) {
