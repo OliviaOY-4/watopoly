@@ -25,10 +25,12 @@ int main(int argc,char* argv[]) {
             if (++i < argc) {
                 ifstream f{argv[i]};
                 g.load(f);
+                cout << endl << "==========================" << endl;
                 cout << endl << "==> Current Players: " << endl;
                 g.printPlayers();
                 g.gameStart();
                 g.printMap();
+                cout << endl << "==========================" << endl;
                 loadFile = true;
             }
         }
@@ -59,10 +61,12 @@ int main(int argc,char* argv[]) {
             }
             // g.initPlayer need to check it's a valid name and char
         } 
+        cout << endl << "==========================" << endl;
         cout << endl << "==> Current Players: " << endl;
         g.printPlayers();
         g.gameStart();
         g.printMap();
+        cout << endl << "==========================" << endl;
     }
 
 

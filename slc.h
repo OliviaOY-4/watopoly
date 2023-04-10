@@ -18,6 +18,7 @@ public:
     ~SLC() {};
     int getNextMove() override {return nextmove;}
     int action(Player &p, int cup) override {
+        std::cout << std::endl << "==> You have arrived at SLC" << std::endl;
         if (cup < 4) {
             int ran = roll2(100);
             if (ran == 1) {
