@@ -173,6 +173,7 @@ void Game::move(int num, shared_ptr<Player> p) {
         bankruptcy(p->getName(),now->getOwner()->getName(),visitPrice);
       }else{
         p->addCash(-visitPrice);
+        now->getOwner()->addCash(visitPrice);
         cout << std::endl << "==> You paid " << visitPrice << " to " << (now->getOwner())->getName() << endl;
       }
       // if (p->getCashAmount() >= 0) return;
@@ -396,7 +397,15 @@ bool Game::trade(Player& p, string b, unsigned int n) {
     string choice;
     cin >> choice;
     if (choice == "accept") {
-      shared_ptr<Player> sharedp = make_shared<Player>(p); 
+      // shared_ptr<Player> sharedp = make_shared<Player>(p); 
+      // sharedb->setOwner(sharedp);
+      shared_ptr<Player> sharedp = nullptr; 
+     for(auto& it3 : player){
+        if(it3->getName()==p.getName()){
+          sharedp = it3;
+          break;
+        }
+      }
       sharedb->setOwner(sharedp);
       // shared_ptr<Board> sharedb = make_shared<Board>(b);
       p.addProperties(sharedb);
@@ -435,6 +444,13 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
           break;
         }
       }
+     shared_ptr<Player> sharedp = nullptr; 
+     for(auto& it3 : player){
+        if(it3->getName()==p.getName()){
+          sharedp = it3;
+          break;
+        }
+      }
   if (sharedb->getOwner() == currentPlayer) {
     cout << std::endl << "==> " << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << sharedb2->getName() << endl;
     cout << std::endl << "==> " << p.getName() << ", please make a decision." << endl;
@@ -442,7 +458,7 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
     string choice;
     cin >> choice;
     if (choice == "accept") {
-      shared_ptr<Player> sharedp = make_shared<Player>(p);
+      // shared_ptr<Player> sharedp = make_shared<Player>(p);
       sharedb->setOwner(sharedp);
       // shared_ptr<Board> sharedb = make_shared<Board>(b_give);
       p.addProperties(sharedb);
