@@ -100,7 +100,7 @@ int main(int argc,char* argv[]) {
 
 
         cout << endl << "|-----------------------------------------------------------------------------------------------------------------|" << endl;
-        cout <<         "| Commands: [roll], [next], [trade <name> <give> <receive>], [improve <property> buy/sell], [mortgage <prpperty>] |" << endl; 
+        cout <<         "| Commands: [roll], [next], [trade <name> <give> <receive>], [improve <property> buy/sell], [mortgage <property>] |" << endl; 
         cout <<         "|           [unmortgage <property>], [bankrupt], [assets], [all], [save <filename>], [print], [quit]              |" << endl;
         cout <<         "|-----------------------------------------------------------------------------------------------------------------|" << endl;
         cout << endl << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
