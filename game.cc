@@ -411,7 +411,10 @@ bool Game::trade(Player& p, string b, unsigned int n) {
     std::cout << std::endl << "==> " << p.getName() << " doesn't have enough money" << endl;
     return false;
   }
-
+  if(sharedb->getOwner()->getName() != p.getName()){
+      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb->getName() << endl;
+      return false;
+  }
   if (sharedb->getOwner() == currentPlayer) {
     std::cout << std::endl << "==> " << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << n << endl;
     std::cout << std::endl << "==> " << p.getName() << ", please make a decision." << endl;
@@ -509,10 +512,10 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
     }
     
 
-    if(sharedb2->getOwner()->getName() != p.getName()){
-        std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb2->getName() << endl;
-        return false;
-    }
+  if(sharedb2->getOwner()->getName() != p.getName()){
+      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb2->getName() << endl;
+      return false;
+  }
   if (sharedb->getOwner() == currentPlayer) {
     std::cout << std::endl << "==> " << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << sharedb2->getName() << endl;
     std::cout << std::endl << "==> " << p.getName() << ", please make a decision." << endl;
