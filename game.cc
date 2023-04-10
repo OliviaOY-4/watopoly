@@ -391,6 +391,12 @@ bool Game::trade(Player& p, string b, unsigned int n) {
     std::cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property" << endl;
     return false;
   }
+  //check if improve
+  if (sharedb->getImproveLevel() > 0) {
+    std::cout << endl  << "==> " << sharedb->getName() << " is improved, you need to sell them before trade this property" << endl;
+    return false;
+  }
+
 
   int tmp = n;
   if (p.getCashAmount() < tmp) {
@@ -466,6 +472,15 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
       std::cout << endl  << "==> " << sharedb2->getName() << " is mortgaged, you cannot trade this property" << endl;
       return false;
     }
+
+    //check if improve
+    if (sharedb->getImproveLevel() > 0) {
+      std::cout << endl  << "==> " << sharedb->getName() << " is improved, you need to sell them before trade this property" << endl;
+      return false;
+    }else if (sharedb2->getImproveLevel() > 0){
+      std::cout << endl  << "==> " << sharedb2->getName() << " is improved, they need to sell them before trade this property" << endl;
+      return false;
+    }
     
 
     if(sharedb2->getOwner()->getName() != p.getName()){
@@ -513,6 +528,15 @@ bool Game::trade(Player& p, unsigned int n, string b) {
       break;
     }
   }
+  if (sharedb->isMortgaged()) {
+    std::cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property" << endl;
+    return false;
+  }
+  //check if improve
+    if (sharedb->getImproveLevel() > 0) {
+      std::cout << endl  << "==> " << sharedb->getName() << " is improved, is improved, they need to sell them before trade this property" << endl;
+      return false;
+    }
   int q = n;
   if (currentPlayer->getCashAmount() < q) {
     std::cout << std::endl << "==> " << currentPlayer->getName() << " doesn't have enough money" << endl;
