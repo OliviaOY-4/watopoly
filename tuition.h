@@ -11,7 +11,7 @@ public:
     int getNextMove() override {return 0;}
 
     int action(Player &p, int cup) override {
-        std::cout << std::endl << "==> You have arrived at Needles Hall" << std::endl;
+        std::cout << std::endl << "==> You have arrived at Tuition" << std::endl;
         std::cout << std::endl << "==> " << "Choose between paying $300 tuition (input 0) or 10% of your total worth (input 1)." << std::endl;
         int choice;
         std::cout << std::endl << "==> " << "Your choice: " << std::endl;

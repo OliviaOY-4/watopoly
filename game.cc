@@ -160,7 +160,7 @@ void Game::move(int num, shared_ptr<Player> p) {
     } else { 
       // Has owner Property
       printMap();
-      if (now->isMortgaged()) {
+      if (now->isMortgaged() && now->getOwner() != p) {
         cout << std::endl << "==> This property has been morgaged.";
       }
       if (now->getOwner() == p) {
@@ -450,6 +450,10 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
           break;
         }
       }
+      if(sharedb2->getOwner()->getName() != p.getName()){
+        cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb2->getName() << endl;
+        return false;
+      }
   if (sharedb->getOwner() == currentPlayer) {
     cout << std::endl << "==> " << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << sharedb2->getName() << endl;
     cout << std::endl << "==> " << p.getName() << ", please make a decision." << endl;
@@ -472,7 +476,10 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
       cout << std::endl << "==> Invalid input" << endl;
       return false;
     }
-  } else return false;
+  } else {
+    cout << std::endl << "==> You don't own " << sharedb->getName() << endl;
+    return false;
+  }
 }
 
 
@@ -820,6 +827,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
           // owe player
           owe_p->addCash(oweAmount);
           cur_p->addCash(-oweAmount);
+          cout << std::endl << "==> You've paid " << owe_p->getName() << " $" << oweAmount <<endl;
         } else {
           // owe bank
           cur_p->addCash(-oweAmount);
@@ -1056,6 +1064,12 @@ void Game::auction(string pro) {
             cout << std::endl << "==> " << "Your bid is accepted" << endl;
             break;
           } else {
+            if(participants[i]->getCashAmount() < bid){
+              cout << std::endl << "==> " << "You don't have enough money to pay: $" << bid << endl;
+              cout << std::endl << "==> " << "You currently have $" << participants[i]->getCashAmount() << endl;
+            }else if(participants[i]->getCashAmount() < max){
+              cout << std::endl << "==> " << "You don't have enough money, please choose quit. " << endl;
+            }
             cout << std::endl << "==> " << "Your bid is not accepted" << endl;
             break;
           }
