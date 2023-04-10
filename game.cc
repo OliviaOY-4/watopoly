@@ -252,8 +252,9 @@ void Game::move(int num, shared_ptr<Player> p) {
       GooseNesting tmp{0, "goose nesting"};
       int n = getActiverRim();
       tmp.action(*p,n);
-
-    } 
+    } else {
+      return;
+    }
   }
   //////////////////////////////////////////////////////////////////////////
 }
