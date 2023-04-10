@@ -495,11 +495,11 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
         }
       }
     }
-    string blockName = sharedb2->getBlock();
-    if (p.ifMonopoly(blockName)) {
+    string blockName2 = sharedb2->getBlock();
+    if (p.ifMonopoly(blockName2)) {
       // if monopoly this block
       for (auto it: board) {
-        if (it->getBlock() == blockName && it->getImproveLevel() > 0) {
+        if (it->getBlock() == blockName2 && it->getImproveLevel() > 0) {
           // in the block and improved
           std::cout << endl  << "==> " << it->getName() << " is in the monopoly block of " << b_receive << "." << endl;
           std::cout << endl  << "==> However, " << sharedb->getName() << " is improved, you need to sell them before trade this property." << endl;
