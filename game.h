@@ -27,6 +27,9 @@
 
 class Game {
   int activeRim;
+  int doubleroll = 0;
+  bool rolled = false;
+  bool cannotRoll = false;
   // std::vector<Player*> player;
   // std::vector<Board*> board;
   // Dice* dice;
@@ -70,6 +73,24 @@ public:
   void setActiverRim(int n);
   void auction(std::string pro);
   void printMap();
+  int getdoubleroll() {
+    return doubleroll;
+  }
+  void setdoubleroll(int num) {
+    doubleroll = num;
+  }
+  bool getrolled() {
+    return rolled
+  }
+  void setrolled(bool flag) {
+    rolled = flag;
+  }
+  bool getcannotRoll() {
+    return cannotRoll;
+  }
+  void setcnnnotRoll(bool flag) {
+    cannotRoll = flag;
+  }
 };
 
 #endif

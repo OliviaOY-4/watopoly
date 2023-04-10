@@ -56,12 +56,14 @@ public:
                         p.setsentToDCTL(false);
                         p.setDCTLtimes(0);
                         p.setOSAPcollect(true);
+                        nextmove = 0;
                         // nextmove = dice1 + dice2;
                         // std::cout  << std::endl<< "==> You will move " << nextmove << " steps." << std::endl;
 
                     } else {
                         // not doubles
                         if (p.getDCTLtimes() == 2) {
+                            // gonna be moved
                             // but third turn, leave by moving last roll;
                             int sum = dice1 + dice2;
                             std::cout << std::endl << "==> It's yoru third turn at DC Tims Line" << std::endl;
@@ -129,6 +131,7 @@ public:
                         } else {
                             std::cout << std::endl << "==> Unfortunately, you didn't roll doubles. You will stay in DC Tims Line." << std::endl;
                             p.setDCTLtimes(p.getDCTLtimes() + 1);
+                            nextmove = -1;
                         }
                     }
                     break;
@@ -143,6 +146,7 @@ public:
                     p.setsentToDCTL(false);
                     p.setDCTLtimes(0);
                     p.setOSAPcollect(true);
+                    nextmove = 0;
                         /*int dice1 = roll();
                         int dice2 = roll();
                         std::cout << "==> Roll result: " << dice1 << " " << dice2 << std::endl;
@@ -165,6 +169,7 @@ public:
                         p.setRURCup(p.getRURCup() - 1);
                         tmpCup--;
                         p.setOSAPcollect(true);
+                        nextmove = 0;
                         /*int dice1 = roll();
                         int dice2 = roll();
                         std::cout << "==> Roll result: " << dice1 << " " << dice2 << std::endl;

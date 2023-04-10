@@ -142,18 +142,25 @@ int main(int argc,char* argv[]) {
                 g.printMap();
                 g.setActiverRim(m);
                 int movenum = tmp1.getNextMove();
-                if (movenum != 0) {
+                if (movenum > 0) {
                     g.move(movenum);
                     cout << endl << "==> " << "You cannot roll more after being moved out of DC Tims Line." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                     cannotRoll = true;
                     rolled = true;
                     continue;
-                } else {
+                } else if (movenum = 0) {
                     cout << endl << "==> " << "You can roll to leave DC Tims Line." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                     cannotRoll = false;
                     rolled = false;
+                    continue;
+                } else {
+                    // rolled not double and stay
+                    cout << endl << "==> " << "You cannot roll anymore." << endl;
+                    cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    cannotRoll = true;
+                    rolled = true;
                     continue;
                 }
             }
@@ -173,11 +180,11 @@ int main(int argc,char* argv[]) {
                 // cout << "==> " << "You have been sent to DC Tims Line." << endl;
                 //g.printMap();
                 cout << endl << "==> It's your third time with double roll, you will be sent to DC Tims Line." << endl;
-                g.move(10 - g.getCurrentPlayer().getPosition());
                 g.getCurrentPlayer().setsentToDCTL(true);
                 g.getCurrentPlayer().setDCTLtimes(0);
                 g.getCurrentPlayer().setPosition(10);
                 g.getCurrentPlayer().setOSAPcollect(false);
+                g.move(10 - g.getCurrentPlayer().getPosition());
                 cout << endl << "==> " << "You cannot roll more than three times." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                 cannotRoll = true;
