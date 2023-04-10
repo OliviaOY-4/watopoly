@@ -201,7 +201,6 @@ void Game::move(int num, shared_ptr<Player> p) {
     printMap();
     string nowName = now->getName();
     if (nowName == "SLC") {
-      printMap();
       SLC tmp{0, "slc"};
       int n = getActiverRim();
       int m = tmp.action(*p, n);
@@ -209,7 +208,6 @@ void Game::move(int num, shared_ptr<Player> p) {
       move(tmp.getNextMove(), p);
 
     } else if (nowName == "TUITION") {
-      printMap();
       Tuition tmp{0, "tuition"};
       int n = getActiverRim();
       tmp.action(*p,n);
@@ -229,24 +227,20 @@ void Game::move(int num, shared_ptr<Player> p) {
       printMap();
       setActiverRim(m);
     } else if (nowName == "Coop Fee") {
-      printMap();
       CoopFee tmp{0, "coop fee"};
       int n = getActiverRim();
       tmp.action(*p, n);
 
     } else if (nowName == "DC Tims Line") {
-      printMap();
       cout << std::endl << "==> Lands on DC Tims Line, nothing happens." << endl;
 
     } else if (nowName == "NEEDLES HALL") {
-      printMap();
       NeedleHall tmp{0, "needles hall"};
       int n = getActiverRim();
       int m = tmp.action(*p, n);
       setActiverRim(m);
 
     } else if (nowName == "GOOSE NESTING") {
-      printMap();
       GooseNesting tmp{0, "goose nesting"};
       int n = getActiverRim();
       tmp.action(*p,n);
