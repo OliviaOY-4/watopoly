@@ -234,7 +234,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       tmp.action(*p, n);
 
     } else if (nowName == "DC Tims Line") {
-      cout << std::endl << "==> Lands on DC Tims Line, nothing happens." << endl;
+      cout << std::endl << "==> You have landed on DC Tims Line, nothing happens." << endl;
 
     } else if (nowName == "NEEDLES HALL") {
       NeedleHall tmp{0, "needles hall"};
@@ -385,6 +385,12 @@ bool Game::trade(Player& p, string b, unsigned int n) {
     }
   }
 
+  // check if mortgage;
+  if (sharedb->isMortgaged()) {
+    cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property" << endl;
+    return false;
+  }
+
   int tmp = n;
   if (p.getCashAmount() < tmp) {
     cout << std::endl << "==> " << p.getName() << " doesn't have enough money" << endl;
@@ -437,7 +443,7 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
           break;
         }
       }
-  shared_ptr<Board> sharedb2 = nullptr;
+      shared_ptr<Board> sharedb2 = nullptr;
       for(auto& it2 : board){
         if(it2->getName()==b_receive){
           sharedb2 = it2;
@@ -451,10 +457,20 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
           break;
         }
       }
-      if(sharedb2->getOwner()->getName() != p.getName()){
+
+    if (sharedb->isMortgaged()) {
+      cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property" << endl;
+      return false;
+    } else if (sharedb2->isMortgaged()){
+      cout << endl  << "==> " << sharedb2->getName() << " is mortgaged, you cannot trade this property" << endl;
+      return false;
+    }
+    
+
+    if(sharedb2->getOwner()->getName() != p.getName()){
         cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb2->getName() << endl;
         return false;
-      }
+    }
   if (sharedb->getOwner() == currentPlayer) {
     cout << std::endl << "==> " << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << sharedb2->getName() << endl;
     cout << std::endl << "==> " << p.getName() << ", please make a decision." << endl;

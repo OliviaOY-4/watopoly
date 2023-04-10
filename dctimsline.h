@@ -25,7 +25,7 @@ class DCTimsLine: public NonProperty {
 
 	return s[0];
     }
-    int nextmove;
+    int nextmove = 0;
 
 public:
     DCTimsLine(int position, std::string name): NonProperty(position, name) {}
@@ -56,8 +56,8 @@ public:
                         p.setsentToDCTL(false);
                         p.setDCTLtimes(0);
                         p.setOSAPcollect(true);
-                        nextmove = dice1 + dice2;
-                        std::cout  << std::endl<< "==> You will move " << nextmove << " steps." << std::endl;
+                        // nextmove = dice1 + dice2;
+                        // std::cout  << std::endl<< "==> You will move " << nextmove << " steps." << std::endl;
 
                     } else {
                         // not doubles
