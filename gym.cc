@@ -54,3 +54,4 @@ void Gym::setVisitPrice(){
 
 
 
+

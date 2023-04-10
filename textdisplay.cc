@@ -137,3 +137,4 @@ void TextDisplay::drawBoard(std::ostream& out, vector<shared_ptr<Player>> player
     }
     out<<endl;
 }
+

@@ -31,3 +31,4 @@ bool Property::isMortgaged() const {
   return mortgage;
 }
 
+

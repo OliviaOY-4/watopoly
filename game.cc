@@ -1244,3 +1244,4 @@ void Game::printMap(){
   td.drawBoard(std::cout, player, board);
 }
 
+

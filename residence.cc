@@ -32,3 +32,4 @@ int Residence::getVisitPrice(Player& visitor) {
 }
 
 
+

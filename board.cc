@@ -41,3 +41,4 @@ string Board::getType(){
   return type;
 }
 
+
