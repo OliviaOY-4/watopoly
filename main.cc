@@ -84,7 +84,8 @@ int main(int argc,char* argv[]) {
     // game start
     string cmd = " ";
     int doubleroll = 0;
-    bool rollFlag = false;
+    bool rolled = false;
+    bool cannotRoll = false;
     cout << endl << "==> " << "The game begins." << endl;
     while (true) {
 
@@ -98,6 +99,7 @@ int main(int argc,char* argv[]) {
             // owe to bank;
             g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", -g.getCurrentPlayer().getCashAmount());
         }
+
 
 
         cout << endl << "|-----------------------------------------------------------------------------------------------------------------|" << endl;
@@ -125,8 +127,8 @@ int main(int argc,char* argv[]) {
         
         // In DC Tims Line
         if (cmd == "roll") {
-            if (rollFlag) {
-                // already rolled
+            if (cannotRoll) {
+                // can not roll
                 cout << endl << "==> You cannot roll more." << endl;
                 continue;
             }
@@ -140,15 +142,25 @@ int main(int argc,char* argv[]) {
                 g.printMap();
                 g.setActiverRim(m);
                 int movenum = tmp1.getNextMove();
-                if (movenum != 0) {
+                if (movenum > 0) {
                     g.move(movenum);
                     cout << endl << "==> " << "You cannot roll more after being moved out of DC Tims Line." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
-                    rollFlag = true;
+                    cannotRoll = true;
+                    rolled = true;
                     continue;
-                } else {
+                } else if (movenum = 0) {
                     cout << endl << "==> " << "You can roll to leave DC Tims Line." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    cannotRoll = false;
+                    rolled = false;
+                    continue;
+                } else {
+                    // rolled not double and stay
+                    cout << endl << "==> " << "You cannot roll anymore." << endl;
+                    cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    cannotRoll = true;
+                    rolled = true;
                     continue;
                 }
             }
@@ -168,14 +180,15 @@ int main(int argc,char* argv[]) {
                 // cout << "==> " << "You have been sent to DC Tims Line." << endl;
                 //g.printMap();
                 cout << endl << "==> It's your third time with double roll, you will be sent to DC Tims Line." << endl;
-                g.move(10 - g.getCurrentPlayer().getPosition());
                 g.getCurrentPlayer().setsentToDCTL(true);
                 g.getCurrentPlayer().setDCTLtimes(0);
                 g.getCurrentPlayer().setPosition(10);
                 g.getCurrentPlayer().setOSAPcollect(false);
+                g.move(10 - g.getCurrentPlayer().getPosition());
                 cout << endl << "==> " << "You cannot roll more than three times." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
-                rollFlag = true;
+                cannotRoll = true;
+                rolled = true;
                 doubleroll++;
                 continue;
             } else {
@@ -185,12 +198,14 @@ int main(int argc,char* argv[]) {
                 cout << endl << "==> " << "You rolled double." << endl;
                 cout << endl << "==> " << "You can roll again by 'roll'." << endl;
                 doubleroll++;
-                rollFlag = true;
+                rolled = true;
+                cannotRoll = false;
                 continue;
             } else {
                 cout << endl << "==> " << "You didn't roll double, you cannot roll more." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
-                rollFlag = true;
+                cannotRoll = true;
+                rolled = true;
                 continue;
             }
             
@@ -198,7 +213,7 @@ int main(int argc,char* argv[]) {
 
         } else if (cmd == "next") {
             // move to next 
-            if (!rollFlag) {
+            if (!rolled) {
                 // not rolled yet
                 cout << endl << "==> Cannot move to the next player. You must roll in your turn." << endl;
                 continue;
@@ -206,7 +221,8 @@ int main(int argc,char* argv[]) {
             g.nextPlayer();
             cout << endl << "==> " << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
             doubleroll = 0;
-            rollFlag = false;
+            rolled = false;
+            cannotRoll = false;
             
 
 
