@@ -787,18 +787,21 @@ void Game::removePlayer(string name) {
 }
 
 void Game::asset() {
+  cout << endl << "=============================================" << endl;
   cout << std::endl << "==> " << currentPlayer->getName()<<", your assets:" << endl;
   cout << std::endl << "==> " << "Cash: " << currentPlayer->getCashAmount() << endl;
   cout << std::endl << "==> " << "Properties: ";
   for (auto& it : currentPlayer->getProperty()) {
     cout << it->getName() << " ";
   }
-  cout << "==> " <<endl;
+  cout << endl;
   cout << std::endl << "==> " << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
+  cout << endl << "=============================================" << endl;
   cout << std::endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
 }
 
 void Game::all() {
+  cout << endl << "=============================================" << endl
   for (auto& it : player) {
     cout << std::endl << "==> " << it->getName()<<", your assets:" << endl;
     cout << std::endl << "==> " << "Cash: " << it->getCashAmount() << endl;
@@ -806,10 +809,11 @@ void Game::all() {
     for (auto& it : it->getProperty()) {
       cout << it->getName() << " ";
     }
-    cout << std::endl << "==> " << endl;
+    cout << endl;
     cout << std::endl << "==> " << "Roll up the Rim Cup: " << currentPlayer->getRURCup() << endl;
-    cout << std::endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+    cout << endl << "=============================================" << endl
   }
+  cout << std::endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
 }
 
 ofstream Game::save(string filename) {
