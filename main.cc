@@ -25,7 +25,7 @@ int main(int argc,char* argv[]) {
             if (++i < argc) {
                 ifstream f{argv[i]};
                 g.load(f);
-                 cout << endl << "==> Current Players: " << endl;
+                cout << endl << "==> Current Players: " << endl;
                 g.printPlayers();
                 g.gameStart();
                 g.printMap();
@@ -41,19 +41,19 @@ int main(int argc,char* argv[]) {
     // initialize players
     if (!loadFile){
         int num_of_players = 0;
-        cout << "==> " << "Welcome to the game of Monopoly!" << endl;
-        cout << "==> " << "Number of players must be between 2 and 7." << endl;
-        cout << "==> " << "Please enter the number of players: " << endl;
+        cout << endl << "==> " << "Welcome to the game of Monopoly!" << endl;
+        cout << endl <<  "==> " << "Number of players must be between 2 and 7." << endl;
+        cout << endl <<  "==> " << "Please enter the number of players: " << endl;
         string tmp;
         getline(cin, tmp);
         istringstream iss{tmp};
         iss >> num_of_players;
         for (int i = 0; i < num_of_players; i++) {
-            cout << "==> " << "Enter the name of Player " << i + 1 << ": " << endl;
+            cout << endl << "==> " << "Enter the name of Player " << i + 1 << ": " << endl;
             string name = " ";
             if (getline(cin, name)) {
                 if (!g.initPlayer(name)) {
-                    cout << "==> " << "Invalid player name, input a valid name: " << endl;
+                    cout << endl << "==> " << "Invalid player name, input a valid name: " << endl;
                     i--;
                 }
             }
@@ -71,21 +71,21 @@ int main(int argc,char* argv[]) {
     // game start
     string cmd = " ";
     int doubleroll = 0;
-    cout << "==> " << "The game begins." << endl;
+    cout << endl << "==> " << "The game begins." << endl;
     while (true) {
 
-        cout << "==> " << "Available command: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print] [quit]" << endl;
-        cout << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
+        cout << endl << "==> " << "Available command: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print] [quit]" << endl;
+        cout << endl << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
         
         if (g.endGame()) {
-            cout << "==> " << "Winner is :" << g.getWinner() << endl;
+            cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
             break;
         } 
 
-
-
-        if (!(cin>>cmd)) {
-            cout << "==> " << "Invalid input." << endl;
+        if (cin.eof()){
+            return 0;
+        } else if (!(cin>>cmd)) {
+            cout << endl << "==> " << "Invalid input." << endl;
             continue;
         }
 
@@ -93,8 +93,6 @@ int main(int argc,char* argv[]) {
             // owe to bank;
             g.bankruptcy(g.getCurrentPlayer().getName(), "Bank", g.getCurrentPlayer().getCashAmount());
         }
-
-
 
         
         // In DC Tims Line
@@ -110,12 +108,12 @@ int main(int argc,char* argv[]) {
                 int movenum = tmp1.getNextMove();
                 if (movenum != 0) {
                     g.move(movenum);
-                    cout<< "==> " << "You can not roll more." << endl;
-                    cout << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    cout << endl << "==> " << "You can not roll more." << endl;
+                    cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                     continue;
                 } else {
-                    cout << "==> " << "You can not roll more." << endl;
-                    cout << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    cout << endl << "==> " << "You can not roll more." << endl;
+                    cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                     continue;
                 }
             }
@@ -130,24 +128,24 @@ int main(int argc,char* argv[]) {
                 num1 = g.roll();
                 num2 = g.roll();
             } 
-            cout << "==> " << "Roll result: " << num1 << " " << num2 << endl;
+            cout << endl << "==> " << "Roll result: " << num1 << " " << num2 << endl;
             if (doubleroll >= 2 && num1 == num2) {
                 // cout << "==> " << "You have been sent to DC Tims Line." << endl;
                 g.printMap();
                 g.move(30 - g.getCurrentPlayer().getPosition());
-                cout << "==> " << "You can not roll more." << endl;
-                cout << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                cout << endl << "==> " << "You can not roll more." << endl;
+                cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                 doubleroll++;
                 continue;
             } else g.move(num1 + num2);
             if (num1 == num2 && g.getCurrentPlayer().getsentToDCTL() != true) {
-                cout << "==> " << "You rolled double." << endl;
-                cout << "==> " << "You can roll again. Enter 'roll'." << endl;
+                cout << endl << "==> " << "You rolled double." << endl;
+                cout << endl << "==> " << "You can roll again. Enter 'roll'." << endl;
                 doubleroll++;
                 continue;
             } else {
-                cout << "==> " << "You can not roll more." << endl;
-                cout << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                cout << endl << "==> " << "You can not roll more." << endl;
+                cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                 continue;
             }
             
@@ -155,7 +153,7 @@ int main(int argc,char* argv[]) {
         } else if (cmd == "next") {
             // move to next 
             g.nextPlayer();
-            cout << "==> " << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
+            cout << endl << "==> " << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
             doubleroll = 0;
             
 
@@ -176,7 +174,7 @@ int main(int argc,char* argv[]) {
                 // trade money to building
                 // check receive is valid property name 
                 if (!(g.isValidProperty(receive))) {
-                    cout << "==> " << "Invalid property name." << endl;
+                    cout << endl << "==> " << "Invalid property name." << endl;
                     continue;
                 }
 
@@ -192,7 +190,7 @@ int main(int argc,char* argv[]) {
                 // and player need to have enough money
                 //string name = b.getName();
                 if (!(g.trade(p, money, receive))) {
-                    cout << "==> " << "reject" << endl;
+                    cout << endl << "==> " << "reject" << endl;
                 }
 
             } else if (!(give[0] >= '0' && give[0] <= '9') && 
@@ -200,7 +198,7 @@ int main(int argc,char* argv[]) {
                 // trade building to money
                 // check give is valid property name
                 if (!(g.isValidProperty(give))) {
-                    cout << "==> " << "Invalid property name." << endl;
+                    cout << endl << "==> " << "Invalid property name." << endl;
                     continue;
                 }
 
@@ -216,7 +214,7 @@ int main(int argc,char* argv[]) {
                 // and player need to have enough money
                 //string name = b.getName();
                 if (!(g.trade(p, give, money))) {
-                    cout << "==> " << "reject" << endl;
+                    cout << endl << "==> " << "reject" << endl;
                 }              
 
             } else if (!(give[0] >= '0' && give[0] <= '9') && 
@@ -224,7 +222,7 @@ int main(int argc,char* argv[]) {
                 // trade from building to building
                 // check both are valid property name
                 if (!(g.isValidProperty(give)) || !(g.isValidProperty(receive))) {
-                    cout << "==> " << "Invalid property name." << endl;
+                    cout << endl << "==> " << "Invalid property name." << endl;
                     continue;
                 }
 
@@ -238,22 +236,23 @@ int main(int argc,char* argv[]) {
                 //string name1 = b_give.getName();
                 //string name2 = b_receive.getName();
                 if (!(g.trade(p, give, receive))) {
-                    cout << "==> " << "reject" << endl;
+                    cout << endl << "==> " << "reject" << endl;
                 } 
 
             } else {
                 // give money and receive money
-                cout << "==> " << "reject" << endl;
+                cout << endl << "==> You cannot trade money with money." << endl;
+                cout << endl << "==> " << "reject" << endl;
             }
 
         } else if (cmd == "improve") {
-            cout << "==> <Property> buy/sell" << endl;
+            cout << endl << "==> <Property> buy/sell" << endl;
             string property = " ";
             string behaviour = " ";
             cin >> property >> behaviour;
             // check property is a valid property name
             if (!(g.isValidProperty(property))) {
-                cout << "==> " << "Invalid property name." << endl;
+                cout << endl << "==> " << "Invalid property name." << endl;
                 continue;
             }
             //Board& b = g.getBoard(property);
@@ -264,7 +263,7 @@ int main(int argc,char* argv[]) {
                 // and it can buy improve
                 // attempt to buy improvement
                 if (!(g.improve(property, true))) {
-                    cout << "==> " << "Unable to buy improve." << endl;
+                    cout << endl << "==> " << "Unable to buy improve." << endl;
                 }
 
             } else if (behaviour == "sell") {
@@ -273,19 +272,20 @@ int main(int argc,char* argv[]) {
                 // and it can sell improve
                 // attempt to sell improvement
                 if (!(g.improve(property, false))) {
-                    cout << "==> " << "Unable to sell improve." << endl;
+                    cout << endl << "==> " << "Unable to sell improve." << endl;
                 }
 
             } else {
                 cerr << "Invalid behaviour." << endl;
-            } g.printMap();
+            } 
+            g.printMap();
 
         } else if (cmd == "mortgage") {
             string property = " ";
             cin >> property;
             // check property is a valid property name
             if (!(g.isValidProperty(property))) {
-                cout << "==> " << "Invalid property name." << endl;
+                cout << endl << "==> " << "Invalid property name." << endl;
                 continue;
             }
             //Board& b = g.getBoard(property);
@@ -294,8 +294,8 @@ int main(int argc,char* argv[]) {
             // check property is owned by player, and can mortgage 
             // (not already mortgaged, has no improvements)
             if (!(g.mortgage(property))) {
-                cout << "==> " << "Unable to mortgage." << endl;
-                cout << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                cout << endl << "==> " << "Unable to mortgage." << endl;
+                cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
             }
 
         } else if (cmd == "unmortgage") {
@@ -303,7 +303,7 @@ int main(int argc,char* argv[]) {
             cin >> property;
             // check property is a valid property name
             if (!(g.isValidProperty(property))) {
-                cout << "==> " << "Invalid property name." << endl;
+                cout << endl << "==> " << "Invalid property name." << endl;
                 continue;
             }
             //Board& b = g.getBoard(property);
@@ -312,7 +312,7 @@ int main(int argc,char* argv[]) {
             // check property used to owned by player, and can unmortgage 
             // (not already unmortgaged)
             if (!(g.unmortgage(property))) {
-                cout << "==> " << "Unable to unmortgage." << endl;
+                cout << endl << "==> " << "Unable to unmortgage." << endl;
             }
 
         } else if (cmd == "backrupt") {
@@ -357,8 +357,9 @@ int main(int argc,char* argv[]) {
             
         } else if (cmd == "quit") {
             return 0;
+
         } else {
-            cerr << "Invalid Command." << endl;
+            cerr << "==> Invalid Command." << endl;
         }
     }
 }

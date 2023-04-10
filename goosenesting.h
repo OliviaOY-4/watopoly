@@ -10,7 +10,7 @@ public:
     int getNextMove() override {return 0;}
 
     int action(Player& p, int cup) override {
-        std::cout << "==> " << "Attacked by a flock of nesting geese!!! Run!!!" << std::endl;
+        std::cout << std::endl << "==> " << "Attacked by a flock of nesting geese!!! Run!!!" << std::endl;
         return cup;
     }
 };

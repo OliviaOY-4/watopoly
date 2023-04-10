@@ -16,7 +16,7 @@ public:
         p.setDCTLtimes(0);
         p.setPosition(10);
         p.setOSAPcollect(false);
-        std::cout << "==> " << "You have been sent to DC Tims Line." << std::endl;
+        std::cout << std::endl << "==> " << "You have been sent to DC Tims Line." << std::endl;
         return cup;
     }
 };
