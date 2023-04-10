@@ -860,7 +860,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
 
       
       if(cur_p->getCashAmount() < oweAmount){
-          cout << std::endl << "==> Your cash is still not enough, you need to sell (input 0), or mortgage (input 1), or declare bankrupt (input 2)" <<endl;
+          cout << std::endl << "==> Your cash is still not enough, you need to sell improvements (input 0), or mortgage (input 1), or declare bankrupt (input 2)" <<endl;
           continue;
       } else {
         cout << std::endl << "==> You have raised enough money." <<endl;
