@@ -146,22 +146,22 @@ int main(int argc,char* argv[]) {
                             continue;
                         }
                     }
-                    g.move(movenum);
                     cout << endl << "==> " << "You cannot roll more after being moved out of DC Tims Line." << endl;
-                    cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    cout << endl << "==> " << "You can end your turn by 'next'." << endl;
+                    g.move(movenum);
                     g.setcannotRoll (true);
                     g.setrolled (true);
                     continue;
                 } else if (movenum == 0) {
                     cout << endl << "==> " << "You can roll to leave DC Tims Line." << endl;
-                    cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    cout << endl << "==> " << "You can end your turn by 'next'." << endl;
                     g.setcannotRoll (false);
                     g.setrolled (false);
                     continue;
                 } else {
                     // rolled not double and stay
                     cout << endl << "==> " << "You cannot roll anymore." << endl;
-                    cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    cout << endl << "==> " << "You can end your turn by 'next'." << endl;
                     g.setcannotRoll (true);
                     g.setrolled (true);
                     continue;
@@ -189,7 +189,7 @@ int main(int argc,char* argv[]) {
                 g.getCurrentPlayer().setOSAPcollect(false);
                 g.move(10 - g.getCurrentPlayer().getPosition()); /////////
                 cout << endl << "==> " << "You cannot roll more than three times." << endl;
-                cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                cout << endl << "==> " << "You can end your turn by 'next'." << endl;
                 g.setcannotRoll(true);
                 g.setrolled(true);
                 g.setdoubleroll (g.getdoubleroll() + 1);
@@ -207,7 +207,7 @@ int main(int argc,char* argv[]) {
                 continue;
             } else {
                 cout << endl << "==> " << "You didn't roll double, you cannot roll more." << endl;
-                cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                cout << endl << "==> " << "You can end your turn by 'next'." << endl;
                 g.move(num1 + num2);
                 g.setcannotRoll (true);
                 g.setrolled(true);
@@ -336,7 +336,7 @@ int main(int argc,char* argv[]) {
                 // and it can buy improve
                 // attempt to buy improvement
                 if (!(g.improve(property, true))) {
-                    cout << endl << "==> " << "Unable to buy improve." << endl;
+                    cout << endl << "==> " << "Unable to buy improvements." << endl;
                 }
 
             } else if (behaviour == "sell") {
@@ -345,7 +345,7 @@ int main(int argc,char* argv[]) {
                 // and it can sell improve
                 // attempt to sell improvement
                 if (!(g.improve(property, false))) {
-                    cout << endl << "==> " << "Unable to sell improve." << endl;
+                    cout << endl << "==> " << "Unable to sell improvements." << endl;
                 }
 
             } else {
@@ -368,7 +368,7 @@ int main(int argc,char* argv[]) {
             // (not already mortgaged, has no improvements)
             if (!(g.mortgage(property))) {
                 cout << endl << "==> " << "Unable to mortgage." << endl;
-                cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                //cout << endl << "==> " << "You can end your turn by 'next'." << endl;
             }
 
         } else if (cmd == "unmortgage") {
