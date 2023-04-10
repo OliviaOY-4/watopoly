@@ -690,11 +690,22 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
   }
 
   if(cur_p->getCashAmount() < oweAmount){
-    int choice;
+    int choice = -1;
     cout << std::endl << "==> Your cash is not enough, you need to sell improvements(input 0), or mortgage (input 1), or declare bankruptcy (input 2)" <<endl;
     cout << endl << "==> Input: "<< endl;
 
-    while(cin >> choice) {
+    while(true) {
+      cin >> choice;
+      if (cin.eof()) {
+        return;
+      } else if (cin.fail()){
+        cout << endl << "==> Invalid Input"<< endl;
+        cout << endl << "==> Input: "<< endl;
+        cin.clear();
+        cin.ignore();
+        continue;
+      }
+
       if(choice == 2){
         cout << std::endl << "==> You decided to declare bankruptcy." << endl;
         // decide bankrupty
@@ -731,6 +742,9 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
                 } else if (cin.fail()) {
                   cout << endl << "==> Invalid Input"<< endl;
                   cout << endl << "==> Input: "<< endl;
+                  cin.clear();
+                  cin.ignore();
+                  continue;
                 }
 
                 if (opt == 0) {
@@ -744,13 +758,16 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
                   owe_p->addCash(-movePrice_50pc);
                   it->changeMortgage();
                   cout << endl << "==> You have unmortgaged " << it->getName() << "." << endl;
+                  break;
 
                 } else if (opt >> 1) {
                   cout << endl << "==> " << it->getName() << " is still mortgaged." << endl;
+                  break;
 
                 } else {
                   cout << endl << "==> Invalid Input"<< endl;
                   cout << endl << "==> Input: "<< endl;
+                  continue;
                 }
               }
             }
@@ -821,7 +838,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
       
       if(cur_p->getCashAmount() < oweAmount){
           cout << std::endl << "==> Your cash is still not enough, you need to sell (input 0), or mortgage (input 1), or declare bankrupt (input 2)" <<endl;
-          cin >> choice;
+          continue;
       } else {
         cout << std::endl << "==> You have raised enough money." <<endl;
         if (owe_p) {

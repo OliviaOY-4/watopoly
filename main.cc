@@ -90,11 +90,14 @@ int main(int argc,char* argv[]) {
             cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
             break;
         } 
-
+        
+        cin >> cmd;
         if (cin.eof()){
             return 0;
-        } else if (!(cin>>cmd)) {
+        } else if (cin.fail()) {
             cout << endl << "==> " << "Invalid input." << endl;
+            cin.clear();
+            cin.ignore();
             continue;
         }
 
