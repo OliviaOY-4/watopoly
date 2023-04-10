@@ -28,9 +28,9 @@ int main(int argc,char* argv[]) {
                 cout << endl << "==========================" << endl;
                 cout << endl << "==> Current Players: " << endl;
                 g.printPlayers();
+                cout << endl << "==========================" << endl;
                 g.gameStart();
                 g.printMap();
-                cout << endl << "==========================" << endl;
                 loadFile = true;
             }
         }
@@ -64,9 +64,9 @@ int main(int argc,char* argv[]) {
         cout << endl << "==========================" << endl;
         cout << endl << "==> Current Players: " << endl;
         g.printPlayers();
+        cout << endl << "==========================" << endl;
         g.gameStart();
         g.printMap();
-        cout << endl << "==========================" << endl;
     }
 
 
@@ -79,9 +79,10 @@ int main(int argc,char* argv[]) {
     cout << endl << "==> " << "The game begins." << endl;
     while (true) {
 
-        cout << endl << "|--------------------------------------------------------------------------------------------------------------------------------|" << endl;
-        cout <<         "| Commands: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print] [quit] |";
-        cout << endl << "|--------------------------------------------------------------------------------------------------------------------------------|" << endl;
+        cout << endl << "|-----------------------------------------------------------------------------------------------------------------|" << endl;
+        cout <<         "| Commands: [roll], [next], [trade <name> <give> <receive>], [improve <property> buy/sell], [mortgage <prpperty>] |" << endl; 
+        cout <<         "|           [unmortgage <property>], [bankrupt], [assets], [all], [save <filename>], [print], [quit]              |" << endl;
+        cout <<         "|-----------------------------------------------------------------------------------------------------------------|" << endl;
         cout << endl << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
         cout << endl << "==> " << "Please Enter Command: " << endl;
         
@@ -105,6 +106,11 @@ int main(int argc,char* argv[]) {
         
         // In DC Tims Line
         if (cmd == "roll") {
+            if (rollFlag) {
+                // already rolled
+                cout << endl << "==> You cannot roll more." << endl;
+                continue;
+            }
             if (g.getCurrentPlayer().getsentToDCTL() == true) {
                 // if last turn is also at DCTL
                 //cout << endl << "You are in DC Tims Line." << endl;
@@ -130,11 +136,6 @@ int main(int argc,char* argv[]) {
             // roll dice and move
             // check if has passed over OSAP
             // if don't buy, auction.
-            if (rollFlag) {
-                // already rolled
-                cout << endl << "==> You cannot roll more." << endl;
-                continue;
-            }
             int num1 = 0;
             int num2 = 0;
             if (testMode) {

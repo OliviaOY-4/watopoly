@@ -131,6 +131,7 @@ void TextDisplay::drawBoard(std::ostream& out, vector<shared_ptr<Player>> player
     for  (auto& it1 : board) {
         addImprovement(*it1);
     }
+    out << endl;
     for(size_t i = 0; i<boardMap.size(); i++){
         out<<boardMap[i];
     }
