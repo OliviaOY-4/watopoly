@@ -558,9 +558,10 @@ bool Game::improve(string b_name, bool improve) {
       } else if (b->getImproveLevel() < 5) {
         // not fully improved
         if (currentPlayer->getCashAmount() >= b->getImproveCost()) {
+          int n = b->getImproveCost();
           currentPlayer->addCash(-b->getImproveCost());
           b->improve();
-          cout << std::endl << "==> You have successfully improved " << b->getName() << " by paying $" << b->getImproveCost() << "." << endl;
+          cout << std::endl << "==> You have successfully improved " << b->getName() << " by paying $" << n << "." << endl;
           return true;
         } else {
           cout << std::endl << "==> You don't have enough money to improve this property." << endl;
