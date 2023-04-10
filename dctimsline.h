@@ -38,7 +38,7 @@ public:
     int action(Player &p, int cup) override{
         int tmpCup = cup;
         nextmove = 0;
-        if (!p.getsentToDCTL()) std::cout << std::endl << "==> Nothing happens." << std::endl;
+        if (!p.getsentToDCTL()) std::cout << std::endl << "==> You have landed on DC Tims Line, nothing happens." << std::endl;
         else {
             std::cout << std::endl << "==> You are in DC Tims Line." << std::endl;
             std::cout << std::endl << "==> Roll doubles (input 'roll'), pay $50 (input 'pay') or use a Roll Up the Rim cup (input 'rimcup') to leave." << std::endl;

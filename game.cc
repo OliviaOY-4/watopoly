@@ -235,7 +235,12 @@ void Game::move(int num, shared_ptr<Player> p) {
       tmp.action(*p, n);
 
     } else if (nowName == "DC Tims Line") {
-      std::cout << std::endl << "==> You have landed on DC Tims Line, nothing happens." << endl;
+      //std::cout << std::endl << "==> You have landed on DC Tims Line, nothing happens." << endl;
+      int n = getActiverRim();
+      DCTimsLine tmp1{0, "dc times line"};
+      int m = tmp1.action(*p, n);
+      setActiverRim(m);
+
 
     } else if (nowName == "NEEDLES HALL") {
       NeedleHall tmp{0, "needles hall"};
