@@ -225,7 +225,7 @@ void Game::move(int num, shared_ptr<Player> p) {
       int m = tmp1.action(*p, n);
       printMap();
       setActiverRim(m);
-      
+
     } else if (nowName == "Coop Fee") {
       CoopFee tmp{0, "coop fee"};
       int n = getActiverRim();
@@ -334,7 +334,7 @@ void Game::purchase(string b, Player& p) {
     // shared_ptr<Board> sharedb = b;
     
   } else cout << std::endl << "==> This property is already owned by " << (tmp->getOwner())->getName() << endl;
-  cout << std::endl << tmp->getName() <<" the new owner is " << (tmp->getOwner())->getName() << endl;
+  cout << std::endl << "==> "<< tmp->getName() <<"'s new owner is " << (tmp->getOwner())->getName() << endl;
 }
 
 

@@ -41,12 +41,12 @@ public:
         if (!p.getsentToDCTL()) std::cout << std::endl << "==> Nothing happens." << std::endl;
         else {
             std::cout << std::endl << "==> You are in DC Tims Line." << std::endl;
-            std::cout << std::endl << "==> Roll doubles (input 'Roll'), pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
-            std::cout << std::endl << "==> Input: ";
+            std::cout << std::endl << "==> Roll doubles (input 'roll'), pay $50 (input 'pay') or use a Roll Up the Rim cup (input 'rimcup') to leave." << std::endl;
+            std::cout << std::endl << "==> Input: "<< std::endl;
             std::string choice;
             
             while (std::cin >> choice){
-                if (choice == "Roll") {
+                if (choice == "roll") {
                     int dice1 = roll();
                     int dice2 = roll();
                     std::cout  << std::endl<< "==> Roll result: " << dice1 << " " << dice2 << std::endl;
@@ -77,12 +77,12 @@ public:
                             //     //move
                             // }
 
-                            std::cout << std::endl << "==> You must pay $50 (input 'Pay') or use a Roll Up the Rim cup (input 'RimCup') to leave." << std::endl;
-                            std::cout << std::endl << "==> Input: ";
+                            std::cout << std::endl << "==> You must pay $50 (input 'pay') or use a Roll Up the Rim cup (input 'rimcup') to leave." << std::endl;
+                            std::cout << std::endl << "==> Input: " << std::endl;
                             std::string option = " ";
 
                             while (std::cin >> option) {
-                                if (option == "Pay") {
+                                if (option == "pay") {
                                     // if has 50$, pay. 
                                     // if (p.getCashAmount() < 50) {
                                     //     std::cout << "==> You don't have $50, choose a valid option." << std::endl;
@@ -99,11 +99,11 @@ public:
                                     break;
                                     
 
-                                } else if (option == "RimCup") {
-                                    // if has cup, pay
+                                } else if (option == "rimcup") {
+                                    // if has cup
                                     if (p.getRURCup() == 0) {
                                         std::cout << std::endl << "==> You do not have any Roll Up the Rim cups, choose a valid option." << std::endl;
-                                        std::cout << std::endl << "==> Input: ";
+                                        std::cout << std::endl << "==> Input: " << std::endl;
                                         continue;
 
                                     } else {
@@ -119,7 +119,7 @@ public:
 
                                 } else {
                                     std::cout << std::endl << "==> Invalid input. Please try again." << std::endl;
-                                    std::cout << std::endl << "==> Input: ";
+                                    std::cout << std::endl << "==> Input: " << std::endl;
                                 }
                             }
 
@@ -133,7 +133,7 @@ public:
                     }
                     break;
 
-                } else if (choice == "Pay") {
+                } else if (choice == "pay") {
                     // if (p.getCashAmount() < 50) {
                     //     std::cout << "==> You do not have $50. Choose a valid option." << std::endl << "Input: ";
                     //     continue;
@@ -152,10 +152,10 @@ public:
                     // }
                     break;
 
-                } else if (choice == "RimCup") {
+                } else if (choice == "rimcup") {
                     if (p.getRURCup() == 0) {
                         std::cout<< std::endl  << "==> You do not have any Roll Up the Rim cups. Choose a valid option" << std::endl;
-                        std::cout << std::endl << "==> Input: ";
+                        std::cout << std::endl << "==> Input: " << std::endl;
                         continue;
                         //move
                     } else {
@@ -176,7 +176,7 @@ public:
 
                 } else {
                     std::cout << std::endl << "==> Invalid input. Please try again." << std::endl;
-                    std::cout << std::endl << "==> Input: ";
+                    std::cout << std::endl << "==> Input: " << std::endl;
                 }
             }
         }

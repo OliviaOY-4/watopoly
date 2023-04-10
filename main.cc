@@ -71,11 +71,15 @@ int main(int argc,char* argv[]) {
     // game start
     string cmd = " ";
     int doubleroll = 0;
+    bool rollFlag = false;
     cout << endl << "==> " << "The game begins." << endl;
     while (true) {
 
-        cout << endl << "==> " << "Available command: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print] [quit]" << endl;
+        cout << endl << "|--------------------------------------------------------------------------------------------------------------------------------|" << endl;
+        cout <<         "| Commands: [roll] [next] [trade] [improve] [buy] [sell] [mortgage] [unmortgage] [bankrupt] [assets] [all] [save] [print] [quit] |";
+        cout << endl << "|--------------------------------------------------------------------------------------------------------------------------------|" << endl;
         cout << endl << "==> " << "Player this turn: " << g.getCurrentPlayer().getName() << endl;
+        cout << endl << "==> " << "Please Enter Command: " << endl;
         
         if (g.endGame()) {
             cout << endl << "==> " << "Winner is :" << g.getWinner() << endl;
@@ -98,7 +102,8 @@ int main(int argc,char* argv[]) {
         // In DC Tims Line
         if (cmd == "roll") {
             if (g.getCurrentPlayer().getsentToDCTL() == true) {
-                cout << endl << "You are in DC Tims Line." << endl;
+                // if last turn is also at DCTL
+                //cout << endl << "You are in DC Tims Line." << endl;
                 int n = g.getActiverRim();
                 DCTimsLine tmp1{0, "dc times line"};
                 Player& p = g.getCurrentPlayer();
@@ -108,11 +113,12 @@ int main(int argc,char* argv[]) {
                 int movenum = tmp1.getNextMove();
                 if (movenum != 0) {
                     g.move(movenum);
-                    cout << endl << "==> " << "You can not roll more." << endl;
+                    cout << endl << "==> " << "You cannot roll more." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                    rollFlag = true;
                     continue;
                 } else {
-                    cout << endl << "==> " << "You can not roll more." << endl;
+                    cout << endl << "==> " << "You can roll to leave." << endl;
                     cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
                     continue;
                 }
@@ -120,6 +126,11 @@ int main(int argc,char* argv[]) {
             // roll dice and move
             // check if has passed over OSAP
             // if don't buy, auction.
+            if (rollFlag) {
+                // already rolled
+                cout << endl << "==> You cannot roll more." << endl;
+                continue;
+            }
             int num1 = 0;
             int num2 = 0;
             if (testMode) {
@@ -136,6 +147,7 @@ int main(int argc,char* argv[]) {
                 g.move(30 - g.getCurrentPlayer().getPosition());
                 cout << endl << "==> " << "You can not roll more." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                rollFlag = true;
                 doubleroll++;
                 continue;
             } else {
@@ -143,12 +155,13 @@ int main(int argc,char* argv[]) {
             }
             if (num1 == num2 && g.getCurrentPlayer().getsentToDCTL() != true) {
                 cout << endl << "==> " << "You rolled double." << endl;
-                cout << endl << "==> " << "You can roll again. Enter 'roll'." << endl;
+                cout << endl << "==> " << "You can roll again by 'roll'." << endl;
                 doubleroll++;
                 continue;
             } else {
-                cout << endl << "==> " << "You can not roll more." << endl;
+                cout << endl << "==> " << "You cannot roll more." << endl;
                 cout << endl << "==> " << "Enter a command or end your turn by 'next'." << endl;
+                rollFlag = true;
                 continue;
             }
             
@@ -159,6 +172,7 @@ int main(int argc,char* argv[]) {
             g.nextPlayer();
             cout << endl << "==> " << "It's " << g.getCurrentPlayer().getName() << "'s turn." << endl;
             doubleroll = 0;
+            rollFlag = false;
             
 
 
