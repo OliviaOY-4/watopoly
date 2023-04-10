@@ -391,6 +391,12 @@ bool Game::trade(Player& p, string b, unsigned int n) {
     std::cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property." << endl;
     return false;
   }
+
+  if(sharedb->getOwner()->getName() != p.getName()){
+      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb->getName() << endl;
+      return false;
+  }
+
   //check if monopoly block has improved
   string blockName = sharedb->getBlock();
   if (currentPlayer->ifMonopoly(blockName)) {
@@ -405,16 +411,12 @@ bool Game::trade(Player& p, string b, unsigned int n) {
     }
   }
 
-
   int tmp = n;
   if (p.getCashAmount() < tmp) {
     std::cout << std::endl << "==> " << p.getName() << " doesn't have enough money" << endl;
     return false;
   }
-  if(sharedb->getOwner()->getName() != p.getName()){
-      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb->getName() << endl;
-      return false;
-  }
+  
   if (sharedb->getOwner() == currentPlayer) {
     std::cout << std::endl << "==> " << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << n << endl;
     std::cout << std::endl << "==> " << p.getName() << ", please make a decision." << endl;
@@ -485,6 +487,16 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
       return false;
     }
 
+    // check owner
+    if(sharedb2->getOwner()->getName() != p.getName()){
+      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb2->getName() << endl;
+      return false;
+    }
+    if(sharedb->getOwner()->getName() != currentPlayer->getName()){
+      std::cout << std::endl << "==> " << currentPlayer->getName() << " doesn't own " << sharedb->getName() << endl;
+      return false;
+    }
+
     //check if both monopoly block has improved
     string blockName = sharedb->getBlock();
     if (currentPlayer->ifMonopoly(blockName)) {
@@ -493,7 +505,7 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
         if (it->getBlock() == blockName && it->getImproveLevel() > 0) {
           // in the block and improved
           std::cout << endl  << "==> " << it->getName() << " is in the monopoly block of " << b_give << "." << endl;
-          std::cout << endl  << "==> However, " << sharedb->getName() << " is improved, you need to sell them before trade this property." << endl;
+          std::cout << endl  << "==> However, " << it->getName() << " is improved, you need to sell them before trade this property." << endl;
           return false;
         }
       }
@@ -505,17 +517,13 @@ bool Game::trade(Player& p, string b_give, string b_receive) {
         if (it->getBlock() == blockName2 && it->getImproveLevel() > 0) {
           // in the block and improved
           std::cout << endl  << "==> " << it->getName() << " is in the monopoly block of " << b_receive << "." << endl;
-          std::cout << endl  << "==> However, " << sharedb->getName() << " is improved, you need to sell them before trade this property." << endl;
+          std::cout << endl  << "==> However, " << it->getName() << " is improved, you need to sell them before trade this property." << endl;
           return false;
         }
       }
     }
     
 
-  if(sharedb2->getOwner()->getName() != p.getName()){
-      std::cout << std::endl << "==> " << p.getName() << " doesn't own " << sharedb2->getName() << endl;
-      return false;
-  }
   if (sharedb->getOwner() == currentPlayer) {
     std::cout << std::endl << "==> " << currentPlayer->getName() << " is trading " << sharedb->getName() << " with " << p.getName() <<  " for " << sharedb2->getName() << endl;
     std::cout << std::endl << "==> " << p.getName() << ", please make a decision." << endl;
@@ -557,10 +565,16 @@ bool Game::trade(Player& p, unsigned int n, string b) {
       break;
     }
   }
+
   if (sharedb->isMortgaged()) {
     std::cout << endl  << "==> " << sharedb->getName() << " is mortgaged, you cannot trade this property" << endl;
     return false;
   }
+
+  if(sharedb->getOwner()->getName() != currentPlayer->getName()){
+      std::cout << std::endl << "==> " << currentPlayer->getName() << " doesn't own " << sharedb->getName() << endl;
+      return false;
+    }
 
   // check is monopoly
   string blockName = sharedb->getBlock();
@@ -795,7 +809,7 @@ void Game::bankruptcy(string playerName, string owePlayer, int oweAmount){
 
       if(choice == 2){
         std::cout << std::endl << "==> You decided to declare bankruptcy. " << endl;
-        
+
         if (player.size() == 2) {
           nextPlayer();
           removePlayer(playerName);
