@@ -50,7 +50,7 @@ public:
   std::string getWinner();
   void move(int num, std::shared_ptr<Player> p = nullptr); 
   void nextPlayer();
-  bool initPlayer(std::string name); 
+  bool initPlayer(std::string name, char c); 
   std::shared_ptr<Player> getOwner(const Board& b);
   void purchase(std::string b, Player& p);
   bool isValidPlayer(std::string name); 

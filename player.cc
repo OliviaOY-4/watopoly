@@ -3,17 +3,17 @@
 #include "board.h"
 using namespace std;
 
-Player::Player(string name): name{name}, cash{1500}, position{0}, OSAPcollect{false}, sentToDCTL{false}, DCTLtimes{0}, RUR_Cup{0} {
+Player::Player(string name, char c): name{name}, nameChar{c}, cash{1500}, position{0}, OSAPcollect{false}, sentToDCTL{false}, DCTLtimes{0}, RUR_Cup{0} {
   ownBlock = {{"Arts1", 0}, {"Arts2", 0}, {"Eng", 0}, {"Health", 0}, {"Env", 0}, {"Sci1", 0}, {"Sci2", 0}, {"Math", 0}, {"Residence", 0}, {"Gym", 0}};
   //dice = make_shared<Dice>();
-  if (name == "Goose") nameChar = 'G';
-  if (name == "GRT Bus") nameChar = 'B';
-  if (name == "Tim Hortons Doughnut") nameChar = 'D';
-  if (name == "Professor") nameChar = 'P';
-  if (name == "Student") nameChar = 'S';
-  if (name == "Money") nameChar = '$';
-  if (name == "Laptop") nameChar = 'L';
-  if (name == "Pink tie") nameChar = 'T';
+  // if (name == "Goose") nameChar = 'G';
+  // if (name == "GRT Bus") nameChar = 'B';
+  // if (name == "Tim Hortons Doughnut") nameChar = 'D';
+  // if (name == "Professor") nameChar = 'P';
+  // if (name == "Student") nameChar = 'S';
+  // if (name == "Money") nameChar = '$';
+  // if (name == "Laptop") nameChar = 'L';
+  // if (name == "Pink tie") nameChar = 'T';
 }
 
 Player::Player(string name, char nameChar, int RUR_Cup, int cash, int position, bool sentToDCTL, int DCTLtimes): name{name}, nameChar{nameChar}, cash{cash}, position{position}, OSAPcollect{false}, sentToDCTL{sentToDCTL}, DCTLtimes{DCTLtimes}, RUR_Cup{RUR_Cup} {}

@@ -274,25 +274,25 @@ void Game::nextPlayer() {
 
 
 
-bool Game::initPlayer(string name) {
-  bool flag = false;
+bool Game::initPlayer(string name, char c) {
+  // bool flag = false;
   for (auto& p: player) {
     if (p->getName() == name) {
       return false;
     }
   }
-  if (name == "Goose") flag = true;
-  if (name == "GRT Bus") flag = true;
-  if (name == "Tim Hortons Doughnut") flag = true;
-  if (name == "Professor") flag = true;
-  if (name == "Student") flag = true;
-  if (name == "Money") flag = true;
-  if (name == "Laptop") flag = true;
-  if (name == "Pink tie") flag = true;
-  if (!flag) {
-    return false;
-  }
-  shared_ptr<Player> p = make_shared<Player>(name);
+  // if (name == "Goose") flag = true;
+  // if (name == "GRT Bus") flag = true;
+  // if (name == "Tim Hortons Doughnut") flag = true;
+  // if (name == "Professor") flag = true;
+  // if (name == "Student") flag = true;
+  // if (name == "Money") flag = true;
+  // if (name == "Laptop") flag = true;
+  // if (name == "Pink tie") flag = true;
+  // if (!flag) {
+  //   return false;
+  // }
+  shared_ptr<Player> p = make_shared<Player>(name, c);
   player.emplace_back(p);
   return true;
   //td->drawBoard(std::cout, player, board);

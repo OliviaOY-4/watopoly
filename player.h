@@ -25,7 +25,7 @@ protected:
   std::vector<std::shared_ptr<Board>> property;
   // std::vector<Board*> property;
 public:
-  Player(std::string name);
+  Player(std::string name, char c);
   ~Player();
   std::vector<std::shared_ptr<Board>> getProperty();
   Player(std::string name, char nameChar, int RUR_Cup, int cash, int position, bool sentToDCTL, int DCTLtimes);

@@ -60,10 +60,14 @@ int main(int argc,char* argv[]) {
         }
 
         for (int i = 0; i < num_of_players; i++) {
-            cout << endl << "==> " << "Enter the name of Player " << i + 1 << ": " << endl;
-            string name = " ";
-            if (getline(cin, name)) {
-                if (!g.initPlayer(name)) {
+            cout << endl << "==> " << "Enter the name and char of Player " << i + 1 << ": " << endl;
+            string naming = " ";
+            if (getline(cin, naming)) {
+                istringstream iss{naming};
+                string name;
+                char c;
+                iss >> name >> c;
+                if (!g.initPlayer(name, c)) {
                     cout << endl << "==> " << "Invalid player name, input a valid name: " << endl;
                     i--;
                 }
