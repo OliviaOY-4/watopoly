@@ -60,7 +60,7 @@ int main(int argc,char* argv[]) {
         }
 
         for (int i = 0; i < num_of_players; i++) {
-            cout << endl << "==> " << "Enter the name and char of Player in separate lines" << i + 1 << ": " << endl;
+            cout << endl << "==> " << "Enter the name and char in separate lines of Player " << i + 1 << ": " << endl;
             string naming1 = " ";
             string naming2 = " ";
             if (getline(cin, naming1)) {
