@@ -1091,7 +1091,19 @@ void Game::load(ifstream& f) {
   for (int i = 0; i < num; i++) {
     getline(f, tmp);
     istringstream s1{tmp};
-    s1 >> name >> namechar >> rurcup >> cash >> pos;
+    string tie = " tie";
+    string bus = " Bus";
+    string Hortons = " Hortons Doughnut";
+    s1 >> name;
+    if(name == "Pink"){
+      name = name + tie;
+    }else if(name == "GRT"){
+      name = name + bus;
+    }else if(name == "Tim"){
+      name = name + Hortons;
+    }
+
+    s1 >> namechar >> rurcup >> cash >> pos;
     if (pos == 10) {
       int sent;
       s1 >> sent;
