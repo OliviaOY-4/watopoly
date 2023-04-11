@@ -1096,10 +1096,17 @@ void Game::load(ifstream& f) {
     string Hortons = " Hortons Doughnut";
     s1 >> name;
     if(name == "Pink"){
+      string tmp = " ";
+      s1 >> tmp;
       name = name + tie;
     }else if(name == "GRT"){
+      string tmp = " ";
+      s1 >> tmp;
       name = name + bus;
     }else if(name == "Tim"){
+      string tmp = " ";
+      s1 >> tmp;
+      s1 >> tmp;
       name = name + Hortons;
     }
 
