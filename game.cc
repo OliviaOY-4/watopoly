@@ -281,6 +281,11 @@ bool Game::initPlayer(string name, char c) {
       return false;
     }
   }
+  for (auto& p: player) {
+    if (p->getNameChar() == c) {
+      return false;
+    }
+  }
   // if (name == "Goose") flag = true;
   // if (name == "GRT Bus") flag = true;
   // if (name == "Tim Hortons Doughnut") flag = true;
